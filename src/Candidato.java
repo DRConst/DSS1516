@@ -1,6 +1,8 @@
+import java.util.GregorianCalendar;
+
 public class Candidato {
 
-	private Data data_bi;
+	private GregorianCalendar data_bi;
 	private int bi;
 	private String filicao;
 	private String arquivo;
@@ -10,7 +12,19 @@ public class Candidato {
 	private String morada;
 	private String nacionalidade;
 
-	public Data getData_bi() {
+	public Candidato(GregorianCalendar data_bi, int bi, String filicao, String arquivo, String nome, String profissao, int idade, String morada, String nacionalidade) {
+		this.data_bi = data_bi;
+		this.bi = bi;
+		this.filicao = filicao;
+		this.arquivo = arquivo;
+		this.nome = nome;
+		this.profissao = profissao;
+		this.idade = idade;
+		this.morada = morada;
+		this.nacionalidade = nacionalidade;
+	}
+
+	public GregorianCalendar getData_bi() {
 		return this.data_bi;
 	}
 
@@ -18,7 +32,7 @@ public class Candidato {
 	 * 
 	 * @param data_bi
 	 */
-	public void setData_bi(Data data_bi) {
+	public void setData_bi(GregorianCalendar data_bi) {
 		this.data_bi = data_bi;
 	}
 
