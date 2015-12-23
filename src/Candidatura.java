@@ -1,3 +1,4 @@
+import java.lang.annotation.ElementType;
 import java.util.GregorianCalendar;
 
 public class Candidatura {
@@ -9,41 +10,46 @@ public class Candidatura {
 
 
 
+    public Candidatura(int id, GregorianCalendar data, Candidato candidato, Eleicao eleicao)
+    {
+        this.id = id;
+        this.data = data;
+        this.candidato = candidato;
+        this.eleicao = eleicao;
+    }
 
-
-
-	public boolean validarCandidatura()
+    public boolean validarCandidatura() throws CandidaturaTardiaException, CandidatoDemasiadoNovoException, CandidatoEstrangeiroException, AssinaturasInsuficientesExceptions
 	{
 		GregorianCalendar date = eleicao.getData();
 		date.roll(GregorianCalendar.MONTH, -1);
 		if(date.before(this.data))
 		{
 			//Candidatura tardia
-			return false;
+			throw new CandidaturaTardiaException();
 		}
 
 		if(candidato.getIdade() < 35)
 		{
 			//Candidato demasiado novo
-			return false;
+			throw new CandidatoDemasiadoNovoException();
 		}
 
 		if(!candidato.getNacionalidade().equals("Portugal"))
 		{
 			//Candidato é estrangeiro
-			return false;
+			throw new CandidatoEstrangeiroException();
 		}
 
 		if(eleitorDAO.getNumAssinaturasCandidato(candidato.getBi()) < 7500)
 		{
 			//Assinaturas insuficientes
-			return false;
+			throw new AssinaturasInsuficientesExceptions();
 		}
 
 		return true;
 
-
 	}
+
 	public int getID() {
 		// TODO - implement Candidatura.getID
 		throw new UnsupportedOperationException();
