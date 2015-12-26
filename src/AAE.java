@@ -94,6 +94,32 @@ public class AAE {
     }
 
 
+    public void adicionarAssembleia(String e, String freg, String presNome, int presID,String vPresNome, int vPresID, String secNome, int secID, ArrayList<String> escNomes, ArrayList<Integer> escIDs  )
+    {
+        Eleicao el = eleicaoDAO.getEleicao(e);
+
+        Eleitor pres = EleitorDAO.getEleitor(presID);
+
+        Eleitor vPres = EleitorDAO.getEleitor(vPresID);
+
+        Eleitor sec = EleitorDAO.getEleitor(secID);
+
+        ArrayList<Eleitor> esc = new ArrayList<>();
+
+        for(Integer i : escIDs)
+        {
+            Eleitor eleitor = EleitorDAO.getEleitor(i);
+            esc.add(eleitor);
+        }
+
+        AssembleiaDeVoto assembleiaDeVoto = new AssembleiaDeVoto(freg, pres, vPres, sec, esc);
+
+        el.registarAssembleia(assembleiaDeVoto);
+
+
+    }
+
+
     public static void main(String[] args) {
 
     }
