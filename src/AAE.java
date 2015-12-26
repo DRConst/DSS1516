@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -11,6 +15,7 @@ public class AAE {
     private CandidaturaDAO candidaturaDAO;
     private CirculoEleitoralDAO circuloEleitoralDAO;
     private ListaDAO listaDAO;
+    private EleitorDAO eleitorDAO;
 
     public void adicionarCandidato(Eleicao eleicao, GregorianCalendar data_bi, int bi, String arquivo, String filicao, String nome, String profissao, int idade, String morada, String nacionalidade, GregorianCalendar data)
     {
@@ -72,6 +77,20 @@ public class AAE {
                 throw new NomeDeListaRepetidoException();
             }
         }
+    }
+
+    public void adicionarVotantes(String path) throws FileNotFoundException, IOException {
+
+        BufferedReader reader = new BufferedReader(new FileReader(path));
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while(( line = reader.readLine()) != null)
+        {
+            sb.append(line);
+        }
+        reader.close();
+        eleitorDAO = new EleitorDAO(sb.toString()); //SQL to create the table
+
     }
 
 
