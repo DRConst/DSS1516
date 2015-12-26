@@ -140,6 +140,12 @@ public class AAE {
     }
 
 
+    public void atribuirMandatos(String eleicao, String list, int deps)
+    {
+        Eleicao e = eleicaoDAO.getEleicao(eleicao);
+
+        e.atribuirMandatos(list, deps);
+    }
     public static void main(String[] args) {
 
     }
