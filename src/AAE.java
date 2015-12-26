@@ -33,9 +33,27 @@ public class AAE {
         circuloEleitoralDAO.addCirculo(c);
     }
 
-    public void adicionarLista(String nome, ArrayList<Eleitor> deputados, ArrayList<Eleitor> delegados)
+    public void adicionarLista(String eleicao, String nome, String circulo, ArrayList<Integer> deputados, ArrayList<Integer> delegados)
     {
-        Lista l = new Lista(nome, deputados,delegados);
+
+
+        ArrayList<Eleitor> deps = new ArrayList<>();
+
+        for(Integer i : deputados)
+        {
+            Eleitor eleitor = EleitorDAO.getEleitor(i);
+            deps.add(eleitor);
+        }
+
+        ArrayList<Eleitor> dels = new ArrayList<>();
+
+        for(Integer i : delegados)
+        {
+            Eleitor eleitor = EleitorDAO.getEleitor(i);
+            dels.add(eleitor);
+        }
+
+        Lista l = new Lista(nome, circulo, deps,dels);
 
         try {
             validarLista(l);
@@ -47,7 +65,9 @@ public class AAE {
             e.printStackTrace();
         }
 
-        listaDAO.addLista(l);
+        Eleicao e = eleicaoDAO.getEleicao(eleicao);
+
+        e.registarLista(l);
     }
 
     public void validarLista(Lista l) throws DeputadoJaPertenceAListaException, DelegadoJaPertenceAListaException, NomeDeListaRepetidoException {
