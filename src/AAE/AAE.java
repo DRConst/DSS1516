@@ -21,7 +21,6 @@ public class AAE {
     private EleicaoDAO eleicaoDAO;
     private CandidaturaDAO candidaturaDAO;
     private MapaEleitoralDAO mapaEleitoralDAO;
-    private ListaDAO listaDAO;
     private EleitorDAO eleitorDAO;
 
     public void adicionarCandidato(Eleicao eleicao, GregorianCalendar data_bi, int bi, String arquivo, String filicao, String nome, String profissao, int idade, String morada, String nacionalidade, GregorianCalendar data)
@@ -147,11 +146,11 @@ public class AAE {
     }
 
 
-    public void atribuirMandatos(String eleicao, String list, int deps)
+    public void atribuirMandatos(String eleicao)
     {
-        Eleicao e = eleicaoDAO.getEleicao(eleicao);
+        EleicaoLegislativa e = eleicaoDAO.getEleicao(eleicao);
 
-        e.atribuirMandatos(list, deps);
+        e.atribuirMandatos();
     }
 
 

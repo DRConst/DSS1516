@@ -18,9 +18,9 @@ public class EleicaoLegislativa extends Eleicao {
     MapaEleitoralDAO mapaEleitoralDAO;
     public HashMap<MapaEleitoral, ListaVotos> gerarEstatisticas()
     {
-        Collection<MapaEleitoral> ma = mapas.getMapasPorEleicao();
+        Collection<MapaEleitoral> map = mapas.getMapasPorEleicao();
         HashMap<MapaEleitoral, ListaVotos> toRet = new HashMap<>();
-        for(MapaEleitoral mapa : mapas)
+        for(MapaEleitoral mapa : map)
         {
             for(Lista l : mapa.getListas())
                 toRet.put(mapa, new ListaVotos(l,l.getVotosPorEleicao(this.nome)));
