@@ -240,6 +240,28 @@ public class CandidaturaDAO implements Map<String, Candidatura> {
         }
         return res;
     }
+
+    public int getAvailableId()
+    {
+        try{
+            conn = SqlConnect.connect();
+            PreparedStatement ps = conn.prepareStatement("Select max(id) from candidatura;");
+            ResultSet rs = ps.executeQuery();
+
+            return rs.getInt(0);
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }finally{
+            try{
+                conn.close();
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return -1;
+    }
+
+
     
 }
 
