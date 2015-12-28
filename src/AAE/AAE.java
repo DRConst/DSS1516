@@ -22,13 +22,16 @@ public class AAE {
     private CandidaturaDAO candidaturaDAO;
     private MapaEleitoralDAO mapaEleitoralDAO;
     private EleitorDAO eleitorDAO;
+    private ListaDAO listaDAO;
 
-    public void adicionarCandidato(Eleicao eleicao, GregorianCalendar data_bi, int bi, String arquivo, String filicao, String nome, String profissao, int idade, String morada, String nacionalidade, GregorianCalendar data)
+    public void adicionarCandidato(String eleicao, GregorianCalendar data_bi, int bi, String arquivo, String filicao, String nome, String profissao, int idade, String morada, String nacionalidade, GregorianCalendar data)
     {
         Candidato c = new Candidato(data_bi, bi, filicao, arquivo, nome, profissao, idade, morada, nacionalidade);
         Candidatura can = new Candidatura(candidaturaDAO.getAvailableId(), data, c, eleicao);
-        boolean valid = can.validarCandidatura();
-        candidaturaDAO.addCandidatura(can);
+        Eleicao el = eleicaoDAO.get(eleicao);
+        boolean valid = can.validarCandidatura(eleicao.getData());
+        Integer id = can.getID();
+        candidaturaDAO.put(id.toString(), can);
 
     }
 
@@ -47,7 +50,7 @@ public class AAE {
 
         for(Integer i : deputados)
         {
-            Eleitor eleitor = EleitorDAO.getEleitor(i);
+            Eleitor eleitor = eleitorDAO.get(i);
             deps.add(eleitor);
         }
 
@@ -55,11 +58,11 @@ public class AAE {
 
         for(Integer i : delegados)
         {
-            Eleitor eleitor = EleitorDAO.getEleitor(i);
+            Eleitor eleitor = eleitorDAO.get(i);
             dels.add(eleitor);
         }
 
-        Lista l = new Lista(nome, circulo, deps,dels);
+        Lista l = new Lista(nome, deps,dels);
 
         try {
             validarLista(l);
@@ -71,13 +74,13 @@ public class AAE {
             e.printStackTrace();
         }
 
-        Eleicao e = eleicaoDAO.getEleicao(eleicao);
+        Eleicao e = eleicaoDAO.get(eleicao);
 
         e.registarLista(l);
     }
 
     public void validarLista(Lista l) throws DeputadoJaPertenceAListaException, DelegadoJaPertenceAListaException, NomeDeListaRepetidoException {
-        ArrayList<Lista> listas = listaDAO.getListas();
+        ArrayList<Lista> listas = new ArrayList<>(listaDAO.values());
 
         for(Lista lista : listas)
         {
@@ -122,19 +125,19 @@ public class AAE {
 
     public void adicionarAssembleia(String e, String freg, String presNome, int presID,String vPresNome, int vPresID, String secNome, int secID, ArrayList<String> escNomes, ArrayList<Integer> escIDs  )
     {
-        Eleicao el = eleicaoDAO.getEleicao(e);
+        Eleicao el = eleicaoDAO.get(e);
 
-        Eleitor pres = EleitorDAO.getEleitor(presID);
+        Eleitor pres = eleitorDAO.get(presID);
 
-        Eleitor vPres = EleitorDAO.getEleitor(vPresID);
+        Eleitor vPres = eleitorDAO.get(vPresID);
 
-        Eleitor sec = EleitorDAO.getEleitor(secID);
+        Eleitor sec = eleitorDAO.get(secID);
 
         ArrayList<Eleitor> esc = new ArrayList<>();
 
         for(Integer i : escIDs)
         {
-            Eleitor eleitor = EleitorDAO.getEleitor(i);
+            Eleitor eleitor = eleitorDAO.get(i);
             esc.add(eleitor);
         }
 
@@ -148,7 +151,7 @@ public class AAE {
 
     public void atribuirMandatos(String eleicao)
     {
-        EleicaoLegislativa e = eleicaoDAO.getEleicao(eleicao);
+        EleicaoLegislativa e = (EleicaoLegislativa)eleicaoDAO.get(eleicao);
 
         e.atribuirMandatos();
     }
@@ -173,9 +176,10 @@ public class AAE {
         }else
         {
             EleicaoPresidencial eleicaoPresidencial = new EleicaoPresidencial(nome, date);
-            eleicaoDAO.put(nome, eleicaoLegislativa);
+            eleicaoDAO.put(nome, eleicaoPresidencial);
         }
     }
+
     public static void main(String[] args) {
 
     }
