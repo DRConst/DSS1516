@@ -18,5 +18,8 @@ public class MapaEleitoral {
     }
 
     public MapaEleitoral() {
+        this.deputados = 0;
+        this.eleitores = 0;
+        this.distrito = "NA";
     }
 }
