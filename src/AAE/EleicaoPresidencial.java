@@ -1,23 +1,26 @@
 package AAE;
 
 import DAOs.CandidatoDAO;
-import DAOs.EleicaoDAO;
+import DAOs.CandidaturaDAO;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
  * Created by drcon on 28/12/2015.
  */
-public class EleicaoPresidencial {
-
+public class EleicaoPresidencial extends Eleicao{
+    private CandidatoDAO candidatos;
+    private CandidaturaDAO candidaturas;
+    
 
     public HashMap<Candidato, Integer> gerarEstatisticas()
     {
         HashMap<Candidato, Integer> toRet = new HashMap<>();
-        ArrayList<Candidato> candidatos = new EleicaoDAO.getCandidatos(this.nome);
+        Collection<Candidato> ca = candidatos.values();
 
-        for(Candidato candidato : candidatos)
+        for(Candidato candidato : ca)
         {
 
             toRet.put(candidato, new CandidatoDAO().getVotos(candidato.getBi(),this.nome));

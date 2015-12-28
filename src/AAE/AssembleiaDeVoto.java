@@ -1,3 +1,5 @@
+package AAE;
+
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -60,11 +62,11 @@ public class AssembleiaDeVoto {
         this.freguesia = freguesia;
     }
 
-    public GregorainCalendar getHabertura() {
+    public GregorianCalendar getHabertura() {
         return Habertura;
     }
 
-    public void setHabertura(GregorainCalendar Habertura) {
+    public void setHabertura(GregorianCalendar Habertura) {
         this.Habertura = Habertura;
     }
 

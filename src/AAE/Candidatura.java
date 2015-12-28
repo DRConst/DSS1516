@@ -1,5 +1,7 @@
 package AAE;
 
+import DAOs.EleitorDAO;
+import java.lang.annotation.ElementType;
 import java.util.GregorianCalendar;
 
 public class Candidatura {
@@ -7,11 +9,11 @@ public class Candidatura {
 	private int id;
 	private GregorianCalendar data;
 	private Candidato candidato;
-	private Eleicao eleicao;
+	private String eleicao;
 
 
 
-    public Candidatura(int id, GregorianCalendar data, Candidato candidato, Eleicao eleicao)
+    public Candidatura(int id, GregorianCalendar data, Candidato candidato, String eleicao)
     {
         this.id = id;
         this.data = data;
@@ -19,29 +21,29 @@ public class Candidatura {
         this.eleicao = eleicao;
     }
 
-    public boolean validarCandidatura() throws CandidaturaTardiaException, CandidatoDemasiadoNovoException, CandidatoEstrangeiroException, AssinaturasInsuficientesExceptions
+    public boolean validarCandidatura(GregorianCalendar data) throws CandidaturaTardiaException, CandidatoDemasiadoNovoException, CandidatoEstrangeiroException, AssinaturasInsuficientesExceptions
 	{
-		GregorianCalendar date = eleicao.getData();
+		GregorianCalendar date = data;
 		date.roll(GregorianCalendar.MONTH, -1);
 		if(date.before(this.data))
 		{
-			//AAE.Candidatura tardia
+			//Candidatura tardia
 			throw new CandidaturaTardiaException();
 		}
 
 		if(candidato.getIdade() < 35)
 		{
-			//AAE.Candidato demasiado novo
+			//Candidato demasiado novo
 			throw new CandidatoDemasiadoNovoException();
 		}
 
 		if(!candidato.getNacionalidade().equals("Portugal"))
 		{
-			//AAE.Candidato é estrangeiro
+			//Candidato é estrangeiro
 			throw new CandidatoEstrangeiroException();
 		}
 
-		if(eleitorDAO.getNumAssinaturasCandidato(candidato.getBi()) < 7500)
+		if(EleitorDAO.getNumAssinaturasCandidato(candidato.getBi()) < 7500)
 		{
 			//Assinaturas insuficientes
 			throw new AssinaturasInsuficientesExceptions();
@@ -52,7 +54,7 @@ public class Candidatura {
 	}
 
 	public int getID() {
-		// TODO - implement AAE.Candidatura.getID
+		// TODO - implement Candidatura.getID
 		throw new UnsupportedOperationException();
 	}
 
@@ -61,7 +63,7 @@ public class Candidatura {
 	 * @param ID
 	 */
 	public void setID(int ID) {
-		// TODO - implement AAE.Candidatura.setID
+		// TODO - implement Candidatura.setID
 		throw new UnsupportedOperationException();
 	}
 
@@ -89,7 +91,7 @@ public class Candidatura {
 		this.candidato = candidato;
 	}
 
-	public Eleicao getEleicao() {
+	public String getEleicao() {
 		return this.eleicao;
 	}
 
@@ -97,7 +99,7 @@ public class Candidatura {
 	 * 
 	 * @param eleicao
 	 */
-	public void setEleicao(Eleicao eleicao) {
+	public void setEleicao(String eleicao) {
 		this.eleicao = eleicao;
 	}
 

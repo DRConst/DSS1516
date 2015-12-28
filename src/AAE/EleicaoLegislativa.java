@@ -4,18 +4,21 @@ import DAOs.EleicaoDAO;
 import DAOs.MapaEleitoralDAO;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
  * Created by drcon on 28/12/2015.
  */
 public class EleicaoLegislativa extends Eleicao {
-
-    EleicaoDAO eleicaoDAO;
+    
+    public AssembleiaDeVoto assembleias;
+    public MapaEleitoralDAO mapas;
+   
     MapaEleitoralDAO mapaEleitoralDAO;
     public HashMap<MapaEleitoral, ListaVotos> gerarEstatisticas()
     {
-        ArrayList<MapaEleitoral> mapas = mapaEleitoralDAO.getMapasPorEleicao(this.nome);
+        Collection<MapaEleitoral> ma = mapas.getMapasPorEleicao();
         HashMap<MapaEleitoral, ListaVotos> toRet = new HashMap<>();
         for(MapaEleitoral mapa : mapas)
         {
