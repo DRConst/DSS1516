@@ -1,10 +1,14 @@
+package AAE;
+
+import DAOs.EleicaoDAO;
+import DAOs.MapaEleitoralDAO;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 /**
  * Created by drcon on 15/12/2015.
@@ -13,7 +17,7 @@ public class AAE {
 
     private EleicaoDAO eleicaoDAO;
     private CandidaturaDAO candidaturaDAO;
-    private CirculoEleitoralDAO circuloEleitoralDAO;
+    private MapaEleitoralDAO mapaEleitoralDAO;
     private ListaDAO listaDAO;
     private EleitorDAO eleitorDAO;
 
@@ -29,8 +33,8 @@ public class AAE {
     public void adicionarCirclo(String distrito, int eleitores, int deputados) throws DistritoInvalidoException {
         if(!Distritios.distiritos.contains(distrito))
             throw new DistritoInvalidoException();
-        CirculoEleitoral c = new CirculoEleitoral(distrito, eleitores,deputados);
-        circuloEleitoralDAO.addCirculo(c);
+        MapaEleitoral c = new MapaEleitoral(distrito, eleitores,deputados);
+        mapaEleitoralDAO.addMapa(c);
     }
 
     public void adicionarLista(String eleicao, String nome, String circulo, ArrayList<Integer> deputados, ArrayList<Integer> delegados)
@@ -145,6 +149,14 @@ public class AAE {
         Eleicao e = eleicaoDAO.getEleicao(eleicao);
 
         e.atribuirMandatos(list, deps);
+    }
+
+
+    public void gerarEstatisticas(Eleicao e)
+    {
+
+        e.gerarEstatisticas();
+
     }
     public static void main(String[] args) {
 

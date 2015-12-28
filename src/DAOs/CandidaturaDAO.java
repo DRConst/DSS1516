@@ -1,5 +1,7 @@
 package DAOs;
 
+import AAE.Candidatura;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,14 +13,14 @@ import java.util.Map;
 import java.util.Set;
 
 
-public class CandidatoDAO implements Map<Integer,Candidato> {
+public class CandidaturaDAO implements Map<String, Candidatura> {
     
     public Connection conn;
     
     public void clear () {       
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM candidato");
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM candidatura");
             ps.executeUpdate();
         }catch (SQLException | ClassNotFoundException e) { 
         e.printStackTrace(); 
@@ -36,7 +38,7 @@ public class CandidatoDAO implements Map<Integer,Candidato> {
         boolean c = false;
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("Select BI from candidato where BI = '" + (Integer)key + "'" );
+            PreparedStatement ps = conn.prepareStatement("Select nome from candidatura where nome = '" + (String)key + "'" );
             ResultSet rs = ps.executeQuery();
             c = rs.next();
         } catch (SQLException | ClassNotFoundException e) { 
@@ -55,31 +57,24 @@ public class CandidatoDAO implements Map<Integer,Candidato> {
         throw new NullPointerException("public boolean containsValue(Object value) not implemented!");
     }
     
-    public Set<Map.Entry<Integer,Candidato>> entrySet() {
-        throw new NullPointerException("public Set<Map.Entry<Integer,Candidato>> entrySet() not implemented!");
+    public Set<Map.Entry<String,Candidatura>> entrySet() {
+        throw new NullPointerException("public Set<Map.Entry<String,Equipa>> entrySet() not implemented!");
     }
     
     public boolean equals(Object o) {
         throw new NullPointerException("public boolean equals(Object o) not implemented!");
     }
     
-    public Candidato get(Object key) {
-        ArrayList<Candidatura> ct = new ArrayList<Candidatura>();
-        Candidato c = null;
+    public Candidatura get(Object key) {
+        Candidatura c = null;
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("Select * from candidato where BI'" +(Integer)key +"'");
+            PreparedStatement ps = conn.prepareStatement("Select * from candidato where nome'" +(String)key +"'");
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-            int id = rs.getInt("BI");
-                PreparedStatement ps1 = conn.prepareStatement("Select * from candidaturas where candidato = '" + id +"'" );
-            	ResultSet rs2 = ps1.executeQuery();
-            	for(;rs2.next();){
-                    Candidatura ca = new Candidatura(rs2.getInt("Candidatura_id"),rs2.getDate("Data"),rs2.getString("Eleicao"));
-                    ct.add(ca);
-                }
-                c = new Candidato(rs.getInt("BI"),rs.getString("Nome"),rs.getDate("Data_bi"),rs.getString("Filiacao"),rs.getString("Arquivo"),rs.getString("Profissao"),rs.getInt("Idade"),rs.getString("Morada"),rs.getString("Nacionalidade"), ct);
-            }
+                Candidatura ca = new Candidatura(rs.getInt("Candidatura_id"),rs.getString("Nome"),rs.getDate("Data"),rs.getString("Eleicao"));
+                c.add(ca);
+              }
         } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
         } finally { 
@@ -100,7 +95,7 @@ public class CandidatoDAO implements Map<Integer,Candidato> {
         boolean b = false;
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM candidato");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM candidatura");
             ResultSet rs = ps.executeQuery();
             b = !rs.next();
         } catch (SQLException  | ClassNotFoundException e) { 
@@ -115,15 +110,15 @@ public class CandidatoDAO implements Map<Integer,Candidato> {
         return b;
     }
     
-    public Set<Integer> keySet() {
-        Set<Integer> res = new HashSet<Integer>();
+    public Set<String> keySet() {
+        Set<String> res = new HashSet<String>();
         
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("SELECT BI FROM candidato");
+            PreparedStatement ps = conn.prepareStatement("SELECT nome FROM candidatura");
             ResultSet rs = ps.executeQuery();
             for (;rs.next();){
-                res.add(rs.getInt("BI"));
+                res.add(rs.getString("nome"));
             }
 	} catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
@@ -137,12 +132,14 @@ public class CandidatoDAO implements Map<Integer,Candidato> {
         return res;
     }
     
-    public Candidato put(Integer key, Candidato value) {
+    public Candidatura put(String key, Candidatura value) {
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM candidato WHERE BI='"+key+"''");
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM candidatura WHERE nome='"+key+"'");
             ps.executeUpdate();
-            PreparedStatement sql =conn.prepareStatement("INSERT INTO  VALUES ('"+key+"','"+value.getNome()+"','"+value.getData_bi()+"','"+value.getFiliacao()+"','"+value.getProfissao()+"','"+value.getIdade()+"','"+value.getMorada()+"','"+value.getNacionalidade()+"')");
+            PreparedStatement ps1 = conn.prepareStatement("Select BI from candidato where nome = '"+value.getCandidato()+"'" );
+            ResultSet rs = ps1.executeQuery();
+            PreparedStatement sql =conn.prepareStatement("INSERT INTO  VALUES ('"+key+"','"+value.getNome()+"','"+value.getData()+"','"+value.getEleicao()+"','"+rs.getInt("BI")+"')");
             sql.executeUpdate();
            } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
@@ -153,21 +150,21 @@ public class CandidatoDAO implements Map<Integer,Candidato> {
                 e.printStackTrace(); 
             } 
         }
-         return new Candidato(key,value.getNome(),value.getData_bi(),value.getFiliacao(),value.getProfissao(),value.getIdade(),value.getMorada(),value.getNacionalidade());
+         return new Candidatura(key,value.getNome(),value.getData(),value.getEleicao(),value.getCandidato);
     }
 
-    public void putAll(Map<? extends Integer,? extends Candidato> t) {
+    public void putAll(Map<? extends String,? extends Candidatura> t) {
         throw new NullPointerException("Not implemented!");
     }
     
-    public Candidato remove(Object key) {
-        throw new NullPointerException("public Candidato remove(Object key)  not implemented!");
+    public Candidatura remove(Object key) {
+        throw new NullPointerException("public AssembleiaDeVoto remove(Object key)  not implemented!");
     }
     
-    public void remove(Integer Bi) {
+    public void remove(String nome) {
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM candidato WHERE BI =' "+Bi+"'");
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM candidatura WHERE Nome =' "+nome+"'");
             ps.executeUpdate();
         } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
@@ -183,7 +180,7 @@ public class CandidatoDAO implements Map<Integer,Candidato> {
         int i = -1;
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("Select count(BI) from candidato");
+            PreparedStatement ps = conn.prepareStatement("Select count(id) from candidatura");
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                 i=rs.getInt(1);
@@ -200,24 +197,17 @@ public class CandidatoDAO implements Map<Integer,Candidato> {
         return i;
     }
              
-    public Collection<Candidato> values() {
-        Collection<Candidato> res = new ArrayList<Candidato>();
+    public Collection<Candidatura> values() {
         ArrayList<Candidatura> ct = new ArrayList<Candidatura>();
        
         try { 
             conn =SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM candidato");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM candidatura");
             ResultSet rs = ps.executeQuery();
             for (;rs.next();) {
-            	int id = rs.getInt("BI");
-                PreparedStatement ps1 = conn.prepareStatement("Select * from Candidatura where candidato = '" + id +"'" );
-            	ResultSet rs2 = ps1.executeQuery();
-            	for(;rs2.next();){
-                    Candidatura ca = new Candidatura(rs2.getInt("Candidatura_id"),rs2.getDate("Data"),rs2.getString("Eleicao"));
-                    ct.add(ca);
+            	Candidatura ca = new Candidatura(rs.getString("Nome"),rs.getDate("Data"),rs.getString("Eleicao"));
+                ct.add(ca);
                 }
-                res.add(new Candidato(rs.getInt("BI"),rs.getString("Nome"),rs.getDate("Data_bi"),rs.getString("Filiacao"),rs.getString("Arquivo"),rs.getString("Profissao"),rs.getInt("Idade"),rs.getString("Morada"),rs.getString("Nacionalidade"), ct);
-            }
         } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
         } finally { 
@@ -227,21 +217,17 @@ public class CandidatoDAO implements Map<Integer,Candidato> {
                 e.printStackTrace(); 
             } 
       }
-        return res;
+        return ct;
     } 
     
-    public ArrayList<String> getCandidatos(String eleicao) throws SQLException{
+    public ArrayList<String> getCandidaturas(String eleicao) throws SQLException{
     	ArrayList<String> res = new ArrayList<String>();
     	try{
             conn =SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("Select candidato_bi from Eleicao_Candidatos where eleicao ='" + eleicao +"'");
+            PreparedStatement ps = conn.prepareStatement("Select * from candidatura where eleicao ='" + eleicao +"'");
             ResultSet rs = ps.executeQuery();
             for (;rs.next();){
-                PreparedStatement ps1 = conn.prepareStatement("Select nome from candidato where BI ='" + rs.getInt("BI")+ "'");
-        	ResultSet rs1 = ps.executeQuery();
-                for(;rs1.next();){
-                    res.add(rs1.getString("Nome"));
-                }
+                res.add(rs.getString("Nome"));
             }
         }catch (SQLException | ClassNotFoundException e){
             e.printStackTrace();

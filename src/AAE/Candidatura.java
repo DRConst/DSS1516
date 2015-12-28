@@ -1,4 +1,5 @@
-import java.lang.annotation.ElementType;
+package AAE;
+
 import java.util.GregorianCalendar;
 
 public class Candidatura {
@@ -24,19 +25,19 @@ public class Candidatura {
 		date.roll(GregorianCalendar.MONTH, -1);
 		if(date.before(this.data))
 		{
-			//Candidatura tardia
+			//AAE.Candidatura tardia
 			throw new CandidaturaTardiaException();
 		}
 
 		if(candidato.getIdade() < 35)
 		{
-			//Candidato demasiado novo
+			//AAE.Candidato demasiado novo
 			throw new CandidatoDemasiadoNovoException();
 		}
 
 		if(!candidato.getNacionalidade().equals("Portugal"))
 		{
-			//Candidato é estrangeiro
+			//AAE.Candidato é estrangeiro
 			throw new CandidatoEstrangeiroException();
 		}
 
@@ -51,7 +52,7 @@ public class Candidatura {
 	}
 
 	public int getID() {
-		// TODO - implement Candidatura.getID
+		// TODO - implement AAE.Candidatura.getID
 		throw new UnsupportedOperationException();
 	}
 
@@ -60,7 +61,7 @@ public class Candidatura {
 	 * @param ID
 	 */
 	public void setID(int ID) {
-		// TODO - implement Candidatura.setID
+		// TODO - implement AAE.Candidatura.setID
 		throw new UnsupportedOperationException();
 	}
 
