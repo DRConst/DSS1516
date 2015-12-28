@@ -1,5 +1,7 @@
 package AAE;
 
+import DAOs.CandidatoDAO;
+import DAOs.CandidaturaDAO;
 import DAOs.EleitorDAO;
 import java.lang.annotation.ElementType;
 import java.util.GregorianCalendar;
@@ -43,7 +45,7 @@ public class Candidatura {
 			throw new CandidatoEstrangeiroException();
 		}
 
-		if(EleitorDAO.getNumAssinaturasCandidato(candidato.getBi()) < 7500)
+		if(new CandidaturaDAO().getNumAssinaturasCandidato(candidato.getBi()) < 7500)
 		{
 			//Assinaturas insuficientes
 			throw new AssinaturasInsuficientesExceptions();

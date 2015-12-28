@@ -16,6 +16,17 @@ public class Lista {
         this.delegados = delegados;
     }
 
+
+    public boolean temDeputado(Eleitor e)
+    {
+        return deputados.contains(e);
+    }
+
+    public boolean temDelegado(Eleitor e)
+    {
+        return delegados.contains(e);
+    }
+
     public String getNome() {
         return nome;
     }

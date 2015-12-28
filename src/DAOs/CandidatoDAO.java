@@ -1,6 +1,7 @@
 package DAOs;
 
 import AAE.Candidato;
+import AAE.Candidatura;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -276,6 +277,8 @@ public class CandidatoDAO implements Map<Integer, Candidato> {
         }
         return votos;
     }
+
+
     
 }
 

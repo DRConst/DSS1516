@@ -24,22 +24,22 @@ public class AAE {
     private EleitorDAO eleitorDAO;
     private ListaDAO listaDAO;
 
-    public void adicionarCandidato(String eleicao, GregorianCalendar data_bi, int bi, String arquivo, String filicao, String nome, String profissao, int idade, String morada, String nacionalidade, GregorianCalendar data)
-    {
+    public void adicionarCandidato(String eleicao, GregorianCalendar data_bi, int bi, String arquivo, String filicao, String nome, String profissao, int idade, String morada, String nacionalidade, GregorianCalendar data) throws AssinaturasInsuficientesExceptions, CandidatoEstrangeiroException, CandidaturaTardiaException, CandidatoDemasiadoNovoException {
         Candidato c = new Candidato(data_bi, bi, filicao, arquivo, nome, profissao, idade, morada, nacionalidade);
         Candidatura can = new Candidatura(candidaturaDAO.getAvailableId(), data, c, eleicao);
         Eleicao el = eleicaoDAO.get(eleicao);
-        boolean valid = can.validarCandidatura(eleicao.getData());
-        Integer id = can.getID();
-        candidaturaDAO.put(id.toString(), can);
-
+        boolean valid = can.validarCandidatura(el.getData());
+        if(valid) {
+            Integer id = can.getID();
+            candidaturaDAO.put(id.toString(), can);
+        }
     }
 
     public void adicionarMapa(String distrito, int eleitores, int deputados) throws DistritoInvalidoException {
-        if(!Distritios.distiritos.contains(distrito))
+        if(!MapaEleitoral.circulos.containsKey(distrito))
             throw new DistritoInvalidoException();
         MapaEleitoral c = new MapaEleitoral(distrito, eleitores,deputados);
-        mapaEleitoralDAO.addMapa(c);
+        mapaEleitoralDAO.add(c);
     }
 
     public void adicionarLista(String eleicao, String nome, String circulo, ArrayList<Integer> deputados, ArrayList<Integer> delegados)
@@ -74,7 +74,7 @@ public class AAE {
             e.printStackTrace();
         }
 
-        Eleicao e = eleicaoDAO.get(eleicao);
+        EleicaoLegislativa e = (EleicaoLegislativa)eleicaoDAO.get(eleicao);
 
         e.registarLista(l);
     }
@@ -160,7 +160,7 @@ public class AAE {
     public void gerarEstatisticas(Eleicao e)
     {
 
-        e.gerarEstatisticas();
+        ((EleicaoLegislativa)e).gerarEstatisticas();
 
     }
 

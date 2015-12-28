@@ -1,10 +1,12 @@
 package AAE;
 
 
+import DAOs.AssembleiaDeVotoDAO;
 import DAOs.CandidatoDAO;
 import DAOs.CandidaturaDAO;
 import DAOs.EleitorDAO;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 
 /**
  * Created by drcon on 23/12/2015.
@@ -14,6 +16,8 @@ public class Eleicao {
     public String Tipo;
     public GregorianCalendar data;
     public EleitorDAO votantes;
+
+
 
     public String getNome() {
         return Nome;
