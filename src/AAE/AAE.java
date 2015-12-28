@@ -1,6 +1,9 @@
 package AAE;
 
+import DAOs.CandidaturaDAO;
 import DAOs.EleicaoDAO;
+import DAOs.EleitorDAO;
+import DAOs.ListaDAO;
 import DAOs.MapaEleitoralDAO;
 
 import java.io.BufferedReader;
@@ -30,7 +33,7 @@ public class AAE {
 
     }
 
-    public void adicionarCirclo(String distrito, int eleitores, int deputados) throws DistritoInvalidoException {
+    public void adicionarMapa(String distrito, int eleitores, int deputados) throws DistritoInvalidoException {
         if(!Distritios.distiritos.contains(distrito))
             throw new DistritoInvalidoException();
         MapaEleitoral c = new MapaEleitoral(distrito, eleitores,deputados);
@@ -157,6 +160,22 @@ public class AAE {
 
         e.gerarEstatisticas();
 
+    }
+
+    public void registarEleicao(String nome, boolean isLeg, GregorianCalendar date) throws EleicaoJaRegistadaException {
+        if(eleicaoDAO.containsKey(nome))
+            throw new EleicaoJaRegistadaException();
+
+
+        if(isLeg)
+        {
+            EleicaoLegislativa eleicaoLegislativa = new EleicaoLegislativa(nome, date);
+            eleicaoDAO.put(nome, eleicaoLegislativa);
+        }else
+        {
+            EleicaoPresidencial eleicaoPresidencial = new EleicaoPresidencial(nome, date);
+            eleicaoDAO.put(nome, eleicaoLegislativa);
+        }
     }
     public static void main(String[] args) {
 
