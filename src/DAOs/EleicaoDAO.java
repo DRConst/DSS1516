@@ -1,6 +1,8 @@
 package DAOs;
 
 import AAE.Eleicao;
+import AAE.EleicaoLegislativa;
+import AAE.EleicaoPresidencial;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -160,9 +162,9 @@ public class EleicaoDAO implements Map<String, Eleicao> {
             } 
         }
         if (tipo.equalsIgnoreCase("legislativas"))
-            	return new EleicaoLegislativa(key,tipo,valueOf(value.getData()));
-            else
-            	return new EleicaoPresidencial(key,tipo,valueOf(value.getData()));
+            	return new EleicaoLegislativa(key,tipo,value.getData());
+        else
+            	return new EleicaoPresidencial(key,tipo,value.getData());
          
     }
 
@@ -174,7 +176,7 @@ public class EleicaoDAO implements Map<String, Eleicao> {
         throw new NullPointerException("public Eleicao remove(Object key)  not implemented!");
     }
     
-    public void remove(Object Key) {
+    public void remove(String Key) {
         throw new NullPointerException("public void remove(Object key)  not implemented!");}
     
     public int size() {

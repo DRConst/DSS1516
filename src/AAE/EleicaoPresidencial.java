@@ -23,7 +23,8 @@ public class EleicaoPresidencial extends Eleicao{
         for(Candidato candidato : ca)
         {
 
-            toRet.put(candidato, new CandidatoDAO().getVotos(candidato.getBi(),this.nome));
+            toRet.put(candidato, candidatos.getVotos(candidato.getBi(),this.Nome));
         }
+        return toRet;
     }
 }

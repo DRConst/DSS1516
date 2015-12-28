@@ -17,24 +17,7 @@ public class CandidatoDAO implements Map<Integer, Candidato> {
     
     public Connection conn;
 
-    public Integer getVotos(Integer BI, String el)
-    {
-        try {
-            conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("select votos from Eleicao_Candidato where eleicao = '" + el + "' AND candidato_bi = '" + BI.toString() + "';");
-            ps.executeUpdate();
-        }catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                conn.close();
-                conn = null;
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    public void clear () {       
+        public void clear () {       
         try {
             conn = SqlConnect.connect();
             PreparedStatement ps = conn.prepareStatement("DELETE FROM candidato");
@@ -235,7 +218,7 @@ public class CandidatoDAO implements Map<Integer, Candidato> {
                     Candidatura ca = new Candidatura(rs2.getInt("Candidatura_id"),rs2.getDate("Data"),rs2.getString("Eleicao"));
                     ct.add(ca);
                 }
-                res.add(new Candidato(rs.getInt("BI"),rs.getString("Nome"),rs.getDate("Data_bi"),rs.getString("Filiacao"),rs.getString("Arquivo"),rs.getString("Profissao"),rs.getInt("Idade"),rs.getString("Morada"),rs.getString("Nacionalidade"), ct);
+                res.add(new Candidato(rs.getInt("BI"),rs.getString("Nome"),rs.getDate("Data_bi"),rs.getString("Filiacao"),rs.getString("Arquivo"),rs.getString("Profissao"),rs.getInt("Idade"),rs.getString("Morada"),rs.getString("Nacionalidade"), ct));
             }
         } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
@@ -272,6 +255,26 @@ public class CandidatoDAO implements Map<Integer, Candidato> {
             }
         }
         return res;
+    }
+    
+    public Integer getVotos(Integer BI, String nome){
+        int votos = 0;
+        try{
+            conn =SqlConnect.connect();
+            PreparedStatement ps = conn.prepareStatement("Select votos from Eleicao_Candidatos where eleicao ='" + nome +"' and  Candidato_BI = '"+ BI.toString() + "'");
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                votos = rs.getInt("Votos");
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }finally{
+            try{
+                conn.close();
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return votos;
     }
     
 }
