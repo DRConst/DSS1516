@@ -1,16 +1,13 @@
 package DAOs;
 
+import AAE.Candidato;
 import AAE.Candidatura;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 public class CandidaturaDAO implements Map<String, Candidatura> {
@@ -72,8 +69,12 @@ public class CandidaturaDAO implements Map<String, Candidatura> {
             PreparedStatement ps = conn.prepareStatement("Select * from candidato where nome'" +(String)key +"'");
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                Candidatura ca = new Candidatura(rs.getInt("Candidatura_id"),rs.getString("Nome"),rs.getDate("Data"),rs.getString("Eleicao"));
-                c.add(ca);
+                GregorianCalendar date = new GregorianCalendar();
+                date.setTimeInMillis(rs.getTimestamp("Data").getTime());
+                Candidato candidato = new CandidatoDAO().get(rs.getString("Nome"));
+                if (candidato != null) {
+                    c = new Candidatura(rs.getInt("Candidatura_id"),date,candidato,rs.getString("Eleicao"));
+                }
               }
         } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
@@ -205,7 +206,7 @@ public class CandidaturaDAO implements Map<String, Candidatura> {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM candidatura");
             ResultSet rs = ps.executeQuery();
             for (;rs.next();) {
-            	Candidatura ca = new Candidatura(rs.getString("Nome"),rs.getDate("Data"),rs.getString("Eleicao"));
+            	Candidatura ca = new Candidatura(this.getAvailableId(),rs.getDate("Data"),rs.getString("Nome"),rs.getString("Eleicao"));
                 ct.add(ca);
                 }
         } catch (SQLException  | ClassNotFoundException e) { 
@@ -261,6 +262,26 @@ public class CandidaturaDAO implements Map<String, Candidatura> {
         return -1;
     }
 
+    public int getNumAssinaturasCandidato(Integer bi)
+    {
+        int assinaturas;
+        try{
+            conn = SqlConnect.connect();
+            PreparedStatement ps = conn.prepareStatement("Select count(eleitor) from EleitorApoiaCand where candidatura = " + bi + ";");
+            ResultSet rs = ps.executeQuery();
+
+            return rs.getInt(0);
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }finally{
+            try{
+                conn.close();
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return -1;
+    }
 
     
 }
