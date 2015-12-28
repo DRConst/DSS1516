@@ -16,7 +16,24 @@ import java.util.Set;
 public class CandidatoDAO implements Map<Integer, Candidato> {
     
     public Connection conn;
-    
+
+    public Integer getVotos(Integer BI, String el)
+    {
+        try {
+            conn = SqlConnect.connect();
+            PreparedStatement ps = conn.prepareStatement("select votos from Eleicao_Candidato where eleicao = '" + el + "' AND candidato_bi = '" + BI.toString() + "';");
+            ps.executeUpdate();
+        }catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                conn.close();
+                conn = null;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     public void clear () {       
         try {
             conn = SqlConnect.connect();
