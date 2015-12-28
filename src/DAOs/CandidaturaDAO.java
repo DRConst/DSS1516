@@ -206,8 +206,13 @@ public class CandidaturaDAO implements Map<String, Candidatura> {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM candidatura");
             ResultSet rs = ps.executeQuery();
             for (;rs.next();) {
-            	Candidatura ca = new Candidatura(this.getAvailableId(),rs.getDate("Data"),rs.getString("Nome"),rs.getString("Eleicao"));
-                ct.add(ca);
+                GregorianCalendar date = new GregorianCalendar();
+                date.setTimeInMillis(rs.getTimestamp("Data").getTime());
+                Candidato candidato = new CandidatoDAO().get(rs.getString("Nome"));
+                if (candidato != null) {
+                    Candidatura ca = new Candidatura(rs.getInt("Candidatura_id"),date,candidato,rs.getString("Eleicao"));
+                    ct.add(ca);
+                }
                 }
         } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
