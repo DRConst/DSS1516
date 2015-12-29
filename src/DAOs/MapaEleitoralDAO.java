@@ -13,7 +13,7 @@ import java.util.*;
  * Created by NoobLevler on 29/12/2015.
  */
 @SuppressWarnings("Duplicates")
-public class MapaEleitoralDAO implements Map<String, MapaEleitoral> {
+public class MapaEleitoralDAO implements Map<Integer, MapaEleitoral> {
 
     public Connection conn;
 
@@ -38,7 +38,7 @@ public class MapaEleitoralDAO implements Map<String, MapaEleitoral> {
         boolean c = false;
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("Select ML_id from `equipas` where codigo = '" + (String)key + "'" );
+            PreparedStatement ps = conn.prepareStatement("Select ML_id from `Mapa Legislativo` where ML_id = '" + (Integer)key + "'" );
             ResultSet rs = ps.executeQuery();
             c = rs.next();
         } catch (SQLException | ClassNotFoundException e) {
@@ -57,7 +57,7 @@ public class MapaEleitoralDAO implements Map<String, MapaEleitoral> {
         throw new NullPointerException("public boolean containsValue(Object value) not implemented!");
     }
 
-    public Set<Entry<String,MapaEleitoral>> entrySet() {
+    public Set<Entry<Integer,MapaEleitoral>> entrySet() {
         throw new NullPointerException("public Set<Map.Entry<String,Equipa>> entrySet() not implemented!");
     }
 
@@ -69,7 +69,7 @@ public class MapaEleitoralDAO implements Map<String, MapaEleitoral> {
         MapaEleitoral av = null;
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("Select * from `Mapa Eleitoral` where codigo'" +(String)key +"'");
+            PreparedStatement ps = conn.prepareStatement("Select * from `Mapa Eleitoral` where codigo'" +(Integer)key +"'");
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                 av = new MapaEleitoral(rs.getInt("ML_id"),rs.getString("Distrito"),rs.getInt("Nr de deputados"),rs.getInt("Nr de eleitores"), rs.getString("eleicao"));
@@ -109,15 +109,15 @@ public class MapaEleitoralDAO implements Map<String, MapaEleitoral> {
         return b;
     }
 
-    public Set<String> keySet() {
-        Set<String> res = new HashSet<String>();
+    public Set<Integer> keySet() {
+        Set<Integer> res = new HashSet<>();
 
         try {
             conn = SqlConnect.connect();
             PreparedStatement ps = conn.prepareStatement("SELECT ML_id FROM `Mapa Legislativo`");
             ResultSet rs = ps.executeQuery();
             for (;rs.next();){
-                res.add(rs.getString("ML_id"));
+                res.add(rs.getInt("ML_id"));
             }
         } catch (SQLException  | ClassNotFoundException e) {
             e.printStackTrace();
@@ -131,7 +131,7 @@ public class MapaEleitoralDAO implements Map<String, MapaEleitoral> {
         return res;
     }
 
-    public MapaEleitoral put(String key, MapaEleitoral value) {
+    public MapaEleitoral put(Integer key, MapaEleitoral value) {
         try {
             conn = SqlConnect.connect();
             PreparedStatement ps = conn.prepareStatement("DELETE FROM `Mapa Legislativo` WHERE codigo='"+key+"'");
@@ -150,7 +150,7 @@ public class MapaEleitoralDAO implements Map<String, MapaEleitoral> {
         return new MapaEleitoral(value.getId(),value.getDistrito(), value.getDeputados(),  value.getEleitores(), value.getEleicao());
     }
 
-    public void putAll(Map<? extends String,? extends MapaEleitoral> t) {
+    public void putAll(Map<? extends Integer,? extends MapaEleitoral> t) {
         throw new NullPointerException("Not implemented!");
     }
 
@@ -159,7 +159,7 @@ public class MapaEleitoralDAO implements Map<String, MapaEleitoral> {
     }
 
 
-    public void remove(String cod, String el) {
+    public void remove(Integer cod) {
         try {
             conn = SqlConnect.connect();
             PreparedStatement ps = conn.prepareStatement("DELETE FROM `Mapa Legislativo` WHERE codigo =' "+cod+"'");
