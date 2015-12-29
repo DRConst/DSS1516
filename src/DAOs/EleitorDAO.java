@@ -1,6 +1,7 @@
 package DAOs;
 
 import AAE.Eleitor;
+import AAE.Lista;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -68,9 +69,22 @@ public class EleitorDAO implements Map<String,Eleitor> {
             PreparedStatement ps = conn.prepareStatement("Select * from eleitor where `Nr de eleitor`'" +(String)key +"'");
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                Date dataRec = Calendar.getInstance();
-                dataRec.setTimeInMillis(rs.getTimestamp("Data Recenciamento").getTime());
-                c = new Eleitor(rs.getString("`Nr de eleitor`"),rs.getString("Nome"),rs.getInt("Idade"), dataRec, rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia"),rs.getString("Lista"));
+                PreparedStatement ps1 = conn.prepareStatement("Select * from `Assembleia de voto` where eleitor = '" + key +"'" );
+                ResultSet rs2 = ps1.executeQuery();
+                int type = -1;
+                if (rs2.next()) {
+
+                    if (rs.getBoolean("presidente"))
+                        type = Eleitor.presidenteType;
+                    if (rs.getBoolean("vice-presidente"))
+                        type = Eleitor.vPresidenteType;
+                    if (rs.getBoolean("secretario"))
+                        type = Eleitor.secType;
+                    if (rs.getBoolean("escrutinadores"))
+                        type = Eleitor.escType;
+
+                }
+                c = new Eleitor(rs.getString("`Nr de eleitor`"),rs.getString("Nome"),rs.getInt("Idade"), rs.getDate("Data"), rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia"),type);
             }
         } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
@@ -132,9 +146,9 @@ public class EleitorDAO implements Map<String,Eleitor> {
     public Eleitor put(String key, Eleitor value) {
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM Eleitor WHERE `Nr de Eleitor` ='"+key+"''");
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM Eleitor WHERE `Nr de Eleitor` ='"+key+"'");
             ps.executeUpdate();
-            PreparedStatement sql =conn.prepareStatement("INSERT INTO  VALUES ('"+key+"','"+value.getNome()+"','"+value.getIdade()+"','"+value.getDataR()+"','"+value.getDistrito()+"','"+value.getConcelho()+"','"+value.getFreguesia()+"','"+value.getLista()+"')");
+            PreparedStatement sql =conn.prepareStatement("INSERT INTO  VALUES ('"+key+"','"+value.getNome()+"','"+value.getIdade()+"','"+value.getDataR()+"','"+value.getDistrito()+"','"+value.getConcelho()+"','"+value.getFreguesia()+"','NULL')");
             sql.executeUpdate();
            } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
@@ -142,10 +156,11 @@ public class EleitorDAO implements Map<String,Eleitor> {
             try { 
                 conn.close();     
             } catch (Exception e) { 
-                e.printStackTrace(); 
+                e.printStackTrace();
+                return null;
             } 
         }
-         return new Eleitor(key,value.getNome(),value.getIdade(),value.getDataR(),value.getDistrito(),value.getConcelho(),value.getFreguesia(),value.getLista());
+         return value;
     }
 
     public void putAll(Map<? extends String,? extends Eleitor> t) {
@@ -199,9 +214,22 @@ public class EleitorDAO implements Map<String,Eleitor> {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Eleitor");
             ResultSet rs = ps.executeQuery();
             for (;rs.next();) {
-                Date dataRec = Calendar.getInstance();
-                dataRec.setTimeInMillis(rs.getTimestamp("Data Recenciamento").getTime());
-                res.add(new Eleitor(rs.getString("Nr de eleitor"),rs.getString("Nome"),rs.getInt("Idade"), dataRec, rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia"),rs.getString("Lista")));
+                PreparedStatement ps1 = conn.prepareStatement("Select * from `Assembleia de voto` where eleitor = '" + rs.getString("Nr de eleitor") +"'" );
+                ResultSet rs2 = ps1.executeQuery();
+                int type = -1;
+                if (rs2.next()) {
+
+                    if (rs.getBoolean("presidente"))
+                        type = Eleitor.presidenteType;
+                    if (rs.getBoolean("vice-presidente"))
+                        type = Eleitor.vPresidenteType;
+                    if (rs.getBoolean("secretario"))
+                        type = Eleitor.secType;
+                    if (rs.getBoolean("escrutinadores"))
+                        type = Eleitor.escType;
+
+                }
+                res.add(new Eleitor(rs.getString("Nr de eleitor"),rs.getString("Nome"),rs.getInt("Idade"), rs.getDate("Data"), rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia"),type));
                 }
         } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
@@ -235,6 +263,69 @@ public class EleitorDAO implements Map<String,Eleitor> {
         }
         return p;
     }
-    
+
+    public ArrayList <Eleitor> getDeputadosLista(String l)
+    {
+        ArrayList<Eleitor> toRet = new ArrayList<>();
+        try{
+            conn =SqlConnect.connect();
+            PreparedStatement ps1 = conn.prepareStatement("Select * from Eleitor where lista'" + l +"'");
+            ResultSet rs = ps1.executeQuery();
+            for (;rs.next();){
+                if(rs.getBoolean("Deputado"))
+                toRet.add(this.get(rs.getString("Nr de Eleitor")));
+            }
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }finally{
+            try{
+                conn.close();
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return toRet;
+    }
+
+    public ArrayList <Eleitor> getDelegadosLista(String l)
+    {
+        ArrayList<Eleitor> toRet = new ArrayList<>();
+        try{
+            conn =SqlConnect.connect();
+            PreparedStatement ps1 = conn.prepareStatement("Select * from Eleitor where lista'" + l +"'");
+            ResultSet rs = ps1.executeQuery();
+            for (;rs.next();){
+                if(rs.getBoolean("Delegado"))
+                    toRet.add(this.get(rs.getString("Nr de Eleitor")));
+            }
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }finally{
+            try{
+                conn.close();
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return toRet;
+    }
+
+
+    public void putBulk(String s) {
+
+        try{
+            conn =SqlConnect.connect();
+            PreparedStatement ps1 = conn.prepareStatement(s);
+            ps1.executeUpdate();
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }finally{
+            try{
+                conn.close();
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
 }
 

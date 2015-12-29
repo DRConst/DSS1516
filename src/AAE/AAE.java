@@ -120,30 +120,25 @@ public class AAE {
             sb.append(line);
         }
         reader.close();
-        eleitorDAO = new EleitorDAO(sb.toString()); //SQL to create the table
+        eleitorDAO = new EleitorDAO();
+        eleitorDAO.putBulk(sb.toString());//SQL : insert to table
         
     }
 
 
-    public void adicionarAssembleia(String e, String freg, String presNome, int presID,String vPresNome, int vPresID, String secNome, int secID, ArrayList<String> escNomes, ArrayList<Integer> escIDs  )
+    public void adicionarAssembleia(String e, String codigo, String eleicao, String concelho, String freguesia, Date habertura, Date hencerramento, String local, Integer nrEleitores,  ArrayList<String> responsaveis  )
     {
         Eleicao el = eleicaoDAO.get(e);
 
-        Eleitor pres = eleitorDAO.get(presID);
+        ArrayList<Eleitor> resp = new ArrayList<>();
 
-        Eleitor vPres = eleitorDAO.get(vPresID);
-
-        Eleitor sec = eleitorDAO.get(secID);
-
-        ArrayList<Eleitor> esc = new ArrayList<>();
-
-        for(Integer i : escIDs)
+        for(String i : responsaveis)
         {
             Eleitor eleitor = eleitorDAO.get(i);
-            esc.add(eleitor);
+            resp.add(eleitor);
         }
 
-        AssembleiaDeVoto assembleiaDeVoto = new AssembleiaDeVoto(freg, pres, vPres, sec, esc);
+        AssembleiaDeVoto assembleiaDeVoto = new AssembleiaDeVoto(codigo, e, concelho, freguesia, habertura, hencerramento, local, nrEleitores, resp);
 
         el.registarAssembleia(assembleiaDeVoto);
 

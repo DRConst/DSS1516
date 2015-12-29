@@ -37,6 +37,17 @@ public class AssembleiaDeVoto {
         this.responsaveis = responsaveis;
     }
 
+    public AssembleiaDeVoto(String codigo, String eleicao, String concelho, String freguesia, Date habertura, Date hencerramento, String local, Integer nrEleitores, ArrayList<Eleitor> responsaveis) {
+        this.codigo = codigo;
+        this.eleicao = eleicao;
+        this.concelho = concelho;
+        this.freguesia = freguesia;
+        Habertura = habertura;
+        Hencerramento = hencerramento;
+        Local = local;
+        this.nrEleitores = nrEleitores;
+        this.responsaveis = responsaveis;
+    }
 
     public String getCodigo() {
         return codigo;

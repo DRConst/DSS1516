@@ -22,11 +22,12 @@ public class Candidatura {
         this.eleicao = eleicao;
     }
 
-    public boolean validarCandidatura(Date data) throws CandidaturaTardiaException, CandidatoDemasiadoNovoException, CandidatoEstrangeiroException, AssinaturasInsuficientesExceptions
+    public boolean validarCandidatura(Date date) throws CandidaturaTardiaException, CandidatoDemasiadoNovoException, CandidatoEstrangeiroException, AssinaturasInsuficientesExceptions
 	{
-		Date date = data;
-		date.roll(GregorianCalendar.MONTH, -1);
-		if(date.before(this.data))
+		GregorianCalendar data = new GregorianCalendar();
+		data.setTime(date);
+		data.roll(GregorianCalendar.MONTH, -1);
+		if(data.before(this.data))
 		{
 			//Candidatura tardia
 			throw new CandidaturaTardiaException();
