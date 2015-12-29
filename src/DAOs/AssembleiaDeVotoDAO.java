@@ -1,6 +1,7 @@
 package DAOs;
 
 import AAE.AssembleiaDeVoto;
+import AAE.Eleitor;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 
+@SuppressWarnings("Duplicates")
 public class AssembleiaDeVotoDAO implements Map<String, AssembleiaDeVoto> {
     
     public Connection conn;
@@ -77,10 +79,20 @@ public class AssembleiaDeVotoDAO implements Map<String, AssembleiaDeVoto> {
                 PreparedStatement ps1 = conn.prepareStatement("Select * from `Eleitor` where assembleia de voto = '" + c +"'" );
             	ResultSet rs2 = ps1.executeQuery();
             	for(;rs2.next();){
-                    Eleitor e = new Eleitor(rs2.getString("Nr de Eleitor"),rs2.getString("Nome"),rs2.getInt("Idade"),rs2.getDate("Data Recensiamento"),rs2.getString("Distrito"),rs2.getString("Concelho"),rs2.getString("Freguesia"));
+                    int type = -1;
+                    if(rs.getBoolean("presidente"))
+                        type = Eleitor.presidenteType;
+                    if(rs.getBoolean("vice-presidente"))
+                        type = Eleitor.vPresidenteType;
+                    if(rs.getBoolean("secretario"))
+                        type = Eleitor.secType;
+                    if(rs.getBoolean("escrutinadores"))
+                        type = Eleitor.escType;
+
+                    Eleitor e = new Eleitor(rs2.getString("Nr de Eleitor"),rs2.getString("Nome"),rs2.getInt("Idade"),rs2.getDate("Data Recensiamento"),rs2.getString("Distrito"),rs2.getString("Concelho"),rs2.getString("Freguesia"), type);
                     el.add(e);
                 }
-                av = new AssembleiaDeVoto(rs.getString("Codigo"),rs.getString("Concelho"),rs.getString("Freguesia"),rs.getDate("Hora de Abertura"),rs.getDate("Hora de Encerramento"),rs.getString("Local"),rs.getInt("Eleitores Inscritos"),rs.getInt("Nr de votantes"),rs.getInt("Votos em Branco"),rs.getInt("Votos Nulos"),rs.getInt("Nr de Reclamacoes"), el);
+                av = new AssembleiaDeVoto(rs.getString("Codigo"),rs.getString("Eleicao"),rs.getString("concelho"),rs.getString("freguesia"),rs.getDate("Hora de Abertura"),rs.getDate("Hora de Encerramento"),rs.getString("Local"),rs.getInt("Eleitores Inscritos"),rs.getInt("Nr de votantes"),rs.getInt("Votos em Branco"),rs.getInt("Votos Nulos"),rs.getInt("Nr de Reclamacoes"), el);
             }
         } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
@@ -144,18 +156,19 @@ public class AssembleiaDeVotoDAO implements Map<String, AssembleiaDeVoto> {
             conn = SqlConnect.connect();
             PreparedStatement ps = conn.prepareStatement("DELETE FROM `assembleia de voto` WHERE codigo='"+key+"' AND eleicao ='"+value.getEleicao()+"'");
             ps.executeUpdate();
-            PreparedStatement sql =conn.prepareStatement("INSERT INTO  VALUES ('"+key+"','"+value.getEleicao()+"','"+value.getConcelho()+"','"+value.getFreguesia()+"','"+value.getHoraA()+"','"+value.getHoraE()+"','"+value.getLocal()+"','"+value.getEleitoresIns()+"','"+value.getnrVotantes()+"','"+value.getVotosBr()+"','"+value.getVotosNulos()+"','"+value.getnrReclamacoes()+"')");
+            PreparedStatement sql =conn.prepareStatement("INSERT INTO  VALUES ('"+key+"','"+value.getEleicao()+"','"+value.getConcelho()+"','"+value.getFreguesia()+"','"+value.getHabertura()+"','"+value.getHencerramento()+"','"+value.getLocal()+"','"+value.getNrEleitores()+"','"+value.getNrVotantes()+"','"+value.getVotosBrancos()+"','"+value.getVotosNulos()+"','"+value.getNrReclamacoes()+"')");
             sql.executeUpdate();
            } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
         } finally { 
             try { 
-                conn.close();     
+                conn.close();
             } catch (Exception e) { 
-                e.printStackTrace(); 
+                e.printStackTrace();
+                return null;
             } 
         }
-         return new AssembleiaDeVoto(key, value.getEleicao(), value.getConcelho(), value.getFreguesia(), value.getHoraA(), value.getHoraE(), value.getLocal(), value.getEleitoresIns(), value.getnrVotantes(), value.getVotosBr(), value.getVotosNulos(), value.getnrReclamacoes());
+         return value;
     }
 
     public void putAll(Map<? extends String,? extends AssembleiaDeVoto> t) {
@@ -215,10 +228,20 @@ public class AssembleiaDeVotoDAO implements Map<String, AssembleiaDeVoto> {
                 PreparedStatement ps1 = conn.prepareStatement("Select * from `Eleitor` where assembleia de voto = '" + id +"'" );
             	ResultSet rs2 = ps1.executeQuery();
             	for(;rs2.next();){
-                Eleitor e = new Eleitor(rs2.getString("Nr de Eleitor"),rs2.getString("Nome"),rs2.getInt("Idade"),rs2.getDate("Data Recensiamento"),rs2.getString("Distrito"),rs2.getString("Concelho"),rs2.getString("Freguesia"));
+                int type = -1;
+                if(rs.getBoolean("presidente"))
+                    type = Eleitor.presidenteType;
+                if(rs.getBoolean("vice-presidente"))
+                    type = Eleitor.vPresidenteType;
+                if(rs.getBoolean("secretario"))
+                    type = Eleitor.secType;
+                if(rs.getBoolean("escrutinadores"))
+                    type = Eleitor.escType;
+
+                Eleitor e = new Eleitor(rs2.getString("Nr de Eleitor"),rs2.getString("Nome"),rs2.getInt("Idade"),rs2.getDate("Data Recensiamento"),rs2.getString("Distrito"),rs2.getString("Concelho"),rs2.getString("Freguesia"), type);
                 el.add(e);
                 }
-                res.add(new AssembleiaDeVoto(rs.getString("Codigo"),rs.getString("Concelho"),rs.getString("Freguesia"),rs.getDate("Hora de Abertura"),rs.getDate("Hora de Encerramento"),rs.getString("Local"),rs.getInt("Eleitores Inscritos"),rs.getInt("Nr de votantes"),rs.getInt("Votos em Branco"),rs.getInt("Votos Nulos"),rs.getInt("Nr de Reclamacoes"));
+                res.add(new AssembleiaDeVoto(rs.getString("Codigo"),rs.getString("Eleicao"),rs.getString("concelho"),rs.getString("freguesia"),rs.getDate("Hora de Abertura"),rs.getDate("Hora de Encerramento"),rs.getString("Local"),rs.getInt("Eleitores Inscritos"),rs.getInt("Nr de votantes"),rs.getInt("Votos em Branco"),rs.getInt("Votos Nulos"),rs.getInt("Nr de Reclamacoes"), el));
             }
         } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 

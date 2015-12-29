@@ -6,12 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 public class EleitorDAO implements Map<String,Eleitor> {
@@ -73,7 +68,7 @@ public class EleitorDAO implements Map<String,Eleitor> {
             PreparedStatement ps = conn.prepareStatement("Select * from eleitor where `Nr de eleitor`'" +(String)key +"'");
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                Calendar dataRec = Calendar.getInstance();
+                Date dataRec = Calendar.getInstance();
                 dataRec.setTimeInMillis(rs.getTimestamp("Data Recenciamento").getTime());
                 c = new Eleitor(rs.getString("`Nr de eleitor`"),rs.getString("Nome"),rs.getInt("Idade"), dataRec, rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia"),rs.getString("Lista"));
             }
@@ -204,7 +199,7 @@ public class EleitorDAO implements Map<String,Eleitor> {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Eleitor");
             ResultSet rs = ps.executeQuery();
             for (;rs.next();) {
-                Calendar dataRec = Calendar.getInstance();
+                Date dataRec = Calendar.getInstance();
                 dataRec.setTimeInMillis(rs.getTimestamp("Data Recenciamento").getTime());
                 res.add(new Eleitor(rs.getString("Nr de eleitor"),rs.getString("Nome"),rs.getInt("Idade"), dataRec, rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia"),rs.getString("Lista")));
                 }

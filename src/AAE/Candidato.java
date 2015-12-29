@@ -1,12 +1,12 @@
 package AAE;
 
-import java.util.GregorianCalendar;
+import java.util.Date;
 
 public class Candidato {
 
-	private GregorianCalendar data_bi;
+	private Date data_bi;
 	private int bi;
-	private String filicao;
+	private String filiacao;
 	private String arquivo;
 	private String nome;
 	private String profissao;
@@ -14,10 +14,10 @@ public class Candidato {
 	private String morada;
 	private String nacionalidade;
 
-	public Candidato(GregorianCalendar data_bi, int bi, String filicao, String arquivo, String nome, String profissao, int idade, String morada, String nacionalidade) {
+	public Candidato(Date data_bi, int bi, String filiacao, String arquivo, String nome, String profissao, int idade, String morada, String nacionalidade) {
 		this.data_bi = data_bi;
 		this.bi = bi;
-		this.filicao = filicao;
+		this.filiacao = filiacao;
 		this.arquivo = arquivo;
 		this.nome = nome;
 		this.profissao = profissao;
@@ -26,7 +26,7 @@ public class Candidato {
 		this.nacionalidade = nacionalidade;
 	}
 
-	public GregorianCalendar getData_bi() {
+	public Date getData_bi() {
 		return this.data_bi;
 	}
 
@@ -34,7 +34,7 @@ public class Candidato {
 	 * 
 	 * @param data_bi
 	 */
-	public void setData_bi(GregorianCalendar data_bi) {
+	public void setData_bi(Date data_bi) {
 		this.data_bi = data_bi;
 	}
 
@@ -50,16 +50,16 @@ public class Candidato {
 		this.bi = bi;
 	}
 
-	public String getFilicao() {
-		return this.filicao;
+	public String getFiliacao() {
+		return this.filiacao;
 	}
 
 	/**
 	 * 
-	 * @param filicao
+	 * @param filiacao
 	 */
-	public void setFilicao(String filicao) {
-		this.filicao = filicao;
+	public void setFiliacao(String filiacao) {
+		this.filiacao = filiacao;
 	}
 
 	public String getArquivo() {
@@ -133,5 +133,7 @@ public class Candidato {
 	public void setNacionalidade(String nacionalidade) {
 		this.nacionalidade = nacionalidade;
 	}
+
+
 
 }

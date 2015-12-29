@@ -1,21 +1,20 @@
 package AAE;
 
-import DAOs.CandidatoDAO;
 import DAOs.CandidaturaDAO;
-import DAOs.EleitorDAO;
-import java.lang.annotation.ElementType;
+
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class Candidatura {
 
 	private int id;
-	private GregorianCalendar data;
+	private Date data;
 	private Candidato candidato;
 	private String eleicao;
 
 
 
-    public Candidatura(int id, GregorianCalendar data, Candidato candidato, String eleicao)
+    public Candidatura(int id, Date data, Candidato candidato, String eleicao)
     {
         this.id = id;
         this.data = data;
@@ -23,9 +22,9 @@ public class Candidatura {
         this.eleicao = eleicao;
     }
 
-    public boolean validarCandidatura(GregorianCalendar data) throws CandidaturaTardiaException, CandidatoDemasiadoNovoException, CandidatoEstrangeiroException, AssinaturasInsuficientesExceptions
+    public boolean validarCandidatura(Date data) throws CandidaturaTardiaException, CandidatoDemasiadoNovoException, CandidatoEstrangeiroException, AssinaturasInsuficientesExceptions
 	{
-		GregorianCalendar date = data;
+		Date date = data;
 		date.roll(GregorianCalendar.MONTH, -1);
 		if(date.before(this.data))
 		{
@@ -69,7 +68,7 @@ public class Candidatura {
 		throw new UnsupportedOperationException();
 	}
 
-	public GregorianCalendar getData() {
+	public Date getData() {
 		return this.data;
 	}
 
@@ -77,7 +76,7 @@ public class Candidatura {
 	 * 
 	 * @param data
 	 */
-	public void setData(GregorianCalendar data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 

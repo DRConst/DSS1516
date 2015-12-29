@@ -1,23 +1,41 @@
 package AAE;
 
 
-import java.util.GregorianCalendar;
+import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by drcon on 25/12/2015.
  */
 public class Eleitor {
+    public static int defaultType = -1;
+    public static int presidenteType = 0;
+    public static int vPresidenteType = 1;
+    public static int escType = 2;
+    public static int secType = 3;
+
+
     private String nrEleitor;
     private String Nome;
     private Integer Idade;
-    private GregorianCalendar dataR;
+    private Date dataR;
     private String distrito;
     private String concelho;
     private String freguesia;
-    
-    public Eleitor(){
-        
+
+
+    public Eleitor(String nrEleitor, String nome, Integer idade, Date dataR, String distrito, String concelho, String freguesia, Integer tipo) {
+        this.nrEleitor = nrEleitor;
+        Nome = nome;
+        Idade = idade;
+        this.dataR = dataR;
+        this.distrito = distrito;
+        this.concelho = concelho;
+        this.freguesia = freguesia;
+        this.tipo = tipo;
     }
+
+    private Integer tipo;
 
     public String getNrEleitor() {
         return nrEleitor;
@@ -43,11 +61,11 @@ public class Eleitor {
         this.Idade = Idade;
     }
 
-    public GregorianCalendar getDataR() {
+    public Date getDataR() {
         return dataR;
     }
 
-    public void setDataR(GregorianCalendar dataR) {
+    public void setDataR(Date dataR) {
         this.dataR = dataR;
     }
 
@@ -74,6 +92,7 @@ public class Eleitor {
     public void setFreguesia(String freguesia) {
         this.freguesia = freguesia;
     }
-        
-    
+
+
 }
+

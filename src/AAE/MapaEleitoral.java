@@ -7,7 +7,12 @@ import java.util.HashMap;
  */
 public class MapaEleitoral {
     int deputados, eleitores;
-    String circulo;
+    String distrito;
+
+
+
+    String eleicao;
+    Integer id;
 
     HashMap<Lista, Integer> votosPorLista;
 
@@ -35,16 +40,12 @@ public class MapaEleitoral {
     }};
 
 
-    public MapaEleitoral(String circulo, int deputados, int eleitores) {
+    public MapaEleitoral(Integer id,String distrito, int deputados, int eleitores, String eleicao) {
+        this.id = id;
         this.deputados = deputados;
         this.eleitores = eleitores;
-        this.circulo = circulo;
-    }
-
-    public MapaEleitoral() {
-        this.deputados = 0;
-        this.eleitores = 0;
-        this.distrito = "NA";
+        this.distrito = distrito;
+        this.eleicao = eleicao;
     }
 
 
@@ -64,12 +65,12 @@ public class MapaEleitoral {
         this.eleitores = eleitores;
     }
 
-    public String getCirculo() {
-        return circulo;
+    public String getDistrito() {
+        return distrito;
     }
 
-    public void setCirculo(String circulo) {
-        this.circulo = circulo;
+    public void setDistrito(String distrito) {
+        this.distrito = distrito;
     }
 
     public HashMap<Lista, Integer> getVotosPorLista() {
@@ -78,5 +79,21 @@ public class MapaEleitoral {
 
     public void setVotosPorLista(HashMap<Lista, Integer> votosPorLista) {
         this.votosPorLista = votosPorLista;
+    }
+
+    public String getEleicao() {
+        return eleicao;
+    }
+
+    public void setEleicao(String eleicao) {
+        this.eleicao = eleicao;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

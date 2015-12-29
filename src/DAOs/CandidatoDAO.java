@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 
+@SuppressWarnings("Duplicates")
 public class CandidatoDAO implements Map<Integer, Candidato> {
     
     public Connection conn;
@@ -67,7 +68,6 @@ public class CandidatoDAO implements Map<Integer, Candidato> {
     }
     
     public Candidato get(Object key) {
-        ArrayList<Candidatura> ct = new ArrayList<Candidatura>();
         Candidato c = null;
         try {
             conn = SqlConnect.connect();
@@ -77,11 +77,8 @@ public class CandidatoDAO implements Map<Integer, Candidato> {
             int id = rs.getInt("BI");
                 PreparedStatement ps1 = conn.prepareStatement("Select * from candidaturas where candidato = '" + id +"'" );
             	ResultSet rs2 = ps1.executeQuery();
-            	for(;rs2.next();){
-                    Candidatura ca = new Candidatura(rs2.getInt("Candidatura_id"),rs2.getDate("Data"),rs2.getString("Eleicao"));
-                    ct.add(ca);
-                }
-                c = new Candidato(rs.getInt("BI"),rs.getString("Nome"),rs.getDate("Data_bi"),rs.getString("Filiacao"),rs.getString("Arquivo"),rs.getString("Profissao"),rs.getInt("Idade"),rs.getString("Morada"),rs.getString("Nacionalidade"), ct);
+
+                c = new Candidato(rs.getDate("Data_bi"),rs.getInt("BI"),rs.getString("Arquivo"),rs.getString("Filiacao"),rs.getString("Nome"),rs.getString("Profissao"),rs.getInt("Idade"),rs.getString("Morada"),rs.getString("Nacionalidade"));
             }
         } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
@@ -143,7 +140,7 @@ public class CandidatoDAO implements Map<Integer, Candidato> {
     public Candidato put(Integer key, Candidato value) {
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM candidato WHERE BI='"+key+"''");
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM candidato WHERE BI='"+key+"'");
             ps.executeUpdate();
             PreparedStatement sql =conn.prepareStatement("INSERT INTO  VALUES ('"+key+"','"+value.getNome()+"','"+value.getData_bi()+"','"+value.getFiliacao()+"','"+value.getProfissao()+"','"+value.getIdade()+"','"+value.getMorada()+"','"+value.getNacionalidade()+"')");
             sql.executeUpdate();
@@ -153,10 +150,11 @@ public class CandidatoDAO implements Map<Integer, Candidato> {
             try { 
                 conn.close();     
             } catch (Exception e) { 
-                e.printStackTrace(); 
+                e.printStackTrace();
+                return null;
             } 
         }
-         return new Candidato(key,value.getNome(),value.getData_bi(),value.getFiliacao(),value.getProfissao(),value.getIdade(),value.getMorada(),value.getNacionalidade());
+         return value;
     }
 
     public void putAll(Map<? extends Integer,? extends Candidato> t) {
@@ -205,21 +203,13 @@ public class CandidatoDAO implements Map<Integer, Candidato> {
              
     public Collection<Candidato> values() {
         Collection<Candidato> res = new ArrayList<Candidato>();
-        ArrayList<Candidatura> ct = new ArrayList<Candidatura>();
        
         try { 
             conn =SqlConnect.connect();
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM candidato");
             ResultSet rs = ps.executeQuery();
             for (;rs.next();) {
-            	int id = rs.getInt("BI");
-                PreparedStatement ps1 = conn.prepareStatement("Select * from Candidatura where candidato = '" + id +"'" );
-            	ResultSet rs2 = ps1.executeQuery();
-            	for(;rs2.next();){
-                    Candidatura ca = new Candidatura(rs2.getInt("Candidatura_id"),rs2.getDate("Data"),rs2.getString("Eleicao"));
-                    ct.add(ca);
-                }
-                res.add(new Candidato(rs.getInt("BI"),rs.getString("Nome"),rs.getDate("Data_bi"),rs.getString("Filiacao"),rs.getString("Arquivo"),rs.getString("Profissao"),rs.getInt("Idade"),rs.getString("Morada"),rs.getString("Nacionalidade"), ct));
+            	res.add(new Candidato(rs.getDate("Data_bi"),rs.getInt("BI"),rs.getString("Nome"),rs.getString("Filiacao"),rs.getString("Arquivo"),rs.getString("Profissao"),rs.getInt("Idade"),rs.getString("Morada"),rs.getString("Nacionalidade")));
             }
         } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 

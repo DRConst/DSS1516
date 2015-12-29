@@ -2,21 +2,29 @@ package AAE;
 
 
 import DAOs.AssembleiaDeVotoDAO;
-import DAOs.CandidatoDAO;
-import DAOs.CandidaturaDAO;
 import DAOs.EleitorDAO;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
+
+import java.util.Date;
 
 /**
  * Created by drcon on 23/12/2015.
  */
 public class Eleicao {
     public String Nome;
-    public String Tipo;
-    public GregorianCalendar data;
+    public Date data;
     public EleitorDAO votantes;
+    String tipo;
 
+    public Eleicao(String nome, Date data, String tipo) {
+        Nome = nome;
+        this.data = data;
+        this.tipo = tipo;
+    }
+
+    public void registarAssembleia(AssembleiaDeVoto assembleiaDeVoto)
+    {
+        new AssembleiaDeVotoDAO().put(assembleiaDeVoto.getCodigo(), assembleiaDeVoto);
+    }
 
 
     public String getNome() {
@@ -27,19 +35,11 @@ public class Eleicao {
         this.Nome = Nome;
     }
 
-    public String getTipo() {
-        return Tipo;
-    }
-
-    public void setTipo(String Tipo) {
-        this.Tipo = Tipo;
-    }
-
-    public GregorianCalendar getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(GregorianCalendar data) {
+    public void setData(Date data) {
         this.data = data;
     }
 
@@ -50,8 +50,12 @@ public class Eleicao {
     public void setVotantes(EleitorDAO votantes) {
         this.votantes = votantes;
     }
-    
-    
 
-    
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 }

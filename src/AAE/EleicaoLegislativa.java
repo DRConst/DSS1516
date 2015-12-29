@@ -1,11 +1,10 @@
 package AAE;
 
 import DAOs.AssembleiaDeVotoDAO;
-import DAOs.EleicaoDAO;
 import DAOs.MapaEleitoralDAO;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -13,32 +12,25 @@ import java.util.HashMap;
  */
 public class EleicaoLegislativa extends Eleicao {
     
-    public AssembleiaDeVoto assembleias;
+
     public MapaEleitoralDAO mapas;
-   
-    MapaEleitoralDAO mapaEleitoralDAO;
+
+    public EleicaoLegislativa(String nome, Date data) {
+        super(nome, data, "legislativas");
+    }
+
     public HashMap<MapaEleitoral,  HashMap<Lista, Integer>> gerarEstatisticas()
     {
-        Collection<MapaEleitoral> map = mapas.getMapasPorEleicao();
+        Collection<MapaEleitoral> map = mapas.getMapasPorEleicao(this.getNome());
         HashMap<MapaEleitoral, HashMap<Lista, Integer>> toRet = new HashMap<>();
         for(MapaEleitoral mapa : map)
         {
-            HashMap<Lista, Integer> temp = new HashMap<>();
-            for(Lista l : mapa.getListas())
-            {
-                temp.put(l,l.getVotosPorEleicao(this.nome));
-            }
-            toRet.put(mapa, temp);
+            toRet.put(mapa, mapa.getVotosPorLista());
         }
         return toRet;
     }
 
-    public void registarAssembleia(AssembleiaDeVoto assembleiaDeVoto)
-    {
-        new AssembleiaDeVotoDAO().put(assembleiaDeVoto.getCodigo(), assembleiaDeVoto);
-    }
-
-    public HashMap<MapaEleitoral, HashMap<Lista, Integer>> atribuiMandatos()
+    public HashMap<MapaEleitoral, HashMap<Lista, Integer>> atribuirMandatos()
     {
         HashMap<MapaEleitoral, HashMap<Lista, Integer>> toRet = new HashMap<>();
 
@@ -50,7 +42,7 @@ public class EleicaoLegislativa extends Eleicao {
             HashMap<Lista, Integer> m = res.get(mapaEleitoral);
             HashMap<Lista, Integer> toAdd = new HashMap<>();
             int i = 0;
-            for(; i < MapaEleitoral.circulos.get(mapaEleitoral.getCirculo()); i++)
+            for(; i < MapaEleitoral.circulos.get(mapaEleitoral.getDistrito()); i++)
             {
                 int maxNum = 0;
                 Lista maxList = null;
@@ -76,6 +68,11 @@ public class EleicaoLegislativa extends Eleicao {
 
 
         return toRet;
+    }
+
+    public void registarLista(Lista l)
+    {
+        //TODO:
     }
 
 

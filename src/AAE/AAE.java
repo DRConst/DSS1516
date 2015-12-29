@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -24,7 +25,7 @@ public class AAE {
     private EleitorDAO eleitorDAO;
     private ListaDAO listaDAO;
 
-    public void adicionarCandidato(String eleicao, GregorianCalendar data_bi, int bi, String arquivo, String filicao, String nome, String profissao, int idade, String morada, String nacionalidade, GregorianCalendar data) throws AssinaturasInsuficientesExceptions, CandidatoEstrangeiroException, CandidaturaTardiaException, CandidatoDemasiadoNovoException {
+    public void adicionarCandidato(String eleicao, Date data_bi, int bi, String arquivo, String filicao, String nome, String profissao, int idade, String morada, String nacionalidade, Date data) throws AssinaturasInsuficientesExceptions, CandidatoEstrangeiroException, CandidaturaTardiaException, CandidatoDemasiadoNovoException {
         Candidato c = new Candidato(data_bi, bi, filicao, arquivo, nome, profissao, idade, morada, nacionalidade);
         Candidatura can = new Candidatura(candidaturaDAO.getAvailableId(), data, c, eleicao);
         Eleicao el = eleicaoDAO.get(eleicao);
@@ -35,11 +36,11 @@ public class AAE {
         }
     }
 
-    public void adicionarMapa(String distrito, int eleitores, int deputados) throws DistritoInvalidoException {
+    public void adicionarMapa(String distrito, int eleitores, int deputados, String eleicao) throws DistritoInvalidoException {
         if(!MapaEleitoral.circulos.containsKey(distrito))
             throw new DistritoInvalidoException();
-        MapaEleitoral c = new MapaEleitoral(distrito, eleitores,deputados);
-        mapaEleitoralDAO.add(c);
+        MapaEleitoral c = new MapaEleitoral(mapaEleitoralDAO.getAvailableId(), distrito, eleitores,deputados, eleicao);
+        mapaEleitoralDAO.put(c.id, c);
     }
 
     public void adicionarLista(String eleicao, String nome, String circulo, ArrayList<Integer> deputados, ArrayList<Integer> delegados)
@@ -133,7 +134,7 @@ public class AAE {
 
         Eleitor sec = eleitorDAO.get(secID);
 
-        ArrayList<Eleitor> esc = new ArrayList<>();
+        Date esc = new ArrayList<>();
 
         for(Integer i : escIDs)
         {

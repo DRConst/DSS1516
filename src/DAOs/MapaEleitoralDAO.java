@@ -237,4 +237,47 @@ public class MapaEleitoralDAO implements Map<Integer, MapaEleitoral> {
         }
         return res;
     }
+
+    public int getAvailableId()
+    {
+        try{
+            conn = SqlConnect.connect();
+            PreparedStatement ps = conn.prepareStatement("Select max(id) from `Mapa Eleitoral`;");
+            ResultSet rs = ps.executeQuery();
+
+            return rs.getInt(0);
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }finally{
+            try{
+                conn.close();
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return -1;
+    }
+
+    public ArrayList<MapaEleitoral> getMapasPorEleicao(String eleicao) {
+
+        ArrayList<MapaEleitoral> res = new ArrayList<>();
+        try{
+            conn = SqlConnect.connect();
+            PreparedStatement ps = conn.prepareStatement("Select * from `Mapa Legislativo` where eleicao ='" + eleicao +"'");
+            ResultSet rs = ps.executeQuery();
+            for (;rs.next();){
+                res.add(new MapaEleitoral(rs.getInt("ML_id"),rs.getString("Distrito"),rs.getInt("Nr de deputados"),rs.getInt("Nr de eleitores"), rs.getString("eleicao")));
+            }
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }finally{
+            try{
+                conn.close();
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return res;
+
+    }
 }

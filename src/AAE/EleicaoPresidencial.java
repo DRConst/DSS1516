@@ -5,6 +5,7 @@ import DAOs.CandidaturaDAO;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -13,8 +14,10 @@ import java.util.HashMap;
 public class EleicaoPresidencial extends Eleicao{
     private CandidatoDAO candidatos;
     private CandidaturaDAO candidaturas;
-    
 
+    public EleicaoPresidencial(String nome, Date data) {
+        super(nome,data, "presidenciais");
+    }
     public HashMap<Candidato, Integer> gerarEstatisticas()
     {
         HashMap<Candidato, Integer> toRet = new HashMap<>();

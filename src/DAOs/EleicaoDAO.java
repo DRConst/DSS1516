@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Set;
 
 
+@SuppressWarnings("Duplicates")
 public class EleicaoDAO implements Map<String, Eleicao> {
     
     public Connection conn;
@@ -75,15 +76,12 @@ public class EleicaoDAO implements Map<String, Eleicao> {
             PreparedStatement ps = conn.prepareStatement("Select * from eleicao where nome'" +(String)key +"'");
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                Calendar data = Calendar.getInstance();
-                data.setTimeInMillis(rs.getTimestamp(3).getTime());
-                
                 String tipo = rs.getString(2);
-                   
+
                 if (tipo.equalsIgnoreCase("legislativas"))
-                	c = new EleicaoLegislativa(rs.getString(1),tipo,data);
+                	c = new EleicaoLegislativa(rs.getString(1),rs.getDate("data"));
                 else
-                	c = new EleicaoPresidencial(rs.getString(1),tipo,data);
+                	c = new EleicaoPresidencial(rs.getString(1),rs.getDate("data"));
             }
             
         } catch (SQLException  | ClassNotFoundException e) { 
@@ -147,10 +145,10 @@ public class EleicaoDAO implements Map<String, Eleicao> {
         String tipo = value.getTipo();
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM eleicao WHERE nome='"+key+"''");
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM eleicao WHERE nome='"+key+"'");
             
             ps.executeUpdate();
-            PreparedStatement sql =conn.prepareStatement("INSERT INTO eleicao VALUES ('"+key+"','"+tipo+"','"+valueOf(value.getData())+"')");
+            PreparedStatement sql =conn.prepareStatement("INSERT INTO eleicao VALUES ('"+key+"','"+tipo+"','"+value.getData()+"')");
             sql.executeUpdate();
            } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
@@ -158,13 +156,11 @@ public class EleicaoDAO implements Map<String, Eleicao> {
             try { 
                 conn.close();     
             } catch (Exception e) { 
-                e.printStackTrace(); 
+                e.printStackTrace();
+                return null;
             } 
         }
-        if (tipo.equalsIgnoreCase("legislativas"))
-            	return new EleicaoLegislativa(key,tipo,value.getData());
-        else
-            	return new EleicaoPresidencial(key,tipo,value.getData());
+        return value;
          
     }
 
@@ -208,14 +204,12 @@ public class EleicaoDAO implements Map<String, Eleicao> {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Eleicao");
             ResultSet rs = ps.executeQuery();
             for (;rs.next();) {
-            	Calendar data = Calendar.getInstance();
-                data.setTimeInMillis(rs.getTimestamp(3).getTime());
                  String tipo = rs.getString(2);
                 
                 if (tipo.equalsIgnoreCase("legislativas"))
-                	res.add(new EleicaoLegislativa(rs.getString("Nome"),tipo,data));
+                	res.add(new EleicaoLegislativa(rs.getString("Nome"),rs.getDate("Data")));
                 else
-                	res.add(new EleicaoPresidencial(rs.getString("Nome"),tipo,data));
+                	res.add(new EleicaoPresidencial(rs.getString("Nome"),rs.getDate("Data")));
             }
                 
         } catch (SQLException  | ClassNotFoundException e) { 

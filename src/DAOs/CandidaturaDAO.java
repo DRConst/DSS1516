@@ -3,13 +3,12 @@ package DAOs;
 import AAE.Candidato;
 import AAE.Candidatura;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
+import java.util.Date;
 
 
+@SuppressWarnings("Duplicates")
 public class CandidaturaDAO implements Map<String, Candidatura> {
     
     public Connection conn;
@@ -69,11 +68,9 @@ public class CandidaturaDAO implements Map<String, Candidatura> {
             PreparedStatement ps = conn.prepareStatement("Select * from candidato where nome'" +(String)key +"'");
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                GregorianCalendar date = new GregorianCalendar();
-                date.setTimeInMillis(rs.getTimestamp("Data").getTime());
                 Candidato candidato = new CandidatoDAO().get(rs.getString("Nome"));
                 if (candidato != null) {
-                    c = new Candidatura(rs.getInt("Candidatura_id"),date,candidato,rs.getString("Eleicao"));
+                    c = new Candidatura(rs.getInt("Candidatura_id"),rs.getDate("Data"),candidato,rs.getString("Eleicao"));
                 }
               }
         } catch (SQLException  | ClassNotFoundException e) { 
@@ -140,18 +137,19 @@ public class CandidaturaDAO implements Map<String, Candidatura> {
             ps.executeUpdate();
             PreparedStatement ps1 = conn.prepareStatement("Select BI from candidato where nome = '"+value.getCandidato()+"'" );
             ResultSet rs = ps1.executeQuery();
-            PreparedStatement sql =conn.prepareStatement("INSERT INTO  VALUES ('"+key+"','"+value.getNome()+"','"+value.getData()+"','"+value.getEleicao()+"','"+rs.getInt("BI")+"')");
+            PreparedStatement sql =conn.prepareStatement("INSERT INTO  VALUES ('"+key+"','"+value.getCandidato().getNome()+"','"+value.getData()+"','"+value.getEleicao()+"','"+rs.getInt("BI")+"')");
             sql.executeUpdate();
            } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
         } finally { 
             try { 
-                conn.close();     
+                conn.close();
             } catch (Exception e) { 
-                e.printStackTrace(); 
+                e.printStackTrace();
+                return null;
             } 
         }
-         return new Candidatura(key,value.getNome(),value.getData(),value.getEleicao(),value.getCandidato);
+         return value;
     }
 
     public void putAll(Map<? extends String,? extends Candidatura> t) {
@@ -206,11 +204,9 @@ public class CandidaturaDAO implements Map<String, Candidatura> {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM candidatura");
             ResultSet rs = ps.executeQuery();
             for (;rs.next();) {
-                GregorianCalendar date = new GregorianCalendar();
-                date.setTimeInMillis(rs.getTimestamp("Data").getTime());
                 Candidato candidato = new CandidatoDAO().get(rs.getString("Nome"));
                 if (candidato != null) {
-                    Candidatura ca = new Candidatura(rs.getInt("Candidatura_id"),date,candidato,rs.getString("Eleicao"));
+                    Candidatura ca = new Candidatura(rs.getInt("Candidatura_id"),rs.getDate("Data"),candidato,rs.getString("Eleicao"));
                     ct.add(ca);
                 }
                 }
