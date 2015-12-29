@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -134,7 +135,7 @@ public class AAE {
 
         Eleitor sec = eleitorDAO.get(secID);
 
-        Date esc = new ArrayList<>();
+        ArrayList<Eleitor> esc = new ArrayList<>();
 
         for(Integer i : escIDs)
         {
@@ -165,7 +166,7 @@ public class AAE {
 
     }
 
-    public void registarEleicao(String nome, boolean isLeg, GregorianCalendar date) throws EleicaoJaRegistadaException {
+    public void registarEleicao(String nome, boolean isLeg, Date date) throws EleicaoJaRegistadaException {
         if(eleicaoDAO.containsKey(nome))
             throw new EleicaoJaRegistadaException();
 
@@ -180,6 +181,28 @@ public class AAE {
             eleicaoDAO.put(nome, eleicaoPresidencial);
         }
     }
+
+    public ArrayList<Eleicao> getEleicaoDAO() {
+        return new ArrayList<Eleicao>(eleicaoDAO.values()) {};
+    }
+
+    public ArrayList<Candidatura> getCandidaturaDAO() {
+        return new ArrayList<Candidatura>(candidaturaDAO.values());
+    }
+
+    public  ArrayList<MapaEleitoral> getMapaEleitoralDAO() {
+        return new ArrayList<MapaEleitoral>(mapaEleitoralDAO.values());
+    }
+
+    public  ArrayList<Eleitor> getEleitorDAO() {
+        return new ArrayList<Eleitor>(eleitorDAO.values());
+    }
+
+    public  ArrayList<Lista> getListaDAO() {
+        return new ArrayList<Lista>(listaDAO.values());
+    }
+    
+    
 
     public static void main(String[] args) {
 
