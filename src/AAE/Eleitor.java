@@ -108,6 +108,20 @@ public class Eleitor {
         this.freguesia = freguesia;
     }
 
+    public Integer getCargoVP() {
+        return cargoVP;
+    }
 
+    public void setCargoVP(Integer cargoVP) {
+        this.cargoVP = cargoVP;
+    }
+
+    public Integer getCargoL() {
+        return cargoL;
+    }
+
+    public void setCargoL(Integer cargoL) {
+        this.cargoL = cargoL;
+    }
 }
 

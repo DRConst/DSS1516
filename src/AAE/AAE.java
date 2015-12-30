@@ -126,8 +126,7 @@ public class AAE {
             sb.append(line);
         }
         reader.close();
-        eleitorDAO = new EleitorDAO();
-        eleitorDAO.putBulk(sb.toString());//SQL : insert to table
+        eleitorDAO = new EleitorDAO(sb.toString());
         
     }
 

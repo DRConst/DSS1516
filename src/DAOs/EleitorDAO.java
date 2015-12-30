@@ -91,21 +91,27 @@ public class EleitorDAO implements Map<String,Eleitor> {
             if(rs.next()){
                 PreparedStatement ps1 = conn.prepareStatement("Select * from `Assembleia de voto` where eleitor = '" + key +"'" );
                 ResultSet rs2 = ps1.executeQuery();
-                int type = -1;
+                int typeA = -1;
+                int typeL = -1;
                 if (rs2.next()) {
 
                     if (rs.getBoolean("presidente"))
-                        type = Eleitor.presidenteType;
+                        typeA = Eleitor.presidenteType;
                     if (rs.getBoolean("vice-presidente"))
-                        type = Eleitor.vPresidenteType;
+                        typeA = Eleitor.vPresidenteType;
                     if (rs.getBoolean("secretario"))
-                        type = Eleitor.secType;
+                        typeA = Eleitor.secType;
                     if (rs.getBoolean("escrutinadores"))
-                        type = Eleitor.escType;
+                        typeA = Eleitor.escType;
 
                 }
-             
-                c = new Eleitor(rs.getString("`Nr de eleitor`"),rs.getString("Nome"),rs.getInt("Idade"), rs.getDate("Data Recenciamento").getTime(), rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia"),type);
+
+                if (rs.getBoolean("Deputado"))
+                    typeL = Eleitor.deputado;
+                if (rs.getBoolean("delegado"))
+                    typeL = Eleitor.delegado;
+
+                c = new Eleitor(rs.getString("`Nr de eleitor`"),rs.getString("Nome"),rs.getInt("Idade"), rs.getDate("Data Recenciamento"), rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia"),typeA, typeL);
             }
         } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
@@ -169,11 +175,9 @@ public class EleitorDAO implements Map<String,Eleitor> {
             conn = SqlConnect.connect();
             PreparedStatement ps = conn.prepareStatement("DELETE FROM Eleitor WHERE `Nr de Eleitor` ='"+key+"'");
             ps.executeUpdate();
-<<<<<<< HEAD
-            PreparedStatement sql =conn.prepareStatement("INSERT INTO  VALUES ('"+key+"','"+value.getNome()+"','"+value.getIdade()+"','"+value.getDataR()+"','"+value.getDistrito()+"','"+value.getConcelho()+"','"+value.getFreguesia()+"')");
-=======
-            PreparedStatement sql =conn.prepareStatement("INSERT INTO  VALUES ('"+key+"','"+value.getNome()+"','"+value.getIdade()+"','"+value.getDataR()+"','"+value.getDistrito()+"','"+value.getConcelho()+"','"+value.getFreguesia()+"','NULL')");
->>>>>>> origin/master
+            PreparedStatement sql =conn.prepareStatement("INSERT INTO  VALUES ('"+key+"','"+value.getNome()+"','"+value.getIdade()+"','"+value.getDataR()+"','"+value.getDistrito()+"','"+value.getConcelho()+"','"+value.getFreguesia()+"'," +
+                    (value.getCargoL() == Eleitor.delegado ? "'True', 'False'," :  "'False', 'True',") +  "'NULL', 'NULL', 'NULL')");
+
             sql.executeUpdate();
            } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
@@ -185,11 +189,7 @@ public class EleitorDAO implements Map<String,Eleitor> {
                 return null;
             } 
         }
-<<<<<<< HEAD
-         return new Eleitor(key,value.getNome(),value.getIdade(),value.getDataR(),value.getDistrito(),value.getConcelho(),value.getFreguesia());
-=======
          return value;
->>>>>>> origin/master
     }
 
     public void putAll(Map<? extends String,? extends Eleitor> t) {
@@ -243,26 +243,32 @@ public class EleitorDAO implements Map<String,Eleitor> {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Eleitor");
             ResultSet rs = ps.executeQuery();
             for (;rs.next();) {
-<<<<<<< HEAD
-                res.add(new Eleitor(rs.getString("Nr de eleitor"),rs.getString("Nome"),rs.getInt("Idade"), rs.getDate("Data Recenciamento"), rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia")));
-=======
+                //res.add(new Eleitor(rs.getString("Nr de eleitor"),rs.getString("Nome"),rs.getInt("Idade"), rs.getDate("Data Recenciamento"), rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia")));
                 PreparedStatement ps1 = conn.prepareStatement("Select * from `Assembleia de voto` where eleitor = '" + rs.getString("Nr de eleitor") +"'" );
                 ResultSet rs2 = ps1.executeQuery();
-                int type = -1;
+                int typeA = -1;
+                int typeL = -1;
                 if (rs2.next()) {
 
-                    if (rs.getBoolean("presidente"))
-                        type = Eleitor.presidenteType;
-                    if (rs.getBoolean("vice-presidente"))
-                        type = Eleitor.vPresidenteType;
-                    if (rs.getBoolean("secretario"))
-                        type = Eleitor.secType;
-                    if (rs.getBoolean("escrutinadores"))
-                        type = Eleitor.escType;
+                    if (rs2.getBoolean("presidente"))
+                        typeA = Eleitor.presidenteType;
+                    if (rs2.getBoolean("vice-presidente"))
+                        typeA = Eleitor.vPresidenteType;
+                    if (rs2.getBoolean("secretario"))
+                        typeA = Eleitor.secType;
+                    if (rs2.getBoolean("escrutinadores"))
+                        typeA = Eleitor.escType;
 
                 }
-                res.add(new Eleitor(rs.getString("Nr de eleitor"),rs.getString("Nome"),rs.getInt("Idade"), rs.getDate("Data"), rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia"),type));
->>>>>>> origin/master
+
+                if (rs.getBoolean("Deputado"))
+                    typeL = Eleitor.deputado;
+                if (rs.getBoolean("delegado"))
+                    typeL = Eleitor.delegado;
+
+
+
+                res.add(new Eleitor(rs.getString("Nr de eleitor"),rs.getString("Nome"),rs.getInt("Idade"), rs.getDate("Data"), rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia"),typeA, typeL));
                 }
         } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
