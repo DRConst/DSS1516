@@ -311,7 +311,7 @@ public class EleitorDAO implements Map<String,Eleitor> {
         ArrayList<Eleitor> toRet = new ArrayList<>();
         try{
             conn =SqlConnect.connect();
-            PreparedStatement ps1 = conn.prepareStatement("Select * from Eleitor where lista'" + l +"'");
+            PreparedStatement ps1 = conn.prepareStatement("Select * from Eleitor where lista = '" + l +"'");
             ResultSet rs = ps1.executeQuery();
             for (;rs.next();){
                 if(rs.getBoolean("Deputado"))
@@ -334,7 +334,7 @@ public class EleitorDAO implements Map<String,Eleitor> {
         ArrayList<Eleitor> toRet = new ArrayList<>();
         try{
             conn =SqlConnect.connect();
-            PreparedStatement ps1 = conn.prepareStatement("Select * from Eleitor where lista'" + l +"'");
+            PreparedStatement ps1 = conn.prepareStatement("Select * from Eleitor where lista = '" + l +"'");
             ResultSet rs = ps1.executeQuery();
             for (;rs.next();){
                 if(rs.getBoolean("Delegado"))

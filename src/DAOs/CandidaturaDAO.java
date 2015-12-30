@@ -65,7 +65,7 @@ public class CandidaturaDAO implements Map<String, Candidatura> {
         Candidatura c = null;
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("Select * from candidato where nome'" +(String)key +"'");
+            PreparedStatement ps = conn.prepareStatement("Select * from candidato where nome = '" +(String)key +"'");
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                 Candidato candidato = new CandidatoDAO().get(rs.getString("Nome"));

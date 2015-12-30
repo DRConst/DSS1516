@@ -71,7 +71,7 @@ public class CandidatoDAO implements Map<Integer, Candidato> {
         Candidato c = null;
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("Select * from candidato where BI'" +(Integer)key +"'");
+            PreparedStatement ps = conn.prepareStatement("Select * from candidato where BI = '" +(Integer)key +"'");
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
             int id = rs.getInt("BI");

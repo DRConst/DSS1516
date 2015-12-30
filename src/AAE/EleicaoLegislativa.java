@@ -43,7 +43,7 @@ public class EleicaoLegislativa extends Eleicao {
             HashMap<Lista, Integer> m = res.get(mapaEleitoral);
             HashMap<Lista, Integer> toAdd = new HashMap<>();
             int i = 0;
-            for(; i < Distritos.distritos.get(mapaEleitoral.getDistrito()); i++)
+            for(; i < mapaEleitoral.getDeputados(); i++)
             {
                 int maxNum = 0;
                 Lista maxList = null;

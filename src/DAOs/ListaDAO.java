@@ -67,7 +67,7 @@ public class ListaDAO implements Map<String, Lista> {
         Lista c = null;
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("Select * from Lista where nome'" +(String)key +"'");
+            PreparedStatement ps = conn.prepareStatement("Select * from Lista where nome = '" +(String)key +"'");
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
 
