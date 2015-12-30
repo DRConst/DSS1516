@@ -9,12 +9,27 @@ public class Lista {
     private String nome;
     private ArrayList<Eleitor> deputados;
     private ArrayList<Eleitor> delegados;
+    private int votos;
 
+    public Lista(String nome, ArrayList<Eleitor> deputados, ArrayList<Eleitor> delegados, int votos) {
+        this.nome = nome;
+        this.deputados = deputados;
+        this.delegados = delegados;
+        this.votos = votos;
+    }
     public Lista(String nome, ArrayList<Eleitor> deputados, ArrayList<Eleitor> delegados) {
         this.nome = nome;
         this.deputados = deputados;
         this.delegados = delegados;
+        this.votos = -1;
     }
+    /*
+    public Lista(String nome, ArrayList<Eleitor> deputados, int votos) {
+        this.nome = nome;
+        this.deputados = deputados;
+        this.delegados = null;
+        this.votos = votos;
+    }*/
 
 
     public boolean temDeputado(Eleitor e)
@@ -50,5 +65,12 @@ public class Lista {
     public void setDelegados(ArrayList<Eleitor> delegados) {
         this.delegados = delegados;
     }
-    
+
+    public int getVotos() {
+        return votos;
+    }
+
+    public void setVotos(int votos) {
+        this.votos = votos;
+    }
 }

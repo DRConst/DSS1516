@@ -1,5 +1,6 @@
 package DAOs;
 
+import AAE.Eleitor;
 import AAE.Lista;
 
 import java.sql.Connection;
@@ -73,7 +74,10 @@ public class ListaDAO implements Map<String, Lista> {
             PreparedStatement ps = conn.prepareStatement("Select * from Lista where nome'" +(String)key +"'");
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                c = new Lista(rs.getString("Nome"),rs.getInt("Votos"));
+
+                ArrayList<Eleitor> deps = new EleitorDAO().getDeputadosLista(rs.getString("Nome"));
+                ArrayList<Eleitor> dels = new EleitorDAO().getDelegadosLista(rs.getString("Nome"));
+                c = new Lista(rs.getString("Nome"),deps,dels, rs.getInt("Votos"));
             }
         } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
@@ -135,9 +139,9 @@ public class ListaDAO implements Map<String, Lista> {
     public Lista put(String key, Lista value) {
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM Lista WHERE nome ='"+key+"''");
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM Lista WHERE nome ='"+key+"'");
             ps.executeUpdate();
-            PreparedStatement sql =conn.prepareStatement("INSERT INTO  VALUES ('"+key+"','"+value.getNVotos()+"')");
+            PreparedStatement sql =conn.prepareStatement("INSERT INTO  VALUES ('"+key+"','"+value.getVotos()+"')");
             sql.executeUpdate();
            } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
@@ -148,7 +152,7 @@ public class ListaDAO implements Map<String, Lista> {
                 e.printStackTrace(); 
             } 
         }
-         return new Lista(key,value.getNVotos());
+         return value;
     }
 
     public void putAll(Map<? extends String,? extends Lista> t) {
@@ -190,7 +194,9 @@ public class ListaDAO implements Map<String, Lista> {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Lista");
             ResultSet rs = ps.executeQuery();
             for (;rs.next();) {
-                res.add(new Lista(rs.getString("Nome"),rs.getInt("Votos")));
+                ArrayList<Eleitor> deps = new EleitorDAO().getDeputadosLista(rs.getString("Nome"));
+                ArrayList<Eleitor> dels = new EleitorDAO().getDelegadosLista(rs.getString("Nome"));
+                res.add(new Lista(rs.getString("Nome"),deps, dels, rs.getInt("Votos")));
                 }
         } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
