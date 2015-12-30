@@ -145,7 +145,7 @@ public class EleicaoDAO implements Map<String, Eleicao> {
         String tipo = value.getTipo();
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM eleicao WHERE nome='"+key+"'");
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM eleicao WHERE nome='"+key+"' and tipo='"+ tipo+"'");
             
             ps.executeUpdate();
             PreparedStatement sql =conn.prepareStatement("INSERT INTO eleicao VALUES ('"+key+"','"+tipo+"','"+value.getData()+"')");

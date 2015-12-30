@@ -26,7 +26,12 @@ public class AAE {
     private EleitorDAO eleitorDAO;
     private ListaDAO listaDAO;
 
-    public void adicionarCandidato(String eleicao, Date data_bi, int bi, String arquivo, String filicao, String nome, String profissao, int idade, String morada, String nacionalidade, Date data) throws AssinaturasInsuficientesExceptions, CandidatoEstrangeiroException, CandidaturaTardiaException, CandidatoDemasiadoNovoException {
+    public void adicionarEleicao(String eleicao, java.sql.Date d, String tipo){
+        Eleicao e = new Eleicao(eleicao, d, tipo);
+        eleicaoDAO.put(eleicao, e);       
+    }
+    
+    public void adicionarCandidato(String eleicao, java.sql.Date data_bi, int bi, String arquivo, String filicao, String nome, String profissao, int idade, String morada, String nacionalidade, java.sql.Date data) throws AssinaturasInsuficientesExceptions, CandidatoEstrangeiroException, CandidaturaTardiaException, CandidatoDemasiadoNovoException {
         Candidato c = new Candidato(data_bi, bi, filicao, arquivo, nome, profissao, idade, morada, nacionalidade);
         Candidatura can = new Candidatura(candidaturaDAO.getAvailableId(), data, c, eleicao);
         Eleicao el = eleicaoDAO.get(eleicao);

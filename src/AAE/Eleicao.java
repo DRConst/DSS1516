@@ -11,11 +11,11 @@ import java.util.Date;
  */
 public class Eleicao {
     public String Nome;
-    public Date data;
+    public java.sql.Date data;
     public EleitorDAO votantes;
-    String tipo;
+    public String tipo;
 
-    public Eleicao(String nome, Date data, String tipo) {
+    public Eleicao(String nome, java.sql.Date data, String tipo) {
         Nome = nome;
         this.data = data;
         this.tipo = tipo;
@@ -39,7 +39,7 @@ public class Eleicao {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(java.sql.Date data) {
         this.data = data;
     }
 
