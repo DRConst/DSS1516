@@ -32,6 +32,7 @@ public class AAE {
     }
     
     public void adicionarCandidato(String eleicao, java.sql.Date data_bi, int bi, String arquivo, String filicao, String nome, String profissao, int idade, String morada, String nacionalidade, java.sql.Date data) throws AssinaturasInsuficientesExceptions, CandidatoEstrangeiroException, CandidaturaTardiaException, CandidatoDemasiadoNovoException {
+        
         Candidato c = new Candidato(data_bi, bi, filicao, arquivo, nome, profissao, idade, morada, nacionalidade);
         Candidatura can = new Candidatura(candidaturaDAO.getAvailableId(), data, c, eleicao);
         Eleicao el = eleicaoDAO.get(eleicao);
@@ -171,7 +172,7 @@ public class AAE {
 
     }
 
-    public void registarEleicao(String nome, boolean isLeg, Date date) throws EleicaoJaRegistadaException {
+    public void registarEleicao(String nome, boolean isLeg, java.sql.Date date) throws EleicaoJaRegistadaException {
         if(eleicaoDAO.containsKey(nome))
             throw new EleicaoJaRegistadaException();
 

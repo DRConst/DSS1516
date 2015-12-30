@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import AAE.AAE;
 import AAE.Login;
 import AAE.Serializer;
 import AAE.UserAuthenticationFailedException;
@@ -26,6 +27,7 @@ public class LoginFR extends javax.swing.JFrame {
     
         private static MainFR main;
         private static Login login;
+        private AAE aae;
     /**
      * Creates new form Login
      */
@@ -122,7 +124,7 @@ public class LoginFR extends javax.swing.JFrame {
            String x= null;
             try {
                 if (login.authenticateUser(UsernameField.getText(),PasswordField.getText())) {
-                    main = new MainFR(this);
+                    main = new MainFR(this,aae);
                     //Shows Menu interface upon LoginFR success
                     main.setVisible(true);
                     this.setVisible(false);

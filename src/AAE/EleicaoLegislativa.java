@@ -15,7 +15,7 @@ public class EleicaoLegislativa extends Eleicao {
 
     public MapaEleitoralDAO mapas;
 
-    public EleicaoLegislativa(String nome, Date data) {
+    public EleicaoLegislativa(String nome, java.sql.Date data) {
         super(nome, data, "legislativas");
     }
 

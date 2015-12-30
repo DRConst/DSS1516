@@ -15,7 +15,7 @@ public class EleicaoPresidencial extends Eleicao{
     private CandidatoDAO candidatos;
     private CandidaturaDAO candidaturas;
 
-    public EleicaoPresidencial(String nome, Date data) {
+    public EleicaoPresidencial(String nome, java.sql.Date data) {
         super(nome,data, "presidenciais");
     }
     public HashMap<Candidato, Integer> gerarEstatisticas()

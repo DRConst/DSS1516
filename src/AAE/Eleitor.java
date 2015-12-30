@@ -13,6 +13,8 @@ public class Eleitor {
     public static int vPresidenteType = 1;
     public static int escType = 2;
     public static int secType = 3;
+    public static int deputado = 4;
+    public static int delegado = 5;
 
 
     private String nrEleitor;
@@ -22,9 +24,11 @@ public class Eleitor {
     private String distrito;
     private String concelho;
     private String freguesia;
+    private Integer cargoVP;
+    private Integer cargoL;
 
-
-    public Eleitor(String nrEleitor, String nome, Integer idade, java.sql.Date dataR, String distrito, String concelho, String freguesia, Integer tipo) {
+    
+    public Eleitor(String nrEleitor, String nome, Integer idade, java.sql.Date dataR, String distrito, String concelho, String freguesia) {
         this.nrEleitor = nrEleitor;
         Nome = nome;
         Idade = idade;
@@ -32,10 +36,21 @@ public class Eleitor {
         this.distrito = distrito;
         this.concelho = concelho;
         this.freguesia = freguesia;
-        this.tipo = tipo;
+    }
+    
+    public Eleitor(String nrEleitor, String nome, Integer idade, java.sql.Date dataR, String distrito, String concelho, String freguesia, Integer cargoVP, Integer cargoL) {
+        this.nrEleitor = nrEleitor;
+        Nome = nome;
+        Idade = idade;
+        this.dataR = dataR;
+        this.distrito = distrito;
+        this.concelho = concelho;
+        this.freguesia = freguesia;
+        this.cargoVP = cargoVP;
+        this.cargoL = cargoL;
     }
 
-    private Integer tipo;
+   
 
     public String getNrEleitor() {
         return nrEleitor;
@@ -61,7 +76,7 @@ public class Eleitor {
         this.Idade = Idade;
     }
 
-    public Date getDataR() {
+    public java.sql.Date getDataR() {
         return dataR;
     }
 

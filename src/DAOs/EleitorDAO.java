@@ -12,6 +12,23 @@ import java.util.*;
 public class EleitorDAO implements Map<String,Eleitor> {
     
     public Connection conn;
+
+    public EleitorDAO(String s){
+        try{
+            conn = SqlConnect.connect();
+            PreparedStatement ps = conn.prepareStatement(s);
+            ps.executeUpdate();
+        }catch (SQLException | ClassNotFoundException e) { 
+            e.printStackTrace(); 
+        } finally { 
+            try {
+                conn.close();
+                conn = null;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     
     public void clear () {       
         try {
@@ -68,9 +85,7 @@ public class EleitorDAO implements Map<String,Eleitor> {
             PreparedStatement ps = conn.prepareStatement("Select * from eleitor where `Nr de eleitor`'" +(String)key +"'");
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                Date dataRec = Calendar.getInstance();
-                dataRec.setTimeInMillis(rs.getTimestamp("Data Recenciamento").getTime());
-                c = new Eleitor(rs.getString("`Nr de eleitor`"),rs.getString("Nome"),rs.getInt("Idade"), dataRec, rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia"),rs.getString("Lista"));
+                c = new Eleitor(rs.getString("`Nr de eleitor`"),rs.getString("Nome"),rs.getInt("Idade"), rs.getDate("Data Recenciamento"), rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia"));
             }
         } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
@@ -134,7 +149,7 @@ public class EleitorDAO implements Map<String,Eleitor> {
             conn = SqlConnect.connect();
             PreparedStatement ps = conn.prepareStatement("DELETE FROM Eleitor WHERE `Nr de Eleitor` ='"+key+"''");
             ps.executeUpdate();
-            PreparedStatement sql =conn.prepareStatement("INSERT INTO  VALUES ('"+key+"','"+value.getNome()+"','"+value.getIdade()+"','"+value.getDataR()+"','"+value.getDistrito()+"','"+value.getConcelho()+"','"+value.getFreguesia()+"','"+value.getLista()+"')");
+            PreparedStatement sql =conn.prepareStatement("INSERT INTO  VALUES ('"+key+"','"+value.getNome()+"','"+value.getIdade()+"','"+value.getDataR()+"','"+value.getDistrito()+"','"+value.getConcelho()+"','"+value.getFreguesia()+"')");
             sql.executeUpdate();
            } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
@@ -145,7 +160,7 @@ public class EleitorDAO implements Map<String,Eleitor> {
                 e.printStackTrace(); 
             } 
         }
-         return new Eleitor(key,value.getNome(),value.getIdade(),value.getDataR(),value.getDistrito(),value.getConcelho(),value.getFreguesia(),value.getLista());
+         return new Eleitor(key,value.getNome(),value.getIdade(),value.getDataR(),value.getDistrito(),value.getConcelho(),value.getFreguesia());
     }
 
     public void putAll(Map<? extends String,? extends Eleitor> t) {
@@ -199,9 +214,7 @@ public class EleitorDAO implements Map<String,Eleitor> {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Eleitor");
             ResultSet rs = ps.executeQuery();
             for (;rs.next();) {
-                Date dataRec = Calendar.getInstance();
-                dataRec.setTimeInMillis(rs.getTimestamp("Data Recenciamento").getTime());
-                res.add(new Eleitor(rs.getString("Nr de eleitor"),rs.getString("Nome"),rs.getInt("Idade"), dataRec, rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia"),rs.getString("Lista")));
+                res.add(new Eleitor(rs.getString("Nr de eleitor"),rs.getString("Nome"),rs.getInt("Idade"), rs.getDate("Data Recenciamento"), rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia")));
                 }
         } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 

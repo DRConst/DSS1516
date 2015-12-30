@@ -28,7 +28,7 @@ public class Login implements Serializable
         salts = l.getSalts();
     }
 
-    public void registerUser(String userName, String password, String name, String gender, String address, Calendar birth) throws IOException, NoSuchAlgorithmException, UserAlreadyRegisteredException {
+    public void registerUser(String userName, String password) throws IOException, NoSuchAlgorithmException, UserAlreadyRegisteredException {
         byte[] salt = genSalt();
         byte[] hash = genHash(salt, password);
         if(hashes.containsKey(userName))

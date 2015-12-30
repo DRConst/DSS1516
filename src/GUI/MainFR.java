@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import AAE.AAE;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -18,6 +19,7 @@ public class MainFR extends javax.swing.JFrame {
 
     private LoginFR loginFrame;
     private MenuFR menuFrame;
+    private AAE aae;    
     
     /**
      * Creates new form Main
@@ -26,10 +28,11 @@ public class MainFR extends javax.swing.JFrame {
         initComponents();
     }
     
-    public MainFR(LoginFR lg) {
+    public MainFR(LoginFR lg , AAE a) {
         initComponents();
         loginFrame = lg;
         menuFrame = new MenuFR();
+        aae = a;
     }
 
     /**
@@ -105,7 +108,7 @@ public class MainFR extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CAEButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CAEButtonActionPerformed
-        menuFrame = new MenuFR(this);
+        menuFrame = new MenuFR(this, aae);
         menuFrame.setVisible(true);
         menuFrame.VisibleCAE();
         this.dispose();// TODO add your handling code here:
@@ -117,7 +120,7 @@ public class MainFR extends javax.swing.JFrame {
     }//GEN-LAST:event_LogoutButtonActionPerformed
 
     private void GAEButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GAEButtonActionPerformed
-        menuFrame = new MenuFR(this);
+        menuFrame = new MenuFR(this, aae);
         menuFrame.setVisible(true);
         menuFrame.VisibleGAE();
         this.dispose();

@@ -35,7 +35,7 @@ public class Eleicao {
         this.Nome = Nome;
     }
 
-    public Date getData() {
+    public java.sql.Date getData() {
         return data;
     }
 

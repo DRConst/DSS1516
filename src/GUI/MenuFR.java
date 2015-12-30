@@ -5,6 +5,17 @@
  */
 package GUI;
 
+import AAE.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.sql.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+
 /**
  *
  * @author Carlos
@@ -12,6 +23,7 @@ package GUI;
 public class MenuFR extends javax.swing.JFrame {
 
     private MainFR mainFrame;
+    private AAE aae;
     /**
      * Creates new form CAE
      */
@@ -19,9 +31,10 @@ public class MenuFR extends javax.swing.JFrame {
         initComponents();
     }
     
-    public MenuFR(MainFR m) {
+    public MenuFR(MainFR m, AAE a) {
         initComponents();
-        mainFrame = m;        
+        mainFrame = m;
+        aae = a;
     }
 
     /**
@@ -48,11 +61,7 @@ public class MenuFR extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList();
         jLabel5 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList();
         jComboBox10 = new javax.swing.JComboBox();
         jComboBox11 = new javax.swing.JComboBox();
         jTextField1 = new javax.swing.JTextField();
@@ -60,39 +69,12 @@ public class MenuFR extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
-        GerirAssembleiasPanel = new javax.swing.JPanel();
-        EleicaoLabel = new javax.swing.JLabel();
-        FreguesiaLabel = new javax.swing.JLabel();
-        PresidenteLabel = new javax.swing.JLabel();
-        VPresidenteLabel = new javax.swing.JLabel();
-        SecretarioLabel = new javax.swing.JLabel();
-        EscrutinadoresLabel = new javax.swing.JLabel();
-        ElComboBox = new javax.swing.JComboBox();
-        FrComboBox = new javax.swing.JComboBox();
-        NomePTextField = new javax.swing.JTextField();
-        BIPTextField = new javax.swing.JTextField();
-        BIVPTextField = new javax.swing.JTextField();
-        NomeVPTextField = new javax.swing.JTextField();
-        BISecTextField = new javax.swing.JTextField();
-        NomeSecTextField = new javax.swing.JTextField();
-        BIEscTextField = new javax.swing.JTextField();
-        NomeEscTextField = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
-        jScrollBar1 = new javax.swing.JScrollBar();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        Confirmar4 = new javax.swing.JButton();
-        RegistarEleiçãoPanel = new javax.swing.JPanel();
-        Confirmar5 = new javax.swing.JButton();
-        EleiçãoComboBox1 = new javax.swing.JComboBox();
-        EleiçãoLabel2 = new javax.swing.JLabel();
-        DataLabel1 = new javax.swing.JLabel();
-        jComboBox7 = new javax.swing.JComboBox();
-        jComboBox8 = new javax.swing.JComboBox();
-        jComboBox9 = new javax.swing.JComboBox();
-        EleiçãoLabel3 = new javax.swing.JLabel();
-        EleiçãoComboBox2 = new javax.swing.JComboBox();
+        jButton4 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jEditorPane1 = new javax.swing.JEditorPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jEditorPane2 = new javax.swing.JEditorPane();
         AdicionarCandidatosPanel = new javax.swing.JPanel();
         Confirmar7 = new javax.swing.JButton();
         EleiçãoLabel1 = new javax.swing.JLabel();
@@ -121,6 +103,46 @@ public class MenuFR extends javax.swing.JFrame {
         jComboBox4 = new javax.swing.JComboBox();
         AdicionarVotantesPanel = new javax.swing.JPanel();
         Confirmar8 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
+        GerirAssembleiasPanel = new javax.swing.JPanel();
+        EleicaoLabel = new javax.swing.JLabel();
+        FreguesiaLabel = new javax.swing.JLabel();
+        PresidenteLabel = new javax.swing.JLabel();
+        VPresidenteLabel = new javax.swing.JLabel();
+        SecretarioLabel = new javax.swing.JLabel();
+        EscrutinadoresLabel = new javax.swing.JLabel();
+        ElComboBox = new javax.swing.JComboBox();
+        FrComboBox = new javax.swing.JComboBox();
+        NomePTextField = new javax.swing.JTextField();
+        BIPTextField = new javax.swing.JTextField();
+        BIVPTextField = new javax.swing.JTextField();
+        NomeVPTextField = new javax.swing.JTextField();
+        BISecTextField = new javax.swing.JTextField();
+        NomeSecTextField = new javax.swing.JTextField();
+        BIEscTextField = new javax.swing.JTextField();
+        NomeEscTextField = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList();
+        jScrollBar1 = new javax.swing.JScrollBar();
+        jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        Confirmar4 = new javax.swing.JButton();
+        RegistarEleiçãoPanel = new javax.swing.JPanel();
+        Confirmar5 = new javax.swing.JButton();
+        EleiçãoComboBox1 = new javax.swing.JComboBox();
+        EleiçãoLabel2 = new javax.swing.JLabel();
+        DataLabel1 = new javax.swing.JLabel();
+        DiaE = new javax.swing.JComboBox();
+        MesE = new javax.swing.JComboBox();
+        AnoE = new javax.swing.JComboBox();
+        EleiçãoLabel3 = new javax.swing.JLabel();
+        EleiçãoComboBox2 = new javax.swing.JComboBox();
+        jLabel8 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
         LogoCNE1 = new javax.swing.JLabel();
         GerirActoEleitoral = new javax.swing.JPanel();
         RegistarVotos = new javax.swing.JButton();
@@ -128,18 +150,15 @@ public class MenuFR extends javax.swing.JFrame {
         AtribuirMandatos = new javax.swing.JButton();
         GerarEstatísticas = new javax.swing.JButton();
         Back1 = new javax.swing.JButton();
-        GerarEstatísticasPanel = new javax.swing.JPanel();
-        Confirmar3 = new javax.swing.JButton();
-        Eleicao2 = new javax.swing.JLabel();
-        Lista2 = new javax.swing.JLabel();
-        EleicaoComboBox2 = new javax.swing.JComboBox();
-        ListaComboBox1 = new javax.swing.JComboBox();
-        CirculoLabel = new javax.swing.JLabel();
-        CirculoComboBox = new javax.swing.JComboBox();
-        PercentagemTextField2 = new javax.swing.JTextField();
-        Percentagem1 = new javax.swing.JLabel();
-        CandidatosLabel1 = new javax.swing.JLabel();
-        CandidatosComboBox1 = new javax.swing.JComboBox();
+        RegistarVotosPanel = new javax.swing.JPanel();
+        LocalizacaoLabel = new javax.swing.JLabel();
+        VRLabel = new javax.swing.JLabel();
+        VVLabel = new javax.swing.JLabel();
+        LocalizacaoTextField = new javax.swing.JTextField();
+        VRTextField = new javax.swing.JTextField();
+        VVTextField = new javax.swing.JTextField();
+        Confirmar2 = new javax.swing.JButton();
+        SButton = new javax.swing.JButton();
         DeclararVencedorPanel = new javax.swing.JPanel();
         Confirmar1 = new javax.swing.JButton();
         Lista1 = new javax.swing.JLabel();
@@ -158,15 +177,18 @@ public class MenuFR extends javax.swing.JFrame {
         ListaComboBox = new javax.swing.JComboBox();
         DeputadosTextField = new javax.swing.JTextField();
         Confirmar = new javax.swing.JButton();
-        RegistarVotosPanel = new javax.swing.JPanel();
-        LocalizacaoLabel = new javax.swing.JLabel();
-        VRLabel = new javax.swing.JLabel();
-        VVLabel = new javax.swing.JLabel();
-        LocalizacaoTextField = new javax.swing.JTextField();
-        VRTextField = new javax.swing.JTextField();
-        VVTextField = new javax.swing.JTextField();
-        Confirmar2 = new javax.swing.JButton();
-        SButton = new javax.swing.JButton();
+        GerarEstatísticasPanel = new javax.swing.JPanel();
+        Confirmar3 = new javax.swing.JButton();
+        Eleicao2 = new javax.swing.JLabel();
+        Lista2 = new javax.swing.JLabel();
+        EleicaoComboBox2 = new javax.swing.JComboBox();
+        ListaComboBox1 = new javax.swing.JComboBox();
+        CirculoLabel = new javax.swing.JLabel();
+        CirculoComboBox = new javax.swing.JComboBox();
+        PercentagemTextField2 = new javax.swing.JTextField();
+        Percentagem1 = new javax.swing.JLabel();
+        CandidatosLabel1 = new javax.swing.JLabel();
+        CandidatosComboBox1 = new javax.swing.JComboBox();
         LogoCNE2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -241,36 +263,81 @@ public class MenuFR extends javax.swing.JFrame {
 
         Confirmar6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         Confirmar6.setText("Confirmar");
+        Confirmar6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Confirmar6ActionPerformed(evt);
+            }
+        });
 
+        jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel1.setText("Eleição :");
 
+        jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel2.setText("Nome : ");
 
+        jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel3.setText("Círculo :");
 
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel4.setText("Deputados");
 
-        jScrollPane2.setViewportView(jList2);
-
+        jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel5.setText("Delegados");
 
-        jScrollPane3.setViewportView(jList3);
+        jComboBox10.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
+        jComboBox11.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        jTextField1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel6.setText("Nome :");
 
+        jTextField2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel7.setText("BI");
+
+        jTextField3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        jButton4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButton4.setText("«");
+        jButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jButton4.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButton4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButton7.setText("»");
+        jButton7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jButton7.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButton7.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jScrollPane2.setViewportView(jEditorPane1);
+
+        jScrollPane3.setViewportView(jEditorPane2);
 
         javax.swing.GroupLayout AdicionarListasPanelLayout = new javax.swing.GroupLayout(AdicionarListasPanel);
         AdicionarListasPanel.setLayout(AdicionarListasPanelLayout);
         AdicionarListasPanelLayout.setHorizontalGroup(
             AdicionarListasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdicionarListasPanelLayout.createSequentialGroup()
+            .addGroup(AdicionarListasPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(AdicionarListasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AdicionarListasPanelLayout.createSequentialGroup()
@@ -283,331 +350,80 @@ public class MenuFR extends javax.swing.JFrame {
                         .addComponent(jComboBox10, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(AdicionarListasPanelLayout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdicionarListasPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Confirmar6)
-                .addGap(88, 88, 88))
-            .addGroup(AdicionarListasPanelLayout.createSequentialGroup()
-                .addGroup(AdicionarListasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(AdicionarListasPanelLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(AdicionarListasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel6)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(AdicionarListasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(AdicionarListasPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField3))))
-                    .addGroup(AdicionarListasPanelLayout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(jLabel4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addGroup(AdicionarListasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(AdicionarListasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(AdicionarListasPanelLayout.createSequentialGroup()
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(AdicionarListasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel6)
+                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(AdicionarListasPanelLayout.createSequentialGroup()
+                                                .addComponent(jLabel7)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdicionarListasPanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                                .addComponent(jLabel4)
+                                .addGap(336, 336, 336)
+                                .addComponent(jLabel5)
+                                .addGap(134, 134, 134))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdicionarListasPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(50, 50, 50)))
-                .addGap(192, 192, 192))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(Confirmar6)))
+                .addContainerGap())
         );
         AdicionarListasPanelLayout.setVerticalGroup(
             AdicionarListasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AdicionarListasPanelLayout.createSequentialGroup()
-                .addGroup(AdicionarListasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(96, 96, 96)
+                .addGroup(AdicionarListasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(jComboBox10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(58, 58, 58)
+                .addGroup(AdicionarListasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGroup(AdicionarListasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(AdicionarListasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AdicionarListasPanelLayout.createSequentialGroup()
-                        .addGap(96, 96, 96)
+                        .addGap(57, 57, 57)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(AdicionarListasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addComponent(jComboBox10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(58, 58, 58)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(AdicionarListasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(99, 99, 99)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabel7)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(AdicionarListasPanelLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
                         .addGroup(AdicionarListasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(AdicionarListasPanelLayout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 72, Short.MAX_VALUE))
-                            .addGroup(AdicionarListasPanelLayout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(AdicionarListasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Confirmar6))))
-                    .addGroup(AdicionarListasPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(72, 72, 72)))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(88, 88, 88)
+                .addComponent(Confirmar6)
                 .addContainerGap())
         );
 
         ConfigurarActoEleitoral.add(AdicionarListasPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 720, 570));
-
-        GerirAssembleiasPanel.setBackground(new java.awt.Color(255, 255, 255));
-        GerirAssembleiasPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        EleicaoLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        EleicaoLabel.setText("Eleição :");
-
-        FreguesiaLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        FreguesiaLabel.setText("Freguesia :");
-
-        PresidenteLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        PresidenteLabel.setText("Presidente :");
-
-        VPresidenteLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        VPresidenteLabel.setText("V.Presidente :");
-
-        SecretarioLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        SecretarioLabel.setText("Secretário :");
-
-        EscrutinadoresLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        EscrutinadoresLabel.setText("Escrutinadores :");
-
-        ElComboBox.setEditable(true);
-        ElComboBox.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-
-        FrComboBox.setEditable(true);
-        FrComboBox.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-
-        NomePTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        NomePTextField.setText("Nome");
-
-        BIPTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        BIPTextField.setText("BI");
-
-        BIVPTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        BIVPTextField.setText("BI");
-
-        NomeVPTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        NomeVPTextField.setText("Nome");
-
-        BISecTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        BISecTextField.setText("BI");
-
-        NomeSecTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        NomeSecTextField.setText("Nome");
-
-        BIEscTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        BIEscTextField.setText("BI");
-
-        NomeEscTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        NomeEscTextField.setText("Nome");
-
-        jList1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jScrollPane1.setViewportView(jList1);
-
-        jButton1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        jButton1.setText("«");
-        jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButton1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-
-        jButton3.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        jButton3.setText("»");
-        jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jButton3.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButton3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-
-        Confirmar4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        Confirmar4.setText("Confirmar");
-
-        javax.swing.GroupLayout GerirAssembleiasPanelLayout = new javax.swing.GroupLayout(GerirAssembleiasPanel);
-        GerirAssembleiasPanel.setLayout(GerirAssembleiasPanelLayout);
-        GerirAssembleiasPanelLayout.setHorizontalGroup(
-            GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(VPresidenteLabel)
-                    .addComponent(SecretarioLabel)
-                    .addComponent(EscrutinadoresLabel)
-                    .addComponent(EleicaoLabel)
-                    .addComponent(PresidenteLabel)
-                    .addComponent(FreguesiaLabel))
-                .addGap(30, 30, 30)
-                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(ElComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(FrComboBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
-                        .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(NomeVPTextField)
-                                .addComponent(NomeSecTextField)
-                                .addComponent(NomePTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
-                                .addGap(183, 183, 183)
-                                .addComponent(jButton1))
-                            .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3)))
-                        .addGap(49, 49, 49)
-                        .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(BISecTextField)
-                                .addComponent(BIVPTextField)
-                                .addComponent(BIPTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                                .addComponent(BIEscTextField))
-                            .addComponent(NomeEscTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GerirAssembleiasPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Confirmar4)
-                .addGap(45, 45, 45))
-        );
-        GerirAssembleiasPanelLayout.setVerticalGroup(
-            GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(EleicaoLabel)
-                    .addComponent(ElComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(FreguesiaLabel)
-                    .addComponent(FrComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PresidenteLabel)
-                    .addComponent(NomePTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BIPTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(VPresidenteLabel)
-                    .addComponent(NomeVPTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BIVPTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SecretarioLabel)
-                    .addComponent(NomeSecTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BISecTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
-                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
-                    .addComponent(EscrutinadoresLabel)
-                    .addComponent(jScrollBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
-                                .addComponent(NomeEscTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(BIEscTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(5, 5, 5)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                .addComponent(Confirmar4)
-                .addGap(25, 25, 25))
-        );
-
-        ConfigurarActoEleitoral.add(GerirAssembleiasPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 720, 570));
-
-        RegistarEleiçãoPanel.setBackground(new java.awt.Color(255, 255, 255));
-        RegistarEleiçãoPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        Confirmar5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        Confirmar5.setText("Confirmar");
-
-        EleiçãoComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Eleições", " " }));
-
-        EleiçãoLabel2.setText("Eleição :");
-
-        DataLabel1.setText("Data :");
-
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dia", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", " " }));
-        jComboBox7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox7ActionPerformed(evt);
-            }
-        });
-
-        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mês", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
-
-        jComboBox9.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ano", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
-
-        EleiçãoLabel3.setText("Eleição :");
-
-        EleiçãoComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Eleições", " " }));
-
-        javax.swing.GroupLayout RegistarEleiçãoPanelLayout = new javax.swing.GroupLayout(RegistarEleiçãoPanel);
-        RegistarEleiçãoPanel.setLayout(RegistarEleiçãoPanelLayout);
-        RegistarEleiçãoPanelLayout.setHorizontalGroup(
-            RegistarEleiçãoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(RegistarEleiçãoPanelLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(RegistarEleiçãoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(RegistarEleiçãoPanelLayout.createSequentialGroup()
-                        .addComponent(DataLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(RegistarEleiçãoPanelLayout.createSequentialGroup()
-                        .addComponent(EleiçãoLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(EleiçãoComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistarEleiçãoPanelLayout.createSequentialGroup()
-                .addContainerGap(375, Short.MAX_VALUE)
-                .addGroup(RegistarEleiçãoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistarEleiçãoPanelLayout.createSequentialGroup()
-                        .addComponent(Confirmar5)
-                        .addGap(26, 26, 26))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistarEleiçãoPanelLayout.createSequentialGroup()
-                        .addComponent(EleiçãoLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(EleiçãoComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(107, 107, 107))))
-        );
-        RegistarEleiçãoPanelLayout.setVerticalGroup(
-            RegistarEleiçãoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistarEleiçãoPanelLayout.createSequentialGroup()
-                .addGap(152, 152, 152)
-                .addGroup(RegistarEleiçãoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(EleiçãoLabel2)
-                    .addComponent(EleiçãoComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(80, 80, 80)
-                .addGroup(RegistarEleiçãoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(EleiçãoLabel3)
-                    .addComponent(EleiçãoComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
-                .addGroup(RegistarEleiçãoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(DataLabel1)
-                    .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(142, 142, 142)
-                .addComponent(Confirmar5)
-                .addContainerGap())
-        );
-
-        ConfigurarActoEleitoral.add(RegistarEleiçãoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 720, 570));
 
         AdicionarCandidatosPanel.setBackground(new java.awt.Color(255, 255, 255));
         AdicionarCandidatosPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -620,42 +436,71 @@ public class MenuFR extends javax.swing.JFrame {
             }
         });
 
+        EleiçãoLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         EleiçãoLabel1.setText("Eleição :");
 
+        BILabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         BILabel.setText("BI :");
 
+        NomeLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         NomeLabel.setText("Nome :");
 
+        DataLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         DataLabel.setText("Data :");
 
+        ArquivoLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         ArquivoLabel.setText("Arquivo :");
 
+        DatadeNascimentoLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         DatadeNascimentoLabel.setText("Data de Nascimento :");
 
+        NaturalidadeLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         NaturalidadeLabel.setText("Naturalidade :");
 
+        Filiação.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         Filiação.setText("Filiação :");
 
+        Morada.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         Morada.setText("Morada :");
 
+        EleiçãoComboBox.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         EleiçãoComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Eleições", " " }));
 
+        BITextField1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        NomeTextField2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        RuaTextField3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         RuaTextField3.setText("Rua");
 
+        LocalidadeTextField4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         LocalidadeTextField4.setText("Localidade");
 
+        CodigoPostalTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         CodigoPostalTextField.setText("Codigo Postal");
 
+        NaturalidadeTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        FiliaçãoTextField7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        ArquivoTextField8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        jComboBox2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mês", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
 
+        jComboBox3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ano", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
 
+        jComboBox5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mês", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
 
+        jComboBox6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ano", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
 
+        jComboBox12.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jComboBox12.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dia", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", " " }));
 
+        jComboBox4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dia", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", " " }));
 
         javax.swing.GroupLayout AdicionarCandidatosPanelLayout = new javax.swing.GroupLayout(AdicionarCandidatosPanel);
@@ -687,27 +532,28 @@ public class MenuFR extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(AdicionarCandidatosPanelLayout.createSequentialGroup()
                                         .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(5, 5, 5)
-                                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(29, 29, 29)
+                                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(17, 17, 17)
                                         .addComponent(ArquivoLabel)
-                                        .addGap(18, 18, 18)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(ArquivoTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(AdicionarCandidatosPanelLayout.createSequentialGroup()
                                 .addGap(294, 294, 294)
-                                .addComponent(Confirmar7))))
+                                .addComponent(Confirmar7)))
+                        .addContainerGap())
                     .addGroup(AdicionarCandidatosPanelLayout.createSequentialGroup()
                         .addGroup(AdicionarCandidatosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(AdicionarCandidatosPanelLayout.createSequentialGroup()
                                 .addComponent(Morada)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(RuaTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(39, 39, 39)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(LocalidadeTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(CodigoPostalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -768,7 +614,7 @@ public class MenuFR extends javax.swing.JFrame {
                 .addGroup(AdicionarCandidatosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NaturalidadeLabel)
                     .addComponent(NaturalidadeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addGroup(AdicionarCandidatosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Filiação)
                     .addComponent(FiliaçãoTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -785,24 +631,340 @@ public class MenuFR extends javax.swing.JFrame {
         Confirmar8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         Confirmar8.setText("Confirmar");
 
+        jLabel9.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel9.setText("Ficheiro Eleitores :");
+
+        jButton2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButton2.setText("...");
+
+        jLabel10.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel10.setText("Eleitores Registados :");
+
+        jTextField6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout AdicionarVotantesPanelLayout = new javax.swing.GroupLayout(AdicionarVotantesPanel);
         AdicionarVotantesPanel.setLayout(AdicionarVotantesPanelLayout);
         AdicionarVotantesPanelLayout.setHorizontalGroup(
             AdicionarVotantesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AdicionarVotantesPanelLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(AdicionarVotantesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AdicionarVotantesPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(AdicionarVotantesPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)))
+                .addContainerGap(38, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdicionarVotantesPanelLayout.createSequentialGroup()
-                .addContainerGap(595, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Confirmar8)
-                .addGap(32, 32, 32))
+                .addContainerGap())
         );
         AdicionarVotantesPanelLayout.setVerticalGroup(
             AdicionarVotantesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdicionarVotantesPanelLayout.createSequentialGroup()
-                .addContainerGap(530, Short.MAX_VALUE)
+                .addGap(196, 196, 196)
+                .addGroup(AdicionarVotantesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addGap(128, 128, 128)
+                .addGroup(AdicionarVotantesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
                 .addComponent(Confirmar8)
                 .addContainerGap())
         );
 
         ConfigurarActoEleitoral.add(AdicionarVotantesPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 720, 570));
+
+        GerirAssembleiasPanel.setBackground(new java.awt.Color(255, 255, 255));
+        GerirAssembleiasPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        EleicaoLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        EleicaoLabel.setText("Eleição :");
+
+        FreguesiaLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        FreguesiaLabel.setText("Freguesia :");
+
+        PresidenteLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        PresidenteLabel.setText("Presidente :");
+
+        VPresidenteLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        VPresidenteLabel.setText("V.Presidente :");
+
+        SecretarioLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        SecretarioLabel.setText("Secretário :");
+
+        EscrutinadoresLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        EscrutinadoresLabel.setText("Escrutinadores :");
+
+        ElComboBox.setEditable(true);
+        ElComboBox.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        FrComboBox.setEditable(true);
+        FrComboBox.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        NomePTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        NomePTextField.setText("Nome");
+
+        BIPTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        BIPTextField.setText("BI");
+
+        BIVPTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        BIVPTextField.setText("BI");
+
+        NomeVPTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        NomeVPTextField.setText("Nome");
+
+        BISecTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        BISecTextField.setText("BI");
+
+        NomeSecTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        NomeSecTextField.setText("Nome");
+
+        BIEscTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        BIEscTextField.setText("BI");
+
+        NomeEscTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        NomeEscTextField.setText("Nome");
+
+        jList1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jScrollPane1.setViewportView(jList1);
+
+        jScrollBar1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        jButton1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButton1.setText("«");
+        jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButton1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        jButton3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButton3.setText("»");
+        jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jButton3.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButton3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        Confirmar4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        Confirmar4.setText("Confirmar");
+
+        javax.swing.GroupLayout GerirAssembleiasPanelLayout = new javax.swing.GroupLayout(GerirAssembleiasPanel);
+        GerirAssembleiasPanel.setLayout(GerirAssembleiasPanelLayout);
+        GerirAssembleiasPanelLayout.setHorizontalGroup(
+            GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(VPresidenteLabel)
+                    .addComponent(SecretarioLabel)
+                    .addComponent(EscrutinadoresLabel)
+                    .addComponent(EleicaoLabel)
+                    .addComponent(PresidenteLabel)
+                    .addComponent(FreguesiaLabel))
+                .addGap(30, 30, 30)
+                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(ElComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(FrComboBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
+                        .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(NomeVPTextField)
+                                .addComponent(NomeSecTextField)
+                                .addComponent(NomePTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
+                                .addGap(183, 183, 183)
+                                .addComponent(jButton1))
+                            .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3)))
+                        .addGap(49, 49, 49)
+                        .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(BISecTextField)
+                                .addComponent(BIVPTextField)
+                                .addComponent(BIPTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                                .addComponent(BIEscTextField))
+                            .addComponent(NomeEscTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GerirAssembleiasPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Confirmar4)
+                .addContainerGap())
+        );
+        GerirAssembleiasPanelLayout.setVerticalGroup(
+            GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(EleicaoLabel)
+                    .addComponent(ElComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(FreguesiaLabel)
+                    .addComponent(FrComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(PresidenteLabel)
+                    .addComponent(NomePTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BIPTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(VPresidenteLabel)
+                    .addComponent(NomeVPTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BIVPTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SecretarioLabel)
+                    .addComponent(NomeSecTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BISecTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(EscrutinadoresLabel)
+                    .addComponent(jScrollBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
+                                .addComponent(NomeEscTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(BIEscTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(5, 5, 5)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addComponent(Confirmar4)
+                .addContainerGap())
+        );
+
+        ConfigurarActoEleitoral.add(GerirAssembleiasPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 720, 570));
+
+        RegistarEleiçãoPanel.setBackground(new java.awt.Color(255, 255, 255));
+        RegistarEleiçãoPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        Confirmar5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        Confirmar5.setText("Confirmar");
+        Confirmar5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Confirmar5ActionPerformed(evt);
+            }
+        });
+
+        EleiçãoComboBox1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        EleiçãoComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Legislativas", "Presidenciais" }));
+
+        EleiçãoLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        EleiçãoLabel2.setText("Eleição :");
+
+        DataLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        DataLabel1.setText("Data :");
+
+        DiaE.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        DiaE.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dia", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", " " }));
+        DiaE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DiaEActionPerformed(evt);
+            }
+        });
+
+        MesE.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        MesE.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mês", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+
+        AnoE.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        AnoE.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ano", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
+
+        EleiçãoLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        EleiçãoLabel3.setText("Eleição Marcadas :");
+
+        EleiçãoComboBox2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        EleiçãoComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Eleições", " " }));
+        EleiçãoComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EleiçãoComboBox2ActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel8.setText("Nome da Eleição :");
+
+        jTextField4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout RegistarEleiçãoPanelLayout = new javax.swing.GroupLayout(RegistarEleiçãoPanel);
+        RegistarEleiçãoPanel.setLayout(RegistarEleiçãoPanelLayout);
+        RegistarEleiçãoPanelLayout.setHorizontalGroup(
+            RegistarEleiçãoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(RegistarEleiçãoPanelLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(RegistarEleiçãoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(RegistarEleiçãoPanelLayout.createSequentialGroup()
+                        .addComponent(EleiçãoLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(EleiçãoComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                        .addComponent(EleiçãoLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(EleiçãoComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48))
+                    .addGroup(RegistarEleiçãoPanelLayout.createSequentialGroup()
+                        .addGroup(RegistarEleiçãoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(RegistarEleiçãoPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(RegistarEleiçãoPanelLayout.createSequentialGroup()
+                                .addComponent(DataLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(DiaE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(MesE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(AnoE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistarEleiçãoPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Confirmar5)
+                .addContainerGap())
+        );
+        RegistarEleiçãoPanelLayout.setVerticalGroup(
+            RegistarEleiçãoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistarEleiçãoPanelLayout.createSequentialGroup()
+                .addGap(136, 136, 136)
+                .addGroup(RegistarEleiçãoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(99, 99, 99)
+                .addGroup(RegistarEleiçãoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(EleiçãoLabel3)
+                    .addComponent(EleiçãoComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EleiçãoLabel2)
+                    .addComponent(EleiçãoComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
+                .addGroup(RegistarEleiçãoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DataLabel1)
+                    .addComponent(DiaE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MesE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AnoE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(91, 91, 91)
+                .addComponent(Confirmar5)
+                .addContainerGap())
+        );
+
+        ConfigurarActoEleitoral.add(RegistarEleiçãoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 720, 570));
 
         LogoCNE1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/CNE.png"))); // NOI18N
         ConfigurarActoEleitoral.add(LogoCNE1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 170));
@@ -857,126 +1019,86 @@ public class MenuFR extends javax.swing.JFrame {
         });
         GerirActoEleitoral.add(Back1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, -1));
 
-        GerarEstatísticasPanel.setBackground(new java.awt.Color(255, 255, 255));
-        GerarEstatísticasPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        RegistarVotosPanel.setBackground(new java.awt.Color(255, 255, 255));
+        RegistarVotosPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        Confirmar3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        Confirmar3.setText("Confirmar");
+        LocalizacaoLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        LocalizacaoLabel.setText("Localização :");
 
-        Eleicao2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        Eleicao2.setText("Eleição :");
+        VRLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        VRLabel.setText("Votos registados :");
 
-        Lista2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        Lista2.setText("Lista :");
+        VVLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        VVLabel.setText("Votos validos :");
 
-        EleicaoComboBox2.setEditable(true);
-        EleicaoComboBox2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        LocalizacaoTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        ListaComboBox1.setEditable(true);
-        ListaComboBox1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        VRTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        CirculoLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        CirculoLabel.setText("Circulo :");
+        VVTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        CirculoComboBox.setEditable(true);
-        CirculoComboBox.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        Confirmar2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        Confirmar2.setText("Confirmar");
 
-        PercentagemTextField2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        PercentagemTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        PercentagemTextField2.setText("%");
-        PercentagemTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PercentagemTextField2ActionPerformed(evt);
-            }
-        });
+        SButton.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        SButton.setText("...");
 
-        Percentagem1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        Percentagem1.setText("Percentagem :");
-
-        CandidatosLabel1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        CandidatosLabel1.setText("Candidatos :");
-
-        CandidatosComboBox1.setEditable(true);
-        CandidatosComboBox1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        CandidatosComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CandidatosComboBox1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout GerarEstatísticasPanelLayout = new javax.swing.GroupLayout(GerarEstatísticasPanel);
-        GerarEstatísticasPanel.setLayout(GerarEstatísticasPanelLayout);
-        GerarEstatísticasPanelLayout.setHorizontalGroup(
-            GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GerarEstatísticasPanelLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GerarEstatísticasPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(Confirmar3)
-                        .addGap(37, 37, 37))
-                    .addGroup(GerarEstatísticasPanelLayout.createSequentialGroup()
-                        .addGroup(GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CirculoLabel)
-                            .addGroup(GerarEstatísticasPanelLayout.createSequentialGroup()
-                                .addComponent(Percentagem1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(PercentagemTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(GerarEstatísticasPanelLayout.createSequentialGroup()
-                                .addGroup(GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Eleicao2)
-                                    .addComponent(Lista2)
-                                    .addComponent(CandidatosLabel1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(EleicaoComboBox2, 0, 233, Short.MAX_VALUE)
-                                        .addComponent(ListaComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(CirculoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(CandidatosComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(362, Short.MAX_VALUE))))
+        javax.swing.GroupLayout RegistarVotosPanelLayout = new javax.swing.GroupLayout(RegistarVotosPanel);
+        RegistarVotosPanel.setLayout(RegistarVotosPanelLayout);
+        RegistarVotosPanelLayout.setHorizontalGroup(
+            RegistarVotosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(RegistarVotosPanelLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addGroup(RegistarVotosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(RegistarVotosPanelLayout.createSequentialGroup()
+                        .addComponent(LocalizacaoLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(LocalizacaoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(SButton)
+                        .addContainerGap(72, Short.MAX_VALUE))
+                    .addGroup(RegistarVotosPanelLayout.createSequentialGroup()
+                        .addComponent(VRLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(VRTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(VVLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(VVTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistarVotosPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Confirmar2)
+                .addContainerGap())
         );
-        GerarEstatísticasPanelLayout.setVerticalGroup(
-            GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GerarEstatísticasPanelLayout.createSequentialGroup()
-                .addGap(101, 101, 101)
-                .addGroup(GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(GerarEstatísticasPanelLayout.createSequentialGroup()
-                        .addGap(29, 394, Short.MAX_VALUE)
-                        .addComponent(Confirmar3)
-                        .addGap(40, 40, 40))
-                    .addGroup(GerarEstatísticasPanelLayout.createSequentialGroup()
-                        .addGroup(GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Eleicao2)
-                            .addComponent(EleicaoComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(67, 67, 67)
-                        .addGroup(GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(CirculoLabel)
-                            .addComponent(CirculoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(80, 80, 80)
-                        .addGroup(GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Lista2)
-                            .addComponent(ListaComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addGroup(GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(CandidatosComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CandidatosLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(57, 57, 57)
-                        .addGroup(GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Percentagem1)
-                            .addComponent(PercentagemTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+        RegistarVotosPanelLayout.setVerticalGroup(
+            RegistarVotosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(RegistarVotosPanelLayout.createSequentialGroup()
+                .addGap(200, 200, 200)
+                .addGroup(RegistarVotosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LocalizacaoLabel)
+                    .addComponent(LocalizacaoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
+                .addGroup(RegistarVotosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(VRLabel)
+                    .addComponent(VVLabel)
+                    .addComponent(VRTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(VVTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(112, 112, 112)
+                .addComponent(Confirmar2)
+                .addContainerGap())
         );
 
-        GerirActoEleitoral.add(GerarEstatísticasPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 720, 570));
+        GerirActoEleitoral.add(RegistarVotosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 720, 570));
 
         DeclararVencedorPanel.setBackground(new java.awt.Color(255, 255, 255));
         DeclararVencedorPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        Confirmar1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        Confirmar1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         Confirmar1.setText("Confirmar");
 
-        Lista1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        Lista1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         Lista1.setText("Partidos :");
 
         PartidosComboBox1.setEditable(true);
@@ -987,10 +1109,10 @@ public class MenuFR extends javax.swing.JFrame {
             }
         });
 
-        Eleicao1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        Eleicao1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         Eleicao1.setText("Eleição :");
 
-        Percentagem.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        Percentagem.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         Percentagem.setText("Percentagem :");
 
         PercentagemTextField1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -1005,7 +1127,7 @@ public class MenuFR extends javax.swing.JFrame {
         EleicaoComboBox1.setEditable(true);
         EleicaoComboBox1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        CandidatosLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        CandidatosLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         CandidatosLabel.setText("Candidatos :");
 
         CandidatosComboBox.setEditable(true);
@@ -1034,11 +1156,11 @@ public class MenuFR extends javax.swing.JFrame {
                         .addComponent(PartidosComboBox1, 0, 167, Short.MAX_VALUE)
                         .addComponent(PercentagemTextField1))
                     .addComponent(CandidatosComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(315, Short.MAX_VALUE))
+                .addContainerGap(337, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DeclararVencedorPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Confirmar1)
-                .addGap(24, 24, 24))
+                .addContainerGap())
         );
         DeclararVencedorPanelLayout.setVerticalGroup(
             DeclararVencedorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1059,9 +1181,9 @@ public class MenuFR extends javax.swing.JFrame {
                 .addGroup(DeclararVencedorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Percentagem)
                     .addComponent(PercentagemTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                 .addComponent(Confirmar1)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         GerirActoEleitoral.add(DeclararVencedorPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 720, 570));
@@ -1069,13 +1191,13 @@ public class MenuFR extends javax.swing.JFrame {
         AtribuirMandatosPanel.setBackground(new java.awt.Color(255, 255, 255));
         AtribuirMandatosPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        Eleicao.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        Eleicao.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         Eleicao.setText("Eleição :");
 
-        Lista.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        Lista.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         Lista.setText("Lista :");
 
-        Deputados.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        Deputados.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         Deputados.setText("Deputados :");
 
         EleicaoComboBox.setEditable(true);
@@ -1091,7 +1213,7 @@ public class MenuFR extends javax.swing.JFrame {
             }
         });
 
-        Confirmar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        Confirmar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         Confirmar.setText("Confirmar");
 
         javax.swing.GroupLayout AtribuirMandatosPanelLayout = new javax.swing.GroupLayout(AtribuirMandatosPanel);
@@ -1109,11 +1231,11 @@ public class MenuFR extends javax.swing.JFrame {
                     .addComponent(EleicaoComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ListaComboBox, 0, 167, Short.MAX_VALUE)
                     .addComponent(DeputadosTextField))
-                .addContainerGap(343, Short.MAX_VALUE))
+                .addContainerGap(363, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AtribuirMandatosPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Confirmar)
-                .addGap(24, 24, 24))
+                .addContainerGap())
         );
         AtribuirMandatosPanelLayout.setVerticalGroup(
             AtribuirMandatosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1130,85 +1252,119 @@ public class MenuFR extends javax.swing.JFrame {
                 .addGroup(AtribuirMandatosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Deputados)
                     .addComponent(DeputadosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                 .addComponent(Confirmar)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         GerirActoEleitoral.add(AtribuirMandatosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 720, 570));
 
-        RegistarVotosPanel.setBackground(new java.awt.Color(255, 255, 255));
-        RegistarVotosPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        GerarEstatísticasPanel.setBackground(new java.awt.Color(255, 255, 255));
+        GerarEstatísticasPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        LocalizacaoLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        LocalizacaoLabel.setText("Localização :");
+        Confirmar3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        Confirmar3.setText("Confirmar");
 
-        VRLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        VRLabel.setText("Votos registados :");
+        Eleicao2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        Eleicao2.setText("Eleição :");
 
-        VVLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        VVLabel.setText("Votos validos :");
+        Lista2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        Lista2.setText("Lista :");
 
-        LocalizacaoTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        EleicaoComboBox2.setEditable(true);
+        EleicaoComboBox2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        VRTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        ListaComboBox1.setEditable(true);
+        ListaComboBox1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        VVTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        CirculoLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        CirculoLabel.setText("Circulo :");
 
-        Confirmar2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        Confirmar2.setText("Confirmar");
+        CirculoComboBox.setEditable(true);
+        CirculoComboBox.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        SButton.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        SButton.setText("...");
+        PercentagemTextField2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        PercentagemTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        PercentagemTextField2.setText("%");
+        PercentagemTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PercentagemTextField2ActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout RegistarVotosPanelLayout = new javax.swing.GroupLayout(RegistarVotosPanel);
-        RegistarVotosPanel.setLayout(RegistarVotosPanelLayout);
-        RegistarVotosPanelLayout.setHorizontalGroup(
-            RegistarVotosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistarVotosPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Confirmar2)
-                .addGap(30, 30, 30))
-            .addGroup(RegistarVotosPanelLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(RegistarVotosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(RegistarVotosPanelLayout.createSequentialGroup()
-                        .addComponent(LocalizacaoLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(LocalizacaoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+        Percentagem1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        Percentagem1.setText("Percentagem :");
+
+        CandidatosLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        CandidatosLabel1.setText("Candidatos :");
+
+        CandidatosComboBox1.setEditable(true);
+        CandidatosComboBox1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        CandidatosComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CandidatosComboBox1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout GerarEstatísticasPanelLayout = new javax.swing.GroupLayout(GerarEstatísticasPanel);
+        GerarEstatísticasPanel.setLayout(GerarEstatísticasPanelLayout);
+        GerarEstatísticasPanelLayout.setHorizontalGroup(
+            GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GerarEstatísticasPanelLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CirculoLabel)
+                    .addGroup(GerarEstatísticasPanelLayout.createSequentialGroup()
+                        .addComponent(Percentagem1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SButton)
-                        .addContainerGap(49, Short.MAX_VALUE))
-                    .addGroup(RegistarVotosPanelLayout.createSequentialGroup()
-                        .addComponent(VRLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(VRTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(VVLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(VVTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47))))
+                        .addComponent(PercentagemTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(GerarEstatísticasPanelLayout.createSequentialGroup()
+                        .addGroup(GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Eleicao2)
+                            .addComponent(Lista2)
+                            .addComponent(CandidatosLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(EleicaoComboBox2, 0, 233, Short.MAX_VALUE)
+                                .addComponent(ListaComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(CirculoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(CandidatosComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(384, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GerarEstatísticasPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Confirmar3)
+                .addContainerGap())
         );
-        RegistarVotosPanelLayout.setVerticalGroup(
-            RegistarVotosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(RegistarVotosPanelLayout.createSequentialGroup()
-                .addGap(200, 200, 200)
-                .addGroup(RegistarVotosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(LocalizacaoLabel)
-                    .addComponent(LocalizacaoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
-                .addGroup(RegistarVotosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(VRLabel)
-                    .addComponent(VVLabel)
-                    .addComponent(VRTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(VVTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(90, 90, 90)
-                .addComponent(Confirmar2)
-                .addGap(33, 33, 33))
+        GerarEstatísticasPanelLayout.setVerticalGroup(
+            GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GerarEstatísticasPanelLayout.createSequentialGroup()
+                .addGap(101, 101, 101)
+                .addGroup(GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Eleicao2)
+                    .addComponent(EleicaoComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(67, 67, 67)
+                .addGroup(GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CirculoLabel)
+                    .addComponent(CirculoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(80, 80, 80)
+                .addGroup(GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Lista2)
+                    .addComponent(ListaComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CandidatosComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CandidatosLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(57, 57, 57)
+                .addGroup(GerarEstatísticasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Percentagem1)
+                    .addComponent(PercentagemTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addComponent(Confirmar3)
+                .addContainerGap())
         );
 
-        GerirActoEleitoral.add(RegistarVotosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 720, 570));
+        GerirActoEleitoral.add(GerarEstatísticasPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 720, 570));
 
         LogoCNE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/CNE.png"))); // NOI18N
         GerirActoEleitoral.add(LogoCNE2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 170));
@@ -1236,6 +1392,7 @@ public class MenuFR extends javax.swing.JFrame {
         AdicionarListasPanel.setVisible(false);
         AdicionarVotantesPanel.setVisible(false);
         GerirAssembleiasPanel.setVisible(false);
+        this.atualiza();
         // TODO add your handling code here:
     }//GEN-LAST:event_RegistarEleiçãoActionPerformed
 
@@ -1263,9 +1420,9 @@ public class MenuFR extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CandidatosComboBox1ActionPerformed
 
-    private void jComboBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox7ActionPerformed
+    private void DiaEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DiaEActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox7ActionPerformed
+    }//GEN-LAST:event_DiaEActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
@@ -1384,6 +1541,45 @@ public class MenuFR extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_GerirAssembleiasActionPerformed
 
+    private void EleiçãoComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EleiçãoComboBox2ActionPerformed
+        ArrayList<Eleicao> eleicoes = aae.getEleicaoDAO();
+        for(Eleicao e : eleicoes){
+            EleiçãoComboBox2.addItem(e.getNome());
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EleiçãoComboBox2ActionPerformed
+
+    private void Confirmar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Confirmar5ActionPerformed
+        String date = AnoE.getSelectedItem()+"-"+MesE.getSelectedItem()+"-"+ DiaE.getSelectedItem();
+        java.sql.Date d = java.sql.Date.valueOf(date);
+        aae.adicionarEleicao(jTextField4.getText(), d, (String)EleiçãoComboBox1.getSelectedItem());
+        this.atualiza();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Confirmar5ActionPerformed
+
+    private void Confirmar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Confirmar6ActionPerformed
+       // aae.adicionarLista((String)jComboBox11.getSelectedItem(), jTextField1.getText(), (String) jComboBox10.getSelectedItem(), dep, del);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Confirmar6ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+      
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        
+        
+            // TODO add your handling code here:
+                
+// TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+     public void atualiza(){
+         ArrayList<Eleicao> eleicoes = aae.getEleicaoDAO();
+        for(Eleicao e : eleicoes){
+            EleiçãoComboBox2.addItem(e.getNome());
+        }
+     }
      public void VisibleCAE(){
             GerirActoEleitoral.setVisible(false);
             AdicionarCandidatosPanel.setVisible(false);
@@ -1454,6 +1650,7 @@ public class MenuFR extends javax.swing.JFrame {
     private javax.swing.JPanel AdicionarListasPanel;
     private javax.swing.JButton AdicionarVotantes;
     private javax.swing.JPanel AdicionarVotantesPanel;
+    private javax.swing.JComboBox AnoE;
     private javax.swing.JLabel ArquivoLabel;
     private javax.swing.JTextField ArquivoTextField8;
     private javax.swing.JButton AtribuirMandatos;
@@ -1490,6 +1687,7 @@ public class MenuFR extends javax.swing.JFrame {
     private javax.swing.JPanel DeclararVencedorPanel;
     private javax.swing.JLabel Deputados;
     private javax.swing.JTextField DeputadosTextField;
+    private javax.swing.JComboBox DiaE;
     private javax.swing.JComboBox ElComboBox;
     private javax.swing.JLabel Eleicao;
     private javax.swing.JLabel Eleicao1;
@@ -1525,6 +1723,7 @@ public class MenuFR extends javax.swing.JFrame {
     private javax.swing.JLabel LogoCNE;
     private javax.swing.JLabel LogoCNE1;
     private javax.swing.JLabel LogoCNE2;
+    private javax.swing.JComboBox MesE;
     private javax.swing.JLabel Morada;
     private javax.swing.JLabel NaturalidadeLabel;
     private javax.swing.JTextField NaturalidadeTextField;
@@ -1553,7 +1752,10 @@ public class MenuFR extends javax.swing.JFrame {
     private javax.swing.JLabel VVLabel;
     private javax.swing.JTextField VVTextField;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton7;
     private javax.swing.JComboBox jComboBox10;
     private javax.swing.JComboBox jComboBox11;
     private javax.swing.JComboBox jComboBox12;
@@ -1562,20 +1764,20 @@ public class MenuFR extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBox4;
     private javax.swing.JComboBox jComboBox5;
     private javax.swing.JComboBox jComboBox6;
-    private javax.swing.JComboBox jComboBox7;
-    private javax.swing.JComboBox jComboBox8;
-    private javax.swing.JComboBox jComboBox9;
+    private javax.swing.JEditorPane jEditorPane1;
+    private javax.swing.JEditorPane jEditorPane2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JList jList1;
-    private javax.swing.JList jList2;
-    private javax.swing.JList jList3;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -1583,5 +1785,8 @@ public class MenuFR extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
 }
