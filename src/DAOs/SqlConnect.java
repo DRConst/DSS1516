@@ -21,14 +21,14 @@ public class SqlConnect {
     private  static Connection connection;
     
     public static Connection connect() throws ClassNotFoundException {
-        if (connection == null) {
+        //if (connection == null) {
         try {
             Class.forName(DATABASE_DRIVER);
             connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD); 
         }   catch (SQLException e) {
              throw new IllegalStateException("Cannot connect the database!", e);
             }
-        }
+        //}
         return connection;
     }
 }
