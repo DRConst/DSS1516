@@ -69,7 +69,27 @@ public class MapaEleitoralDAO implements Map<Integer, MapaEleitoral> {
         MapaEleitoral av = null;
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("Select * from `Mapa Eleitoral` where codigo'" +(Integer)key +"'");
+            PreparedStatement ps = conn.prepareStatement("Select * from `Mapa Legislativo` where codigo'" + key +"'");
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                av = new MapaEleitoral(rs.getInt("ML_id"),rs.getString("Distrito"),rs.getInt("Nr de deputados"),rs.getInt("Nr de eleitores"), rs.getString("eleicao"));
+            }
+        } catch (SQLException  | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return av;
+    }
+    public MapaEleitoral getPorDistrito(String distrito, String el) {
+        MapaEleitoral av = null;
+        try {
+            conn = SqlConnect.connect();
+            PreparedStatement ps = conn.prepareStatement("Select * from `Mapa Legislativo` where distrito = '" + distrito +"' and eleicao = '" + el + "';");
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                 av = new MapaEleitoral(rs.getInt("ML_id"),rs.getString("Distrito"),rs.getInt("Nr de deputados"),rs.getInt("Nr de eleitores"), rs.getString("eleicao"));
@@ -134,7 +154,7 @@ public class MapaEleitoralDAO implements Map<Integer, MapaEleitoral> {
     public MapaEleitoral put(Integer key, MapaEleitoral value) {
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM `Mapa Legislativo` WHERE codigo='"+key+"'");
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM `Mapa Legislativo` WHERE ML_id='"+key+"'");
             ps.executeUpdate();
             PreparedStatement sql =conn.prepareStatement("INSERT INTO `Mapa Legislativo` VALUES ('"+key+"','"+value.getEleitores()+"','"+value.getDeputados()+"','"+value.getDistrito()+"','"+value.getEleicao()+"')");
             sql.executeUpdate();
@@ -238,14 +258,41 @@ public class MapaEleitoralDAO implements Map<Integer, MapaEleitoral> {
         return res;
     }
 
+    public ArrayList<String> getListas (String mapa, String eleicao){
+        ArrayList<String> res = new ArrayList<>();
+        Integer map = getPorDistrito(mapa, eleicao).getId();
+        try{
+            conn =SqlConnect.connect();
+            PreparedStatement ps = conn.prepareStatement("Select * from `Lista`;");
+            ResultSet rs = ps.executeQuery();
+            for (;rs.next();){
+                    if(map == rs.getInt("Mapa Legislativo"))
+                    {
+                        res.add(rs.getString("codigo"));
+                    }
+            }
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }finally{
+            try{
+                conn.close();
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return res;
+    }
+
     public int getAvailableId()
     {
         try{
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("Select max(id) from `Mapa Eleitoral`;");
+            PreparedStatement ps = conn.prepareStatement("Select max(ML_id) from `Mapa Legislativo`;");
             ResultSet rs = ps.executeQuery();
-
-            return rs.getInt(0);
+            if (!rs.next() ) {
+                return 1;
+            }else
+            return rs.getInt(1) + 1;
         }catch (SQLException | ClassNotFoundException e){
             e.printStackTrace();
         }finally{

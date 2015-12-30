@@ -23,7 +23,7 @@ public class Eleicao {
 
     public void registarAssembleia(AssembleiaDeVoto assembleiaDeVoto)
     {
-        new AssembleiaDeVotoDAO().put(assembleiaDeVoto.getCodigo(), assembleiaDeVoto);
+        new AssembleiaDeVotoDAO().registarAssembleia(assembleiaDeVoto.getCodigo(), assembleiaDeVoto);
     }
 
 

@@ -16,29 +16,6 @@ public class MapaEleitoral {
 
     HashMap<Lista, Integer> votosPorLista;
 
-    static HashMap<String, Integer> circulos = new HashMap<String, Integer> (){{
-        circulos.put("Aveiro", 16);
-        circulos.put("Beja", 3);
-        circulos.put("Braga", 19);
-        circulos.put("Bragança", 3);
-        circulos.put("Castelo Branco", 4);
-        circulos.put("Coimbra", 10);
-        circulos.put("Évora", 3);
-        circulos.put("Faro", 8);
-        circulos.put("Guarda", 4);
-        circulos.put("Leiria", 10);
-        circulos.put("Lisboa", 47);
-        circulos.put("Portalegre", 2);
-        circulos.put("Porto",39);
-        circulos.put("Santarém", 10);
-        circulos.put("Setubál", 17);
-        circulos.put("Viana do Castelo", 6);
-        circulos.put("Vila Real", 5);
-        circulos.put("Viseu", 9);
-        circulos.put("Madeira", 9);
-        circulos.put("Açores", 9);
-    }};
-
 
     public MapaEleitoral(Integer id,String distrito, int deputados, int eleitores, String eleicao) {
         this.id = id;

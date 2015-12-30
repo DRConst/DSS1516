@@ -13,8 +13,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JList;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
@@ -33,6 +35,7 @@ public class MenuFR extends javax.swing.JFrame {
     public MenuFR() {
         initComponents();
         aae = new AAE();
+        setAllInvisible();
     }
     
     public MenuFR(MainFR m, AAE a) {
@@ -46,6 +49,7 @@ public class MenuFR extends javax.swing.JFrame {
         {
             aae = a;
         }
+        setAllInvisible();
     }
 
     /**
@@ -117,6 +121,7 @@ public class MenuFR extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         deputados = new javax.swing.JComboBox();
         delegados = new javax.swing.JComboBox();
+        newCircleButton = new javax.swing.JButton();
         GerirAssembleiasPanel = new javax.swing.JPanel();
         EleicaoLabel = new javax.swing.JLabel();
         FreguesiaLabel = new javax.swing.JLabel();
@@ -134,12 +139,13 @@ public class MenuFR extends javax.swing.JFrame {
         NomeSecTextField = new javax.swing.JTextField();
         BIEscTextField = new javax.swing.JTextField();
         NomeEscTextField = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
-        jScrollBar1 = new javax.swing.JScrollBar();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         Confirmar4 = new javax.swing.JButton();
+        novaAssembleiaButton = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        FreguesiaLabel1 = new javax.swing.JLabel();
+        FrComboBox1 = new javax.swing.JComboBox();
         RegistarEleiçãoPanel = new javax.swing.JPanel();
         Confirmar5 = new javax.swing.JButton();
         EleiçãoComboBox1 = new javax.swing.JComboBox();
@@ -153,6 +159,30 @@ public class MenuFR extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         LogoCNE1 = new javax.swing.JLabel();
+        NovoCirculoPanel = new javax.swing.JPanel();
+        confirmarNovoCirculo = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        NovoCirculoNomeText = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        NovoCirculoEleitorText = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        NovoCirculoDepText = new javax.swing.JTextField();
+        EleicaoLabel1 = new javax.swing.JLabel();
+        NovoCirculoElCombo = new javax.swing.JComboBox();
+        NovaFreguesiaPanel = new javax.swing.JPanel();
+        confirmarNovoCirculo1 = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        NovaFeguesiaNomeText = new javax.swing.JTextField();
+        EleicaoLabel2 = new javax.swing.JLabel();
+        NovaFreguesiaElCombo = new javax.swing.JComboBox();
+        jLabel15 = new javax.swing.JLabel();
+        NovaFeguesiaNomeText1 = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        NovaFeguesiaNomeText2 = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        NovaFeguesiaNomeText3 = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        NovaFeguesiaNomeText4 = new javax.swing.JTextField();
         GerirActoEleitoral = new javax.swing.JPanel();
         RegistarVotos = new javax.swing.JButton();
         DeclararVencedor = new javax.swing.JButton();
@@ -611,6 +641,13 @@ public class MenuFR extends javax.swing.JFrame {
             }
         });
 
+        newCircleButton.setText("Novo");
+        newCircleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newCircleButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout AdicionarListasPanelLayout = new javax.swing.GroupLayout(AdicionarListasPanel);
         AdicionarListasPanel.setLayout(AdicionarListasPanelLayout);
         AdicionarListasPanelLayout.setHorizontalGroup(
@@ -661,7 +698,10 @@ public class MenuFR extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(jLabel3)
                         .addGap(29, 29, 29)
-                        .addComponent(jComboBox10, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBox10, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(newCircleButton)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         AdicionarListasPanelLayout.setVerticalGroup(
@@ -672,7 +712,8 @@ public class MenuFR extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel3)
                     .addComponent(jComboBox10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newCircleButton))
                 .addGap(58, 58, 58)
                 .addGroup(AdicionarListasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -726,6 +767,11 @@ public class MenuFR extends javax.swing.JFrame {
 
         ElComboBox.setEditable(true);
         ElComboBox.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        ElComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ElComboBoxActionPerformed(evt);
+            }
+        });
 
         FrComboBox.setEditable(true);
         FrComboBox.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -754,17 +800,17 @@ public class MenuFR extends javax.swing.JFrame {
         NomeEscTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         NomeEscTextField.setText("Nome");
 
-        jList1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jScrollPane1.setViewportView(jList1);
-
-        jScrollBar1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-
         jButton1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButton1.setText("«");
         jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButton3.setText("»");
@@ -775,52 +821,94 @@ public class MenuFR extends javax.swing.JFrame {
 
         Confirmar4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         Confirmar4.setText("Confirmar");
+        Confirmar4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Confirmar4ActionPerformed(evt);
+            }
+        });
+
+        novaAssembleiaButton.setText("Nova");
+        novaAssembleiaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                novaAssembleiaButtonActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setEditable(true);
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        FreguesiaLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        FreguesiaLabel1.setText("Concelho :");
+
+        FrComboBox1.setEditable(true);
+        FrComboBox1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        FrComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                FrComboBox1ItemStateChanged(evt);
+            }
+        });
+        FrComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FrComboBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout GerirAssembleiasPanelLayout = new javax.swing.GroupLayout(GerirAssembleiasPanel);
         GerirAssembleiasPanel.setLayout(GerirAssembleiasPanelLayout);
         GerirAssembleiasPanelLayout.setHorizontalGroup(
             GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
                 .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(VPresidenteLabel)
-                    .addComponent(SecretarioLabel)
-                    .addComponent(EscrutinadoresLabel)
-                    .addComponent(EleicaoLabel)
-                    .addComponent(PresidenteLabel)
-                    .addComponent(FreguesiaLabel))
-                .addGap(30, 30, 30)
-                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(ElComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(FrComboBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GerirAssembleiasPanelLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Confirmar4))
                     .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
+                        .addGap(55, 55, 55)
                         .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(NomeVPTextField)
-                                .addComponent(NomeSecTextField)
-                                .addComponent(NomePTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(EleicaoLabel)
+                            .addComponent(FreguesiaLabel1))
+                        .addGap(59, 59, 59)
+                        .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ElComboBox, 0, 177, Short.MAX_VALUE)
+                            .addComponent(FrComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GerirAssembleiasPanelLayout.createSequentialGroup()
+                        .addGap(0, 177, Short.MAX_VALUE)
+                        .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(VPresidenteLabel)
+                            .addComponent(SecretarioLabel)
+                            .addComponent(EscrutinadoresLabel)
+                            .addComponent(PresidenteLabel)
+                            .addComponent(FreguesiaLabel))
+                        .addGap(27, 27, 27)
+                        .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(NomeVPTextField)
+                                    .addComponent(NomeSecTextField)
+                                    .addComponent(NomePTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jButton1)
+                                        .addComponent(jButton3))))
                             .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
-                                .addGap(183, 183, 183)
-                                .addComponent(jButton1))
-                            .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3)))
+                                .addComponent(FrComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15)))
                         .addGap(49, 49, 49)
                         .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(novaAssembleiaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(BISecTextField)
                                 .addComponent(BIVPTextField)
-                                .addComponent(BIPTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                                .addComponent(BIEscTextField))
+                                .addComponent(BIPTextField)
+                                .addComponent(BIEscTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(NomeEscTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GerirAssembleiasPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Confirmar4)
                 .addContainerGap())
         );
         GerirAssembleiasPanelLayout.setVerticalGroup(
@@ -830,10 +918,15 @@ public class MenuFR extends javax.swing.JFrame {
                 .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(EleicaoLabel)
                     .addComponent(ElComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addGap(14, 14, 14)
+                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(FreguesiaLabel1)
+                    .addComponent(FrComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
                 .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(FreguesiaLabel)
-                    .addComponent(FrComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(FrComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(novaAssembleiaButton))
                 .addGap(21, 21, 21)
                 .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(PresidenteLabel)
@@ -850,10 +943,11 @@ public class MenuFR extends javax.swing.JFrame {
                     .addComponent(NomeSecTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BISecTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
-                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
-                    .addComponent(EscrutinadoresLabel)
-                    .addComponent(jScrollBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
+                        .addComponent(EscrutinadoresLabel)
+                        .addGap(40, 40, 40)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addGroup(GerirAssembleiasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -863,10 +957,10 @@ public class MenuFR extends javax.swing.JFrame {
                                 .addComponent(BIEscTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(GerirAssembleiasPanelLayout.createSequentialGroup()
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(5, 5, 5)
                                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(5, 5, 5)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                 .addComponent(Confirmar4)
                 .addContainerGap())
         );
@@ -987,6 +1081,188 @@ public class MenuFR extends javax.swing.JFrame {
 
         LogoCNE1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/CNE.png"))); // NOI18N
         ConfigurarActoEleitoral.add(LogoCNE1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 170));
+
+        NovoCirculoPanel.setBackground(new java.awt.Color(255, 255, 255));
+        NovoCirculoPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        confirmarNovoCirculo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        confirmarNovoCirculo.setText("Confirmar");
+        confirmarNovoCirculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmarNovoCirculoActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel11.setText("Nome:");
+
+        jLabel12.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel12.setText("Eleitores Registados :");
+
+        NovoCirculoEleitorText.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        jLabel13.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel13.setText("Deputados Possíveis");
+
+        NovoCirculoDepText.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        EleicaoLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        EleicaoLabel1.setText("Eleição :");
+
+        NovoCirculoElCombo.setEditable(true);
+        NovoCirculoElCombo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout NovoCirculoPanelLayout = new javax.swing.GroupLayout(NovoCirculoPanel);
+        NovoCirculoPanel.setLayout(NovoCirculoPanelLayout);
+        NovoCirculoPanelLayout.setHorizontalGroup(
+            NovoCirculoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(NovoCirculoPanelLayout.createSequentialGroup()
+                .addGroup(NovoCirculoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NovoCirculoPanelLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(confirmarNovoCirculo))
+                    .addGroup(NovoCirculoPanelLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(NovoCirculoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(NovoCirculoPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(NovoCirculoEleitorText))
+                            .addGroup(NovoCirculoPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(NovoCirculoDepText))
+                            .addGroup(NovoCirculoPanelLayout.createSequentialGroup()
+                                .addGroup(NovoCirculoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(EleicaoLabel1))
+                                .addGap(77, 77, 77)
+                                .addGroup(NovoCirculoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(NovoCirculoElCombo, 0, 217, Short.MAX_VALUE)
+                                    .addComponent(NovoCirculoNomeText))))
+                        .addGap(0, 342, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        NovoCirculoPanelLayout.setVerticalGroup(
+            NovoCirculoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NovoCirculoPanelLayout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addGroup(NovoCirculoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(EleicaoLabel1)
+                    .addComponent(NovoCirculoElCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(95, 95, 95)
+                .addGroup(NovoCirculoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(NovoCirculoNomeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(104, 104, 104)
+                .addGroup(NovoCirculoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(NovoCirculoEleitorText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addGroup(NovoCirculoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(NovoCirculoDepText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(73, 73, 73)
+                .addComponent(confirmarNovoCirculo)
+                .addContainerGap())
+        );
+
+        ConfigurarActoEleitoral.add(NovoCirculoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 720, 570));
+
+        NovaFreguesiaPanel.setBackground(new java.awt.Color(255, 255, 255));
+        NovaFreguesiaPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        confirmarNovoCirculo1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        confirmarNovoCirculo1.setText("Confirmar");
+        confirmarNovoCirculo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmarNovoCirculo1ActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel14.setText("Concelho:");
+
+        EleicaoLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        EleicaoLabel2.setText("Eleição :");
+
+        NovaFreguesiaElCombo.setEditable(true);
+        NovaFreguesiaElCombo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        jLabel15.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel15.setText("Freguesia:");
+
+        jLabel16.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel16.setText("Hora de Abertura:");
+
+        jLabel17.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel17.setText("Hora de Encerramentp:");
+
+        jLabel18.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel18.setText("Local:");
+
+        javax.swing.GroupLayout NovaFreguesiaPanelLayout = new javax.swing.GroupLayout(NovaFreguesiaPanel);
+        NovaFreguesiaPanel.setLayout(NovaFreguesiaPanelLayout);
+        NovaFreguesiaPanelLayout.setHorizontalGroup(
+            NovaFreguesiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(NovaFreguesiaPanelLayout.createSequentialGroup()
+                .addGroup(NovaFreguesiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NovaFreguesiaPanelLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(confirmarNovoCirculo1))
+                    .addGroup(NovaFreguesiaPanelLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(NovaFreguesiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(EleicaoLabel2)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel18))
+                        .addGap(77, 77, 77)
+                        .addGroup(NovaFreguesiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(NovaFeguesiaNomeText3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(NovaFeguesiaNomeText2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(NovaFeguesiaNomeText1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(NovaFreguesiaElCombo, javax.swing.GroupLayout.Alignment.LEADING, 0, 217, Short.MAX_VALUE)
+                            .addComponent(NovaFeguesiaNomeText, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(NovaFeguesiaNomeText4))
+                        .addGap(0, 256, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        NovaFreguesiaPanelLayout.setVerticalGroup(
+            NovaFreguesiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NovaFreguesiaPanelLayout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addGroup(NovaFreguesiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(EleicaoLabel2)
+                    .addComponent(NovaFreguesiaElCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(NovaFreguesiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(NovaFeguesiaNomeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(NovaFreguesiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(NovaFeguesiaNomeText1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addGroup(NovaFreguesiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(NovaFeguesiaNomeText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48)
+                .addGroup(NovaFreguesiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(NovaFeguesiaNomeText3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
+                .addGroup(NovaFreguesiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(NovaFeguesiaNomeText4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                .addComponent(confirmarNovoCirculo1)
+                .addContainerGap())
+        );
+
+        ConfigurarActoEleitoral.add(NovaFreguesiaPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 720, 570));
 
         jLayeredPane1.add(ConfigurarActoEleitoral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 570));
 
@@ -1292,15 +1568,30 @@ public class MenuFR extends javax.swing.JFrame {
 
         EleicaoComboBox2.setEditable(true);
         EleicaoComboBox2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        EleicaoComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EleicaoComboBox2ActionPerformed(evt);
+            }
+        });
 
         ListaComboBox1.setEditable(true);
         ListaComboBox1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        ListaComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListaComboBox1ActionPerformed(evt);
+            }
+        });
 
         CirculoLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         CirculoLabel.setText("Circulo :");
 
         CirculoComboBox.setEditable(true);
         CirculoComboBox.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        CirculoComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CirculoComboBoxActionPerformed(evt);
+            }
+        });
 
         PercentagemTextField2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         PercentagemTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -1411,7 +1702,7 @@ public class MenuFR extends javax.swing.JFrame {
         AdicionarListasPanel.setVisible(false);
         AdicionarVotantesPanel.setVisible(false);
         GerirAssembleiasPanel.setVisible(false);
-        this.atualiza();
+        this.atualizaEleicoes();
         // TODO add your handling code here:
     }//GEN-LAST:event_RegistarEleiçãoActionPerformed
 
@@ -1436,7 +1727,7 @@ public class MenuFR extends javax.swing.JFrame {
     }//GEN-LAST:event_PercentagemTextField2ActionPerformed
 
     private void CandidatosComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CandidatosComboBox1ActionPerformed
-        // TODO add your handling code here:
+        PercentagemTextField2.setText( aae.gerarEstatisticasPresidenciais((String)EleicaoComboBox2.getSelectedItem(), (String)CandidatosComboBox1.getSelectedItem()).toString());
     }//GEN-LAST:event_CandidatosComboBox1ActionPerformed
 
     private void DiaEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DiaEActionPerformed
@@ -1478,6 +1769,8 @@ public class MenuFR extends javax.swing.JFrame {
         PercentagemTextField1.setVisible(false);
         CandidatosLabel.setVisible(false);
         CandidatosComboBox.setVisible(false);
+        
+        actualizarDeclararVencedor();
 // TODO add your handling code here:
     }//GEN-LAST:event_DeclararVencedorActionPerformed
 
@@ -1497,36 +1790,23 @@ public class MenuFR extends javax.swing.JFrame {
     }//GEN-LAST:event_AtribuirMandatosActionPerformed
 
     private void GerarEstatísticasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GerarEstatísticasActionPerformed
-        RegistarVotosPanel.setVisible(false);
-        ConfigurarActoEleitoral.setVisible(false);
+        setAllInvisible();
         GerarEstatísticasPanel.setVisible(true);
-        DeclararVencedorPanel.setVisible(false);
-        AtribuirMandatosPanel.setVisible(false);
-        Confirmar3.setVisible(false);
-        Lista2.setVisible(false);
-        ListaComboBox1.setVisible(false);
-        CirculoLabel.setVisible(false);
-        CirculoComboBox.setVisible(false);
-        PercentagemTextField2.setVisible(false);
-        Percentagem1.setVisible(false);
-        CandidatosLabel1.setVisible(false);
-        CandidatosComboBox1.setVisible(false);
-
-
-// TODO add your handling code here:
+        actualizarGerarEstatisticas();
+        
     }//GEN-LAST:event_GerarEstatísticasActionPerformed
 
     private void Confirmar7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Confirmar7ActionPerformed
         Date d = new Date();
         Date db;
-        Calendar dbi = null;
-        dbi.set(Calendar.DAY_OF_MONTH, (int) jComboBox4.getSelectedItem());
-        dbi.set(Calendar.YEAR, (int) jComboBox3.getSelectedItem());
-        dbi.set(Calendar.MONTH, (int) jComboBox2.getSelectedItem());
+        Calendar dbi = new GregorianCalendar();
+        dbi.set(Calendar.DAY_OF_MONTH, Integer.parseInt((String)jComboBox4.getSelectedItem()));
+        dbi.set(Calendar.YEAR, Integer.parseInt((String)jComboBox3.getSelectedItem()));
+        dbi.set(Calendar.MONTH, Integer.parseInt((String)jComboBox2.getSelectedItem()));
         db = dbi.getTime();
         String morada = RuaTextField3.getText()+","+LocalidadeTextField4.getText()+","+CodigoPostalTextField.getText();
         try {
-            aae.adicionarCandidato((String) EleicaoComboBox.getSelectedItem(),db ,Integer.parseInt(BITextField1.getText()),ArquivoTextField8.getText(),FiliaçãoTextField7.getText(),NomeTextField2.getText(),profissaoT.getText(),(Integer) idadeC.getSelectedItem(), morada, nacionalidadeT.getText(), d);        // TODO add your handling code here:
+            aae.adicionarCandidato((String) EleiçãoComboBox.getSelectedItem(),db ,Integer.parseInt(BITextField1.getText()),ArquivoTextField8.getText(),FiliaçãoTextField7.getText(),NomeTextField2.getText(),profissaoT.getText(),Integer.parseInt((String)idadeC.getSelectedItem()), morada, nacionalidadeT.getText(), d);        // TODO add your handling code here:
         } catch (AssinaturasInsuficientesExceptions ex) {
             Logger.getLogger(MenuFR.class.getName()).log(Level.SEVERE, null, ex);
         } catch (CandidatoEstrangeiroException ex) {
@@ -1538,43 +1818,45 @@ public class MenuFR extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Confirmar7ActionPerformed
 
-    private void AdicionarListasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdicionarListasActionPerformed
-        GerirActoEleitoral.setVisible(false);
+    private void setAllInvisible()
+    {
         AdicionarCandidatosPanel.setVisible(false);
         RegistarEleiçãoPanel.setVisible(false);
-        AdicionarListasPanel.setVisible(true);
+        AdicionarListasPanel.setVisible(false);
         AdicionarVotantesPanel.setVisible(false);
         GerirAssembleiasPanel.setVisible(false);
+        NovoCirculoPanel.setVisible(false);
+        NovaFreguesiaPanel.setVisible(false);
+        GerarEstatísticasPanel.setVisible(false);
+        DeclararVencedorPanel.setVisible(false);
+        AtribuirMandatosPanel.setVisible(false);
+        RegistarVotosPanel.setVisible(false);
+    }
+    private void AdicionarListasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdicionarListasActionPerformed
+        setAllInvisible();
+        AdicionarListasPanel.setVisible(true);
+        
+        this.actualizaListas();
 // TODO add your handling code here:
     }//GEN-LAST:event_AdicionarListasActionPerformed
 
     private void AdicionarCandidatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdicionarCandidatosActionPerformed
-        GerirActoEleitoral.setVisible(false);
+        setAllInvisible();
         AdicionarCandidatosPanel.setVisible(true);
-        RegistarEleiçãoPanel.setVisible(false);
-        AdicionarListasPanel.setVisible(false);
-        AdicionarVotantesPanel.setVisible(false);
-        GerirAssembleiasPanel.setVisible(false);
+        actualizarAdicionarCandidatos();
         // TODO add your handling code here:
     }//GEN-LAST:event_AdicionarCandidatosActionPerformed
 
     private void AdicionarVotantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdicionarVotantesActionPerformed
-        GerirActoEleitoral.setVisible(false);
-        AdicionarCandidatosPanel.setVisible(false);
-        RegistarEleiçãoPanel.setVisible(false);
-        AdicionarListasPanel.setVisible(false);
+        setAllInvisible();
         AdicionarVotantesPanel.setVisible(true);
-        GerirAssembleiasPanel.setVisible(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_AdicionarVotantesActionPerformed
 
     private void GerirAssembleiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GerirAssembleiasActionPerformed
-        GerirActoEleitoral.setVisible(false);
-        AdicionarCandidatosPanel.setVisible(false);
-        RegistarEleiçãoPanel.setVisible(false);
-        AdicionarListasPanel.setVisible(false);
-        AdicionarVotantesPanel.setVisible(false);
+        setAllInvisible();
         GerirAssembleiasPanel.setVisible(true);
+        actualizarGerirAssembleias();
         // TODO add your handling code here:
     }//GEN-LAST:event_GerirAssembleiasActionPerformed
 
@@ -1597,27 +1879,35 @@ public class MenuFR extends javax.swing.JFrame {
         }
         java.sql.Date d = new java.sql.Date(tmp.getTime());
         aae.adicionarEleicao(jTextField4.getText(), d, (String)EleiçãoComboBox1.getSelectedItem());
-        this.atualiza();
+        this.atualizaEleicoes();
         // TODO add your handling code here:
     }//GEN-LAST:event_Confirmar5ActionPerformed
 
     private void Confirmar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Confirmar6ActionPerformed
         ArrayList<Integer> dp = new ArrayList<>();
         ArrayList<Integer> dl = new ArrayList<>();
-        final JList listdl = new JList(delegados.getModel());
-        final JList listdp = new JList(deputados.getModel());
-        dp = (ArrayList<Integer>) listdp.getSelectedValuesList();
-        dl = (ArrayList<Integer>) listdl.getSelectedValuesList();
+        for(int i = 0; i < delegados.getModel().getSize(); i++)
+        {
+            dl.add(Integer.parseInt((String)delegados.getModel().getElementAt(i)));
+        }
+        for(int i = 0; i < deputados.getModel().getSize(); i++)
+        {
+            dp.add(Integer.parseInt((String)deputados.getModel().getElementAt(i)));
+        }
         aae.adicionarLista((String)jComboBox11.getSelectedItem(), jTextField1.getText(), (String) jComboBox10.getSelectedItem(), dp, dl);
         // TODO add your handling code here:
     }//GEN-LAST:event_Confirmar6ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        deputados.addItem(jTextField3.getText());
+       
+        
+        if(((DefaultComboBoxModel)deputados.getModel()).getIndexOf(jTextField3.getText()) == -1)
+             deputados.addItem(jTextField3.getText());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        deputados.addItem(jTextField3.getText());        
+        if(((DefaultComboBoxModel)delegados.getModel()).getIndexOf(jTextField3.getText()) == -1)
+             delegados.addItem(jTextField3.getText());       
 
     }//GEN-LAST:event_jButton7ActionPerformed
 
@@ -1629,13 +1919,244 @@ public class MenuFR extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_delegadosActionPerformed
 
-     public void atualiza(){
+    private void newCircleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newCircleButtonActionPerformed
+        GerirActoEleitoral.setVisible(false);
+        AdicionarCandidatosPanel.setVisible(false);
+        RegistarEleiçãoPanel.setVisible(false);
+        AdicionarListasPanel.setVisible(false);
+        AdicionarVotantesPanel.setVisible(false);
+        GerirAssembleiasPanel.setVisible(false);
+        GerarEstatísticasPanel.setVisible(false);
+        RegistarVotosPanel.setVisible(false);
+        DeclararVencedorPanel.setVisible(false);
+        AtribuirMandatosPanel.setVisible(false);
+        NovoCirculoPanel.setVisible(true);
+        this.actualizarNovoCirculo();
+    }//GEN-LAST:event_newCircleButtonActionPerformed
+
+    private void confirmarNovoCirculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarNovoCirculoActionPerformed
+        String distrito = NovoCirculoNomeText.getText();
+        Integer deps = Integer.parseInt(NovoCirculoDepText.getText());
+        Integer eleitores = Integer.parseInt(NovoCirculoEleitorText.getText());
+        String el = (String)NovoCirculoElCombo.getSelectedItem();
+        
+        try {
+            aae.adicionarMapa(distrito, deps, eleitores, el);
+        } catch (DistritoInvalidoException ex) {
+            Logger.getLogger(MenuFR.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_confirmarNovoCirculoActionPerformed
+
+    private void confirmarNovoCirculo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarNovoCirculo1ActionPerformed
+        String el = (String)NovaFreguesiaElCombo.getSelectedItem();
+        String con = NovaFeguesiaNomeText.getText();
+        String freg = NovaFeguesiaNomeText1.getText();
+        String hA = NovaFeguesiaNomeText2.getText();
+        String hE = NovaFeguesiaNomeText3.getText();
+        String local = NovaFeguesiaNomeText4.getText();       
+        
+        aae.adicionarTemplateAssembleia(con, el, con, freg, hA, hE, local);
+        
+        
+    }//GEN-LAST:event_confirmarNovoCirculo1ActionPerformed
+
+    private void novaAssembleiaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novaAssembleiaButtonActionPerformed
+        setAllInvisible();
+        NovaFreguesiaPanel.setVisible(true);
+        ArrayList<Eleicao> eleicoes = aae.getEleicaoDAO();
+        NovaFreguesiaElCombo.removeAllItems();
+        NovaFreguesiaElCombo.setVisible(true);
+        for(Eleicao e : eleicoes){
+            NovaFreguesiaElCombo.addItem(e.getNome());
+        }
+    }//GEN-LAST:event_novaAssembleiaButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(((DefaultComboBoxModel)jComboBox1.getModel()).getIndexOf(BIEscTextField.getText()) == -1)
+        jComboBox1.addItem(BIEscTextField.getText());
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void Confirmar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Confirmar4ActionPerformed
+        ArrayList<String> a = new ArrayList<>();
+        for(int i = 0; i < jComboBox1.getModel().getSize(); i++)
+        {
+            a.add((String)jComboBox1.getModel().getElementAt(i));
+        }
+        try {
+            aae.actualizarAssembleia((String)ElComboBox.getSelectedItem(), (String)FrComboBox1.getSelectedItem(), (String)FrComboBox.getSelectedItem(),BIPTextField.getText(), BIVPTextField.getText(), BISecTextField.getText(), a);
+        } catch (AssembleiaInexistenteException ex) {
+            Logger.getLogger(MenuFR.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_Confirmar4ActionPerformed
+
+    private void FrComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_FrComboBox1ItemStateChanged
+        
+        
+    }//GEN-LAST:event_FrComboBox1ItemStateChanged
+
+    private void FrComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FrComboBox1ActionPerformed
+        Object obj = FrComboBox1.getSelectedItem();
+        Object obj2 = ElComboBox.getSelectedItem();
+        FrComboBox.removeAllItems();
+        if(obj != null && obj2 != null)
+        {
+            ArrayList<String> fregs = aae.getFreguesias((String)obj, (String)obj2);
+            for(String f : fregs){
+                FrComboBox.addItem(f);
+            }
+        }
+    }//GEN-LAST:event_FrComboBox1ActionPerformed
+
+    private void ElComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ElComboBoxActionPerformed
+        FrComboBox1.removeAllItems();
+        if(ElComboBox.getSelectedItem() == null)
+            return;
+       
+        ArrayList<String> conc = aae.getConcelhos((String)ElComboBox.getSelectedItem());
+        FrComboBox1.addItem("");
+        for(String c : conc){
+             FrComboBox1.addItem(c);
+         }
+        FrComboBox1ActionPerformed(evt);
+    }//GEN-LAST:event_ElComboBoxActionPerformed
+
+    private void EleicaoComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EleicaoComboBox2ActionPerformed
+        ListaComboBox1.setVisible(false);
+        CirculoComboBox.setVisible(false);
+        CandidatosComboBox1.setVisible(false);
+        CirculoLabel.setVisible(false);
+        Lista2.setVisible(false);
+        CirculoComboBox.removeAllItems();
+        CandidatosLabel1.setVisible(false);
+        
+        if(EleicaoComboBox2.getSelectedItem() == null || ((String)EleicaoComboBox2.getSelectedItem()).equals(""))
+            return;
+        
+        Eleicao el = aae.getEleicaoDAO((String)EleicaoComboBox2.getSelectedItem());
+       
+        ArrayList<String> conc = aae.getConcelhos((String)EleicaoComboBox2.getSelectedItem());
+        CirculoComboBox.addItem("");
+        for(String c : conc){
+             CirculoComboBox.addItem(c);
+         }
+        
+        if(el.getTipo().equals("presidenciais"))
+        {
+            CandidatosComboBox1.setVisible(true);
+            CandidatosLabel1.setVisible(true);
+            
+            
+            
+        }else
+        {
+            ListaComboBox1.setVisible(true);
+            CirculoComboBox.setVisible(true);
+            CirculoLabel.setVisible(true);
+            Lista2.setVisible(true);
+            
+        }
+        CirculoComboBoxActionPerformed(evt);
+    }//GEN-LAST:event_EleicaoComboBox2ActionPerformed
+
+    private void CirculoComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CirculoComboBoxActionPerformed
+        
+        
+        if(ListaComboBox1.isVisible())
+        {
+            if(CirculoComboBox.getSelectedItem() == null || ((String)CirculoComboBox.getSelectedItem()).equals(""))
+            return;
+       
+            ArrayList<String> conc = aae.getListas((String)CirculoComboBox.getSelectedItem(), (String)EleicaoComboBox2.getSelectedItem());
+            ListaComboBox1.addItem("");
+            for(String c : conc){
+                 ListaComboBox1.addItem(c);
+             }
+            ListaComboBox1ActionPerformed(evt);
+        }
+            
+    }//GEN-LAST:event_CirculoComboBoxActionPerformed
+
+    private void ListaComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListaComboBox1ActionPerformed
+        if(ListaComboBox1.getSelectedItem() == null || ((String)ListaComboBox1.getSelectedItem()).equals(""))
+            return;
+        PercentagemTextField2.setText( aae.gerarEstatisticasLegislativas((String)EleicaoComboBox2.getSelectedItem(), (String)CirculoComboBox.getSelectedItem(), (String)ListaComboBox1.getSelectedItem()).toString());
+    }//GEN-LAST:event_ListaComboBox1ActionPerformed
+
+     public void atualizaEleicoes(){
          ArrayList<Eleicao> eleicoes = aae.getEleicaoDAO();
         for(Eleicao e : eleicoes){
             EleiçãoComboBox2.addItem(e.getNome());
         }
      }
-     public void VisibleCAE(){
+     
+     public void actualizaListas()
+     {
+        ArrayList<Eleicao> eleicoes = aae.getEleicaoDAO();
+        jComboBox11.removeAllItems();
+        for(Eleicao e : eleicoes){
+            jComboBox11.addItem(e.getNome());
+        }
+        ArrayList<MapaEleitoral> mapas = aae.getMapaEleitoralDAO();
+        jComboBox10.removeAllItems();
+        for(MapaEleitoral e : mapas){
+            jComboBox10.addItem(e.getDistrito());
+        }
+        
+     }
+     
+     public void actualizarNovoCirculo()
+     {
+        ArrayList<Eleicao> eleicoes = aae.getEleicaoDAO();
+        for(Eleicao e : eleicoes){
+            NovoCirculoElCombo.addItem(e.getNome());
+        }
+                
+     }
+     
+     public void actualizarAdicionarCandidatos()     
+     {
+        ArrayList<Eleicao> eleicoes = aae.getEleicaoDAO();
+        EleiçãoComboBox.removeAllItems();
+        for(Eleicao e : eleicoes){
+            if(e.getTipo().equals("presidenciais"))
+            EleiçãoComboBox.addItem(e.getNome());
+        }
+     }
+     
+    public void actualizarGerirAssembleias()
+    {
+        ArrayList<Eleicao> eleicoes = aae.getEleicaoDAO();
+        ElComboBox.removeAllItems();
+        for(Eleicao e : eleicoes){
+            ElComboBox.addItem(e.getNome());
+        }        
+    }
+    
+    public void actualizarDeclararVencedor()
+    {
+        ArrayList<Eleicao> eleicoes = aae.getEleicaoDAO();
+        EleicaoComboBox1.removeAllItems();
+        EleicaoComboBox1.addItem("");
+        for(Eleicao e : eleicoes){
+            EleicaoComboBox1.addItem(e.getNome());
+        } 
+    }
+    
+    public void actualizarGerarEstatisticas()
+    {
+        ArrayList<Eleicao> eleicoes = aae.getEleicaoDAO();
+        EleicaoComboBox2.removeAllItems();
+        EleicaoComboBox2.addItem("");
+        for(Eleicao e : eleicoes){
+            EleicaoComboBox2.addItem(e.getNome());
+        } 
+    }
+    public void VisibleCAE(){
             GerirActoEleitoral.setVisible(false);
             AdicionarCandidatosPanel.setVisible(false);
             RegistarEleiçãoPanel.setVisible(false);
@@ -1750,6 +2271,8 @@ public class MenuFR extends javax.swing.JFrame {
     private javax.swing.JComboBox EleicaoComboBox1;
     private javax.swing.JComboBox EleicaoComboBox2;
     private javax.swing.JLabel EleicaoLabel;
+    private javax.swing.JLabel EleicaoLabel1;
+    private javax.swing.JLabel EleicaoLabel2;
     private javax.swing.JComboBox EleiçãoComboBox;
     private javax.swing.JComboBox EleiçãoComboBox1;
     private javax.swing.JComboBox EleiçãoComboBox2;
@@ -1760,7 +2283,9 @@ public class MenuFR extends javax.swing.JFrame {
     private javax.swing.JLabel Filiação;
     private javax.swing.JTextField FiliaçãoTextField7;
     private javax.swing.JComboBox FrComboBox;
+    private javax.swing.JComboBox FrComboBox1;
     private javax.swing.JLabel FreguesiaLabel;
+    private javax.swing.JLabel FreguesiaLabel1;
     private javax.swing.JButton GerarEstatísticas;
     private javax.swing.JPanel GerarEstatísticasPanel;
     private javax.swing.JPanel GerirActoEleitoral;
@@ -1785,6 +2310,18 @@ public class MenuFR extends javax.swing.JFrame {
     private javax.swing.JTextField NomeSecTextField;
     private javax.swing.JTextField NomeTextField2;
     private javax.swing.JTextField NomeVPTextField;
+    private javax.swing.JTextField NovaFeguesiaNomeText;
+    private javax.swing.JTextField NovaFeguesiaNomeText1;
+    private javax.swing.JTextField NovaFeguesiaNomeText2;
+    private javax.swing.JTextField NovaFeguesiaNomeText3;
+    private javax.swing.JTextField NovaFeguesiaNomeText4;
+    private javax.swing.JComboBox NovaFreguesiaElCombo;
+    private javax.swing.JPanel NovaFreguesiaPanel;
+    private javax.swing.JTextField NovoCirculoDepText;
+    private javax.swing.JComboBox NovoCirculoElCombo;
+    private javax.swing.JTextField NovoCirculoEleitorText;
+    private javax.swing.JTextField NovoCirculoNomeText;
+    private javax.swing.JPanel NovoCirculoPanel;
     private javax.swing.JComboBox PartidosComboBox1;
     private javax.swing.JLabel Percentagem;
     private javax.swing.JLabel Percentagem1;
@@ -1803,6 +2340,8 @@ public class MenuFR extends javax.swing.JFrame {
     private javax.swing.JTextField VRTextField;
     private javax.swing.JLabel VVLabel;
     private javax.swing.JTextField VVTextField;
+    private javax.swing.JButton confirmarNovoCirculo;
+    private javax.swing.JButton confirmarNovoCirculo1;
     private javax.swing.JComboBox delegados;
     private javax.swing.JComboBox deputados;
     private javax.swing.JLabel idade;
@@ -1812,6 +2351,7 @@ public class MenuFR extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton7;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox jComboBox10;
     private javax.swing.JComboBox jComboBox11;
     private javax.swing.JComboBox jComboBox2;
@@ -1819,6 +2359,14 @@ public class MenuFR extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1828,9 +2376,6 @@ public class MenuFR extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JList jList1;
-    private javax.swing.JScrollBar jScrollBar1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
@@ -1839,6 +2384,8 @@ public class MenuFR extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JLabel nacionalidade;
     private javax.swing.JTextField nacionalidadeT;
+    private javax.swing.JButton newCircleButton;
+    private javax.swing.JButton novaAssembleiaButton;
     private javax.swing.JLabel profissao;
     private javax.swing.JTextField profissaoT;
     // End of variables declaration//GEN-END:variables

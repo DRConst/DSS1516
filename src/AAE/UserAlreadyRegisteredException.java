@@ -7,4 +7,7 @@ public class UserAlreadyRegisteredException extends Throwable {
     public UserAlreadyRegisteredException(String s) {
 
     }
+
+    public UserAlreadyRegisteredException() {
+    }
 }

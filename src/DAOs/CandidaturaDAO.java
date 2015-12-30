@@ -247,10 +247,11 @@ public class CandidaturaDAO implements Map<String, Candidatura> {
     {
         try{
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("Select max(id) from candidatura;");
+            PreparedStatement ps = conn.prepareStatement("Select max(candidatura_id) from candidatura;");
             ResultSet rs = ps.executeQuery();
-
-            return rs.getInt(0);
+            if(rs.next())
+            return rs.getInt(1) + 1;
+            else return 1;
         }catch (SQLException | ClassNotFoundException e){
             e.printStackTrace();
         }finally{
@@ -270,8 +271,9 @@ public class CandidaturaDAO implements Map<String, Candidatura> {
             conn = SqlConnect.connect();
             PreparedStatement ps = conn.prepareStatement("Select count(eleitor) from EleitorApoiaCand where candidatura = " + bi + ";");
             ResultSet rs = ps.executeQuery();
-
-            return rs.getInt(0);
+            if(rs.next())
+            return rs.getInt(1);
+            else return 0;
         }catch (SQLException | ClassNotFoundException e){
             e.printStackTrace();
         }finally{

@@ -89,22 +89,22 @@ public class EleitorDAO implements Map<String,Eleitor> {
         Eleitor c = null;
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("Select * from eleitor where `Nr de eleitor`'" +(String)key +"'");
+            PreparedStatement ps = conn.prepareStatement("Select * from eleitor where `Nr de eleitor` = '" +key +"'");
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                PreparedStatement ps1 = conn.prepareStatement("Select * from `Assembleia de voto` where eleitor = '" + key +"'" );
+                PreparedStatement ps1 = conn.prepareStatement("Select * from `AVConstituintes` where eleitor = '" + key +"' and AV_Eleicao = '" + rs.getString("AV_Eleicao") + "'" );
                 ResultSet rs2 = ps1.executeQuery();
                 int typeA = -1;
                 int typeL = -1;
                 if (rs2.next()) {
 
-                    if (rs.getBoolean("presidente"))
+                    if (rs2.getBoolean("presidente"))
                         typeA = Eleitor.presidenteType;
-                    if (rs.getBoolean("vice-presidente"))
+                    if (rs2.getBoolean("vice-presidente"))
                         typeA = Eleitor.vPresidenteType;
-                    if (rs.getBoolean("secretario"))
+                    if (rs2.getBoolean("secretario"))
                         typeA = Eleitor.secType;
-                    if (rs.getBoolean("escrutinadores"))
+                    if (rs2.getBoolean("escrutinadores"))
                         typeA = Eleitor.escType;
 
                 }
@@ -114,7 +114,7 @@ public class EleitorDAO implements Map<String,Eleitor> {
                 if (rs.getBoolean("delegado"))
                     typeL = Eleitor.delegado;
 
-                c = new Eleitor(rs.getString("`Nr de eleitor`"),rs.getString("Nome"),rs.getInt("Idade"), rs.getDate("Data Recenciamento"), rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia"),typeA, typeL);
+                c = new Eleitor(rs.getString("Nr de Eleitor"),rs.getString("Nome"),rs.getInt("Idade"), rs.getDate("Data Recenciamento"), rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia"),typeA, typeL);
             }
         } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 

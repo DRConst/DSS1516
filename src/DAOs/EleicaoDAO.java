@@ -73,7 +73,7 @@ public class EleicaoDAO implements Map<String, Eleicao> {
         Eleicao c = null;
         try {
             conn = SqlConnect.connect();
-            PreparedStatement ps = conn.prepareStatement("Select * from eleicao where nome'" +(String)key +"'");
+            PreparedStatement ps = conn.prepareStatement("Select * from eleicao where nome = '" + key +"'");
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                 String tipo = rs.getString(2);
@@ -222,7 +222,28 @@ public class EleicaoDAO implements Map<String, Eleicao> {
             } 
       }
         return res;
-    } 
-    
+    }
+
+    public Integer getTotalVotos(String nome) {
+        Integer res = -1;
+        try {
+            conn =SqlConnect.connect();
+            PreparedStatement ps = conn.prepareStatement("SELECT Sum(`Nr de Votos`) FROM VotosAdquiridos where VotosAdquiridos.AV_Eleicao = '" + nome + "';");
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                res = rs.getInt(1);
+            }
+
+        } catch (SQLException  | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return res;
+    }
 }
 

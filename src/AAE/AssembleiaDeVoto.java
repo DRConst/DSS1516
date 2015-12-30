@@ -1,7 +1,6 @@
 package AAE;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by drcon on 26/12/2015.
@@ -11,8 +10,8 @@ public class AssembleiaDeVoto {
     private String eleicao;
     private String concelho;
     private String freguesia;
-    private Date Habertura;
-    private Date Hencerramento;
+    private String Habertura;
+    private String Hencerramento;
     private String Local;
     private Integer nrEleitores;
     private Integer nrVotantes;
@@ -21,7 +20,7 @@ public class AssembleiaDeVoto {
     private Integer nrReclamacoes;
     private ArrayList<Eleitor> responsaveis;
 
-    public AssembleiaDeVoto(String codigo, String eleicao, String concelho, String freguesia, Date habertura, Date hencerramento, String local, Integer nrEleitores, Integer nrVotantes, Integer votosBrancos, Integer votosNulos, Integer nrReclamacoes, ArrayList<Eleitor> responsaveis) {
+    public AssembleiaDeVoto(String codigo, String eleicao, String concelho, String freguesia, String habertura, String hencerramento, String local, Integer nrEleitores, Integer nrVotantes, Integer votosBrancos, Integer votosNulos, Integer nrReclamacoes, ArrayList<Eleitor> responsaveis) {
         this.codigo = codigo;
         this.eleicao = eleicao;
         this.concelho = concelho;
@@ -37,7 +36,7 @@ public class AssembleiaDeVoto {
         this.responsaveis = responsaveis;
     }
 
-    public AssembleiaDeVoto(String codigo, String eleicao, String concelho, String freguesia, Date habertura, Date hencerramento, String local, Integer nrEleitores, ArrayList<Eleitor> responsaveis) {
+    public AssembleiaDeVoto(String codigo, String eleicao, String concelho, String freguesia, String habertura, String hencerramento, String local, Integer nrEleitores, ArrayList<Eleitor> responsaveis) {
         this.codigo = codigo;
         this.eleicao = eleicao;
         this.concelho = concelho;
@@ -81,19 +80,19 @@ public class AssembleiaDeVoto {
         this.freguesia = freguesia;
     }
 
-    public Date getHabertura() {
+    public String getHabertura() {
         return Habertura;
     }
 
-    public void setHabertura(Date Habertura) {
+    public void setHabertura(String Habertura) {
         this.Habertura = Habertura;
     }
 
-    public Date getHencerramento() {
+    public String getHencerramento() {
         return Hencerramento;
     }
 
-    public void setHencerramento(Date Hencerramento) {
+    public void setHencerramento(String Hencerramento) {
         this.Hencerramento = Hencerramento;
     }
 

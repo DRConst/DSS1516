@@ -1,19 +1,12 @@
 package AAE;
 
-import DAOs.CandidaturaDAO;
-import DAOs.EleicaoDAO;
-import DAOs.EleitorDAO;
-import DAOs.ListaDAO;
-import DAOs.MapaEleitoralDAO;
+import DAOs.*;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 /**
  * Created by drcon on 15/12/2015.
@@ -36,7 +29,14 @@ public class AAE {
     }
 
     public void adicionarEleicao(String eleicao, java.sql.Date d, String tipo){
-        Eleicao e = new Eleicao(eleicao, d, tipo);
+        Eleicao e;
+        if(tipo.equals("presidenciais"))
+        {
+            e = new EleicaoPresidencial(eleicao, d);
+        }else
+        {
+            e = new EleicaoLegislativa(eleicao, d);
+        }
         eleicaoDAO.put(eleicao, e);       
     }
     
@@ -53,8 +53,6 @@ public class AAE {
     }
 
     public void adicionarMapa(String distrito, int eleitores, int deputados, String eleicao) throws DistritoInvalidoException {
-        if(!MapaEleitoral.circulos.containsKey(distrito))
-            throw new DistritoInvalidoException();
         MapaEleitoral c = new MapaEleitoral(mapaEleitoralDAO.getAvailableId(), distrito, eleitores,deputados, eleicao);
         mapaEleitoralDAO.put(c.id, c);
     }
@@ -139,26 +137,54 @@ public class AAE {
         
     }
 
-
-    public void adicionarAssembleia(String e, String codigo, String eleicao, String concelho, String freguesia, Date habertura, Date hencerramento, String local, Integer nrEleitores,  ArrayList<String> responsaveis  )
+    public ArrayList<String> getFreguesias(String c, String e)
     {
+        return new AssembleiaDeVotoDAO().getFreguesiasByConcelho(c, e);
+    }
+    public ArrayList<String> getConcelhos(String e)
+    {
+        return new AssembleiaDeVotoDAO().getConcelhos(e);
+    }
+
+    public void actualizarAssembleia(String e, String concelho, String freguesia,String p, String vp, String s,  ArrayList<String> responsaveis  ) throws AssembleiaInexistenteException {
         Eleicao el = eleicaoDAO.get(e);
 
         ArrayList<Eleitor> resp = new ArrayList<>();
+        Eleitor pres = eleitorDAO.get(p);
+        pres.setCargoVP(Eleitor.presidenteType);
+        Eleitor vpres = eleitorDAO.get(vp);
+        vpres.setCargoVP(Eleitor.vPresidenteType);
+        Eleitor sec = eleitorDAO.get(s);
+        sec.setCargoVP(Eleitor.secType);
+
 
         for(String i : responsaveis)
         {
             Eleitor eleitor = eleitorDAO.get(i);
+            eleitor.setCargoVP(Eleitor.escType);
             resp.add(eleitor);
         }
+        resp.add(pres);
+        resp.add(vpres);
+        resp.add(sec);
 
-        AssembleiaDeVoto assembleiaDeVoto = new AssembleiaDeVoto(codigo, e, concelho, freguesia, habertura, hencerramento, local, nrEleitores, resp);
+        AssembleiaDeVoto assembleiaDeVoto = new AssembleiaDeVotoDAO().getByFreg(e, freguesia);
+
+        if (assembleiaDeVoto == null) {
+            throw new AssembleiaInexistenteException();
+        }
+
+        assembleiaDeVoto.setResponsaveis(resp);
 
         el.registarAssembleia(assembleiaDeVoto);
 
 
     }
 
+    public void adicionarTemplateAssembleia(String codigo, String eleicao, String concelho, String freguesia, String habertura, String hencerramento, String local)
+    {
+        new AssembleiaDeVotoDAO().putTemplate(codigo,eleicao, concelho, freguesia, habertura, hencerramento, local);
+    }
 
     public void atribuirMandatos(String eleicao)
     {
@@ -168,13 +194,29 @@ public class AAE {
     }
 
 
-    public void gerarEstatisticas(Eleicao e)
+    public Double gerarEstatisticasLegislativas(String e,String m, String l)
     {
-
-        ((EleicaoLegislativa)e).gerarEstatisticas();
+        EleicaoLegislativa el = (EleicaoLegislativa)eleicaoDAO.get(e);
+        HashMap<MapaEleitoral, HashMap<Lista, Integer>> est = (el.gerarEstatisticas());
+        MapaEleitoral mapa = mapaEleitoralDAO.get(m);
+        Lista lista = listaDAO.get(l);
+        return new Double(est.get(mapa).get(l) / eleicaoDAO.getTotalVotos(e));
 
     }
 
+    public Double gerarEstatisticasPresidenciais(String e, String c)
+    {
+        EleicaoPresidencial el = (EleicaoPresidencial)eleicaoDAO.get(e);
+        Candidato can = new CandidatoDAO().get(c);
+        return new Double(el.gerarEstatisticas().get(can) / eleicaoDAO.getTotalVotos(e)) ;
+
+    }
+
+    public ArrayList<String> getListas(String m, String e)
+    {
+        return mapaEleitoralDAO.getListas(m, e);
+    }
+    
     public void registarEleicao(String nome, boolean isLeg, java.sql.Date date) throws EleicaoJaRegistadaException {
         if(eleicaoDAO.containsKey(nome))
             throw new EleicaoJaRegistadaException();
@@ -193,6 +235,10 @@ public class AAE {
 
     public ArrayList<Eleicao> getEleicaoDAO() {
         return new ArrayList<Eleicao>(eleicaoDAO.values()) {};
+    }
+
+    public Eleicao getEleicaoDAO(String s) {
+        return eleicaoDAO.get(s);
     }
 
     public ArrayList<Candidatura> getCandidaturaDAO() {
