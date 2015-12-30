@@ -20,7 +20,7 @@ public class Eleitor {
     private String nrEleitor;
     private String Nome;
     private Integer Idade;
-    private java.sql.Date dataR;
+    private Date dataR;
     private String distrito;
     private String concelho;
     private String freguesia;
@@ -28,7 +28,7 @@ public class Eleitor {
     private Integer cargoL;
 
     
-    public Eleitor(String nrEleitor, String nome, Integer idade, java.sql.Date dataR, String distrito, String concelho, String freguesia) {
+    public Eleitor(String nrEleitor, String nome, Integer idade, Date dataR, String distrito, String concelho, String freguesia) {
         this.nrEleitor = nrEleitor;
         Nome = nome;
         Idade = idade;
@@ -38,7 +38,7 @@ public class Eleitor {
         this.freguesia = freguesia;
     }
     
-    public Eleitor(String nrEleitor, String nome, Integer idade, java.sql.Date dataR, String distrito, String concelho, String freguesia, Integer cargoVP, Integer cargoL) {
+    public Eleitor(String nrEleitor, String nome, Integer idade, Date dataR, String distrito, String concelho, String freguesia, Integer cargoVP, Integer cargoL) {
         this.nrEleitor = nrEleitor;
         Nome = nome;
         Idade = idade;
@@ -76,7 +76,7 @@ public class Eleitor {
         this.Idade = Idade;
     }
 
-    public java.sql.Date getDataR() {
+    public Date getDataR() {
         return dataR;
     }
 

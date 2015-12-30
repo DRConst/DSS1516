@@ -8,13 +8,13 @@ import java.util.GregorianCalendar;
 public class Candidatura {
 
 	private int id;
-	private java.sql.Date data;
+	private Date data;
 	private Candidato candidato;
 	private String eleicao;
 
 
 
-    public Candidatura(int id, java.sql.Date data, Candidato candidato, String eleicao)
+    public Candidatura(int id, Date data, Candidato candidato, String eleicao)
     {
         this.id = id;
         this.data = data;
@@ -22,20 +22,13 @@ public class Candidatura {
         this.eleicao = eleicao;
     }
 
-<<<<<<< HEAD
-    public boolean validarCandidatura(java.sql.Date data) throws CandidaturaTardiaException, CandidatoDemasiadoNovoException, CandidatoEstrangeiroException, AssinaturasInsuficientesExceptions
-	{
-		java.sql.Date date = data;
-		date.setMonth( data.getMonth()-1);
-		if(date.before(this.data))
-=======
     public boolean validarCandidatura(Date date) throws CandidaturaTardiaException, CandidatoDemasiadoNovoException, CandidatoEstrangeiroException, AssinaturasInsuficientesExceptions
 	{
 		GregorianCalendar data = new GregorianCalendar();
 		data.setTime(date);
 		data.roll(GregorianCalendar.MONTH, -1);
 		if(data.before(this.data))
->>>>>>> origin/master
+
 		{
 			//Candidatura tardia
 			throw new CandidaturaTardiaException();

@@ -2,11 +2,14 @@ package DAOs;
 
 import AAE.Eleitor;
 import AAE.Lista;
+import static java.lang.String.format;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -86,9 +89,6 @@ public class EleitorDAO implements Map<String,Eleitor> {
             PreparedStatement ps = conn.prepareStatement("Select * from eleitor where `Nr de eleitor`'" +(String)key +"'");
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-<<<<<<< HEAD
-                c = new Eleitor(rs.getString("`Nr de eleitor`"),rs.getString("Nome"),rs.getInt("Idade"), rs.getDate("Data Recenciamento"), rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia"));
-=======
                 PreparedStatement ps1 = conn.prepareStatement("Select * from `Assembleia de voto` where eleitor = '" + key +"'" );
                 ResultSet rs2 = ps1.executeQuery();
                 int type = -1;
@@ -104,8 +104,8 @@ public class EleitorDAO implements Map<String,Eleitor> {
                         type = Eleitor.escType;
 
                 }
-                c = new Eleitor(rs.getString("`Nr de eleitor`"),rs.getString("Nome"),rs.getInt("Idade"), rs.getDate("Data"), rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia"),type);
->>>>>>> origin/master
+             
+                c = new Eleitor(rs.getString("`Nr de eleitor`"),rs.getString("Nome"),rs.getInt("Idade"), rs.getDate("Data Recenciamento").getTime(), rs.getString("Distrito"),rs.getString("Concelho"),rs.getString("Freguesia"),type);
             }
         } catch (SQLException  | ClassNotFoundException e) { 
             e.printStackTrace(); 
