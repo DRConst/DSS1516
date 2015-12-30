@@ -8,6 +8,7 @@ package GUI;
 import AAE.*;
 import java.awt.Dimension;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,12 +32,20 @@ public class MenuFR extends javax.swing.JFrame {
      */
     public MenuFR() {
         initComponents();
+        aae = new AAE();
     }
     
     public MenuFR(MainFR m, AAE a) {
         initComponents();
         mainFrame = m;
-        aae = a;
+        
+        if(a == null)
+        {
+            aae = new AAE();
+        }else
+        {
+            aae = a;
+        }
     }
 
     /**
@@ -1516,7 +1525,17 @@ public class MenuFR extends javax.swing.JFrame {
         dbi.set(Calendar.MONTH, (int) jComboBox2.getSelectedItem());
         db = dbi.getTime();
         String morada = RuaTextField3.getText()+","+LocalidadeTextField4.getText()+","+CodigoPostalTextField.getText();
-        aae.adicionarCandidato((String) EleicaoComboBox.getSelectedItem(),db ,(Integer) BITextField1.getText(),ArquivoTextField8.getText(),FiliaçãoTextField7.getText(),NomeTextField2.getText(),profissaoT.getText(),(Integer) idadeC.getSelectedItem(), morada, nacionalidadeT.getText(), d);        // TODO add your handling code here:
+        try {
+            aae.adicionarCandidato((String) EleicaoComboBox.getSelectedItem(),db ,Integer.parseInt(BITextField1.getText()),ArquivoTextField8.getText(),FiliaçãoTextField7.getText(),NomeTextField2.getText(),profissaoT.getText(),(Integer) idadeC.getSelectedItem(), morada, nacionalidadeT.getText(), d);        // TODO add your handling code here:
+        } catch (AssinaturasInsuficientesExceptions ex) {
+            Logger.getLogger(MenuFR.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (CandidatoEstrangeiroException ex) {
+            Logger.getLogger(MenuFR.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (CandidaturaTardiaException ex) {
+            Logger.getLogger(MenuFR.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (CandidatoDemasiadoNovoException ex) {
+            Logger.getLogger(MenuFR.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_Confirmar7ActionPerformed
 
     private void AdicionarListasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdicionarListasActionPerformed
@@ -1569,7 +1588,14 @@ public class MenuFR extends javax.swing.JFrame {
 
     private void Confirmar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Confirmar5ActionPerformed
         String date = AnoE.getSelectedItem()+"-"+MesE.getSelectedItem()+"-"+ DiaE.getSelectedItem();
-        java.sql.Date d = java.sql.Date.valueOf(date);
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date tmp = null;
+        try {
+            tmp = format.parse(date);
+        } catch (ParseException ex) {
+            Logger.getLogger(MenuFR.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        java.sql.Date d = new java.sql.Date(tmp.getTime());
         aae.adicionarEleicao(jTextField4.getText(), d, (String)EleiçãoComboBox1.getSelectedItem());
         this.atualiza();
         // TODO add your handling code here:

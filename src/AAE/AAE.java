@@ -26,6 +26,15 @@ public class AAE {
     private EleitorDAO eleitorDAO;
     private ListaDAO listaDAO;
 
+
+    public AAE() {
+        eleitorDAO = new EleitorDAO();
+        eleicaoDAO = new EleicaoDAO();
+        candidaturaDAO = new CandidaturaDAO();
+        mapaEleitoralDAO = new MapaEleitoralDAO();
+        listaDAO = new ListaDAO();
+    }
+
     public void adicionarEleicao(String eleicao, java.sql.Date d, String tipo){
         Eleicao e = new Eleicao(eleicao, d, tipo);
         eleicaoDAO.put(eleicao, e);       

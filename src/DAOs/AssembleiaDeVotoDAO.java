@@ -89,7 +89,13 @@ public class AssembleiaDeVotoDAO implements Map<String, AssembleiaDeVoto> {
                     if(rs.getBoolean("escrutinadores"))
                         type = Eleitor.escType;
 
-                    Eleitor e = new Eleitor(rs2.getString("Nr de Eleitor"),rs2.getString("Nome"),rs2.getInt("Idade"),rs2.getDate("Data Recensiamento"),rs2.getString("Distrito"),rs2.getString("Concelho"),rs2.getString("Freguesia"), type);
+                    int typeL = -1;
+                    if (rs.getBoolean("Deputado"))
+                        typeL = Eleitor.deputado;
+                    if (rs.getBoolean("delegado"))
+                        typeL = Eleitor.delegado;
+
+                    Eleitor e = new Eleitor(rs2.getString("Nr de Eleitor"),rs2.getString("Nome"),rs2.getInt("Idade"),rs2.getDate("Data Recensiamento"),rs2.getString("Distrito"),rs2.getString("Concelho"),rs2.getString("Freguesia"), type, typeL);
                     el.add(e);
                 }
                 av = new AssembleiaDeVoto(rs.getString("Codigo"),rs.getString("Eleicao"),rs.getString("concelho"),rs.getString("freguesia"),rs.getDate("Hora de Abertura"),rs.getDate("Hora de Encerramento"),rs.getString("Local"),rs.getInt("Eleitores Inscritos"),rs.getInt("Nr de votantes"),rs.getInt("Votos em Branco"),rs.getInt("Votos Nulos"),rs.getInt("Nr de Reclamacoes"), el);
@@ -238,7 +244,12 @@ public class AssembleiaDeVotoDAO implements Map<String, AssembleiaDeVoto> {
                 if(rs.getBoolean("escrutinadores"))
                     type = Eleitor.escType;
 
-                Eleitor e = new Eleitor(rs2.getString("Nr de Eleitor"),rs2.getString("Nome"),rs2.getInt("Idade"),rs2.getDate("Data Recensiamento"),rs2.getString("Distrito"),rs2.getString("Concelho"),rs2.getString("Freguesia"), type);
+                int typeL = -1;
+                if (rs.getBoolean("Deputado"))
+                    typeL = Eleitor.deputado;
+                if (rs.getBoolean("delegado"))
+                    typeL = Eleitor.delegado;
+                Eleitor e = new Eleitor(rs2.getString("Nr de Eleitor"),rs2.getString("Nome"),rs2.getInt("Idade"),rs2.getDate("Data Recensiamento"),rs2.getString("Distrito"),rs2.getString("Concelho"),rs2.getString("Freguesia"), type, typeL);
                 el.add(e);
                 }
                 res.add(new AssembleiaDeVoto(rs.getString("Codigo"),rs.getString("Eleicao"),rs.getString("concelho"),rs.getString("freguesia"),rs.getDate("Hora de Abertura"),rs.getDate("Hora de Encerramento"),rs.getString("Local"),rs.getInt("Eleitores Inscritos"),rs.getInt("Nr de votantes"),rs.getInt("Votos em Branco"),rs.getInt("Votos Nulos"),rs.getInt("Nr de Reclamacoes"), el));

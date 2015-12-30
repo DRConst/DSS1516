@@ -6,3 +6,4 @@ src/AAE/teste.java
 *.xml
 *.properties
 manifest.mf
+/dist/

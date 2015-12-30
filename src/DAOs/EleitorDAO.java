@@ -33,8 +33,11 @@ public class EleitorDAO implements Map<String,Eleitor> {
             }
         }
     }
-    
-    public void clear () {       
+
+    public EleitorDAO() {
+    }
+
+    public void clear () {
         try {
             conn = SqlConnect.connect();
             PreparedStatement ps = conn.prepareStatement("DELETE FROM eleitor");
