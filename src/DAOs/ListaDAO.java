@@ -2,17 +2,13 @@ package DAOs;
 
 import AAE.Eleitor;
 import AAE.Lista;
+import AAE.MapaEleitoral;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 public class ListaDAO implements Map<String, Lista> {
@@ -204,11 +200,35 @@ public class ListaDAO implements Map<String, Lista> {
             try { 
                 conn.close();     
             } catch (Exception e) { 
-                e.printStackTrace(); 
-            } 
+                e.printStackTrace();
+            }
       }
         return res;
-    } 
+    }
+
+    public void registarMandatos(HashMap<MapaEleitoral, HashMap<Lista, Integer>> mandatos)
+    {
+        for(MapaEleitoral mapa : mandatos.keySet())
+        {
+            for(Lista lista : mandatos.get(mapa).keySet())
+            {
+                try {
+                    conn =SqlConnect.connect();
+                    PreparedStatement ps = conn.prepareStatement("Insert into Mandato VALUES ('" + lista.getNome() + "', '" + mapa + "', '" + mandatos.get(mapa).get(lista) +  "');");
+                    ps.executeUpdate();
+                } catch (SQLException  | ClassNotFoundException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        conn.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+    }
     
 }
 

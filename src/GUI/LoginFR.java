@@ -130,14 +130,12 @@ public class LoginFR extends javax.swing.JFrame {
                     this.setVisible(false);
                     resetValues(0);
                 }    
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } catch (NoSuchAlgorithmException ex) {
-                ex.printStackTrace();
             } catch (UserNotFoundException ex) {
-              ex.printStackTrace();
+              new Popup(this,false, "Utilizador inválido");
             } catch (UserAuthenticationFailedException ex) {
-                ex.printStackTrace();
+                new Popup(this,false, "Password Inválida");
+            } catch (Exception ex) {
+                new Popup(this,false, "Erro");
             }
     }//GEN-LAST:event_LoginButtonActionPerformed
 

@@ -1,6 +1,7 @@
 package AAE;
 
 import DAOs.AssembleiaDeVotoDAO;
+import DAOs.ListaDAO;
 import DAOs.MapaEleitoralDAO;
 
 import java.util.Collection;
@@ -30,7 +31,7 @@ public class EleicaoLegislativa extends Eleicao {
         return toRet;
     }
 
-    public HashMap<MapaEleitoral, HashMap<Lista, Integer>> atribuirMandatos()
+    public void atribuirMandatos()
     {
         HashMap<MapaEleitoral, HashMap<Lista, Integer>> toRet = new HashMap<>();
 
@@ -59,7 +60,6 @@ public class EleicaoLegislativa extends Eleicao {
 
                 }
                 int assigned = (toAdd.get(maxList) != null ? toAdd.get(maxList) + 1 : 1);
-
                 toAdd.put(maxList, assigned);
             }
 
@@ -67,7 +67,7 @@ public class EleicaoLegislativa extends Eleicao {
         }
 
 
-        return toRet;
+        new ListaDAO().registarMandatos(toRet);
     }
 
     public void registarLista(Lista l)

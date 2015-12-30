@@ -146,7 +146,7 @@ public class AAE {
         return new AssembleiaDeVotoDAO().getConcelhos(e);
     }
 
-    public void actualizarAssembleia(String e, String concelho, String freguesia,String p, String vp, String s,  ArrayList<String> responsaveis  ) throws AssembleiaInexistenteException {
+    public void actualizarAssembleia(String e, String freguesia,String p, String vp, String s,  ArrayList<String> responsaveis  ) throws AssembleiaInexistenteException {
         Eleicao el = eleicaoDAO.get(e);
 
         ArrayList<Eleitor> resp = new ArrayList<>();
@@ -199,7 +199,6 @@ public class AAE {
         EleicaoLegislativa el = (EleicaoLegislativa)eleicaoDAO.get(e);
         HashMap<MapaEleitoral, HashMap<Lista, Integer>> est = (el.gerarEstatisticas());
         MapaEleitoral mapa = mapaEleitoralDAO.get(m);
-        Lista lista = listaDAO.get(l);
         return new Double(est.get(mapa).get(l) / eleicaoDAO.getTotalVotos(e));
 
     }

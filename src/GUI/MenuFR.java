@@ -7,6 +7,7 @@ package GUI;
 
 import AAE.*;
 import java.awt.Dimension;
+import java.awt.Window;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -1703,6 +1704,7 @@ public class MenuFR extends javax.swing.JFrame {
         AdicionarVotantesPanel.setVisible(false);
         GerirAssembleiasPanel.setVisible(false);
         this.atualizaEleicoes();
+        
         // TODO add your handling code here:
     }//GEN-LAST:event_RegistarEleiçãoActionPerformed
 
@@ -1808,13 +1810,13 @@ public class MenuFR extends javax.swing.JFrame {
         try {
             aae.adicionarCandidato((String) EleiçãoComboBox.getSelectedItem(),db ,Integer.parseInt(BITextField1.getText()),ArquivoTextField8.getText(),FiliaçãoTextField7.getText(),NomeTextField2.getText(),profissaoT.getText(),Integer.parseInt((String)idadeC.getSelectedItem()), morada, nacionalidadeT.getText(), d);        // TODO add your handling code here:
         } catch (AssinaturasInsuficientesExceptions ex) {
-            Logger.getLogger(MenuFR.class.getName()).log(Level.SEVERE, null, ex);
+            new Popup(this, false, "Assinaturas Insuficientes").setVisible(true);
         } catch (CandidatoEstrangeiroException ex) {
-            Logger.getLogger(MenuFR.class.getName()).log(Level.SEVERE, null, ex);
+            new Popup(this, false, "Candidato Estrangeiro").setVisible(true);
         } catch (CandidaturaTardiaException ex) {
-            Logger.getLogger(MenuFR.class.getName()).log(Level.SEVERE, null, ex);
+            new Popup(this, false, "Candidatura Tardia").setVisible(true);
         } catch (CandidatoDemasiadoNovoException ex) {
-            Logger.getLogger(MenuFR.class.getName()).log(Level.SEVERE, null, ex);
+            new Popup(this, false, "Candidato Demasiado Novo").setVisible(true);
         }
     }//GEN-LAST:event_Confirmar7ActionPerformed
 
@@ -1875,7 +1877,7 @@ public class MenuFR extends javax.swing.JFrame {
         try {
             tmp = format.parse(date);
         } catch (ParseException ex) {
-            Logger.getLogger(MenuFR.class.getName()).log(Level.SEVERE, null, ex);
+            new Popup(this, false, "Formato Invalido Para A Data ").setVisible(true);
         }
         java.sql.Date d = new java.sql.Date(tmp.getTime());
         aae.adicionarEleicao(jTextField4.getText(), d, (String)EleiçãoComboBox1.getSelectedItem());
@@ -1943,7 +1945,7 @@ public class MenuFR extends javax.swing.JFrame {
         try {
             aae.adicionarMapa(distrito, deps, eleitores, el);
         } catch (DistritoInvalidoException ex) {
-            Logger.getLogger(MenuFR.class.getName()).log(Level.SEVERE, null, ex);
+            new Popup(this, false, "Distrito Inválido ").setVisible(true);
         }
     }//GEN-LAST:event_confirmarNovoCirculoActionPerformed
 
@@ -1988,9 +1990,9 @@ public class MenuFR extends javax.swing.JFrame {
             a.add((String)jComboBox1.getModel().getElementAt(i));
         }
         try {
-            aae.actualizarAssembleia((String)ElComboBox.getSelectedItem(), (String)FrComboBox1.getSelectedItem(), (String)FrComboBox.getSelectedItem(),BIPTextField.getText(), BIVPTextField.getText(), BISecTextField.getText(), a);
+            aae.actualizarAssembleia((String)ElComboBox.getSelectedItem(), (String)FrComboBox.getSelectedItem(),BIPTextField.getText(), BIVPTextField.getText(), BISecTextField.getText(), a);
         } catch (AssembleiaInexistenteException ex) {
-            Logger.getLogger(MenuFR.class.getName()).log(Level.SEVERE, null, ex);
+           new Popup(this, false, "Assembleia Inexistente").setVisible(true);
         }
     }//GEN-LAST:event_Confirmar4ActionPerformed
 
@@ -2049,8 +2051,9 @@ public class MenuFR extends javax.swing.JFrame {
         {
             CandidatosComboBox1.setVisible(true);
             CandidatosLabel1.setVisible(true);
-            
-            
+            Percentagem1.setText("Percentagem");
+            PercentagemTextField2.setText("%");   
+                         
             
         }else
         {
@@ -2058,7 +2061,8 @@ public class MenuFR extends javax.swing.JFrame {
             CirculoComboBox.setVisible(true);
             CirculoLabel.setVisible(true);
             Lista2.setVisible(true);
-            
+            Percentagem1.setText("Mandatos");
+            PercentagemTextField2.setText(""); 
         }
         CirculoComboBoxActionPerformed(evt);
     }//GEN-LAST:event_EleicaoComboBox2ActionPerformed
